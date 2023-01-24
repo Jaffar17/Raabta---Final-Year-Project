@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        // fontFamily: "ProximaNova",
+        fontFamily: "Montserrat",
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the

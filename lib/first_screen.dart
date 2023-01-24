@@ -40,7 +40,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 child: ElevatedButton(onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginUser()));
                 },
-                    child: Text("User", style: TextStyle(fontSize: 18),),
+                    child: Text("User", style: TextStyle(fontSize: 22),),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Color(0xff006A6A),
                       minimumSize: Size(85, 40),
@@ -57,7 +57,7 @@ class _FirstScreenState extends State<FirstScreen> {
               ElevatedButton(onPressed: (){
                 
               },
-                child: Text("Counsellor", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                child: Text("Counsellor", style: TextStyle(fontSize: 22, color: Color(0xff006A6A)),),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xffFFFFFF),
                   minimumSize: Size(120, 40),
