@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "122430951499",
+    "project_id": "fyp-raabta",
+    "storage_bucket": "fyp-raabta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:122430951499:android:00fde7646bdca86875fdce",
+        "android_client_info": {
+          "package_name": "com.example.raabta_fyp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "122430951499-lkcnv9lu22if9r4e521bs8jq9hvn2r73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr4FqOEZRdFyc8z8_72-wufSRHTCrBMgw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "122430951499-lkcnv9lu22if9r4e521bs8jq9hvn2r73.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
