@@ -187,12 +187,12 @@ class _ProfileUserState extends State<ProfileUser> {
 
                   dropDownList: const [
                     DropDownValueModel(
-                        name: 'Career/ Academic', value: "value1"),
+                        name: 'Anxiety', value: "value1"),
                     DropDownValueModel(
-                      name: 'Anxiety',
+                      name: 'Career/ Academic',
                       value: "value2",
                     ),
-                    DropDownValueModel(name: 'Professional', value: "value3"),
+                    DropDownValueModel(name: 'Profession', value: "value3"),
                   ],
                   //onChanged: (val) {},
                 ),

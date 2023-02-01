@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/User/editprofile_user.dart';
 
 class ViewprofileUser extends StatefulWidget {
   const ViewprofileUser({Key? key}) : super(key: key);
@@ -77,9 +78,9 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                       padding: const EdgeInsets.only(left: 20, right: 15),
                       child: ElevatedButton(
                         onPressed: () {
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
-                          // //
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => EditprofileUser()));
+                          //
                         },
                         child: Text("EDIT", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                         style: ElevatedButton.styleFrom(

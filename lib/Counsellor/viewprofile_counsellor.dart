@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Counsellor/editprofile_counsellor.dart';
 
 class ViewprofileCounsellor extends StatefulWidget {
   const ViewprofileCounsellor({Key? key}) : super(key: key);
@@ -58,9 +59,9 @@ class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
                         padding: const EdgeInsets.only(left: 20, right: 15),
                         child: ElevatedButton(
                           onPressed: () {
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
-                            // //
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => EditprofielCounsellor()));
+                            //
                           },
                           child: Text("EDIT", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                           style: ElevatedButton.styleFrom(
