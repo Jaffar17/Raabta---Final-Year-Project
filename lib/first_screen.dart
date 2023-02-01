@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Counsellor/login_counsellor.dart';
 import 'package:raabta_fyp/User/login_user.dart';
 
 class FirstScreen extends StatefulWidget {
@@ -57,7 +58,7 @@ class _FirstScreenState extends State<FirstScreen> {
                     ),
                 ),
                 ElevatedButton(onPressed: (){
-                  
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> LoginCounsellor()));
                 },
                   child: Text("Counsellor", style: TextStyle(fontSize: 22, color: Color(0xff006A6A)),),
                   style: ElevatedButton.styleFrom(
