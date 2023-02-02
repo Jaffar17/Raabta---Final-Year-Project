@@ -42,7 +42,7 @@ class _EditprofielCounsellorState extends State<EditprofielCounsellor> {
           child: Image.asset(
             "assets/images/ProfileHeading.png",
             width: 150,
-            height: 100,
+            height: 200,
           ),
       ),
       Padding(

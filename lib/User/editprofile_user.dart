@@ -42,7 +42,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       child: Image.asset(
                         "assets/images/ProfileHeading.png",
                         width: 150,
-                        height: 100,
+                        height: 200,
                       ),
                     ),
                     Padding(
@@ -92,26 +92,26 @@ class _EditprofileUserState extends State<EditprofileUser> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16.0, right: 16.0, bottom: 20.0),
-                      child: TextField(
-                        controller: _cpassword,
-                        obscureText: true,
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          labelStyle: TextStyle(color: Color(0xff006A6A)),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(
+                    //       left: 16.0, right: 16.0, bottom: 20.0),
+                    //   child: TextField(
+                    //     controller: _cpassword,
+                    //     obscureText: true,
+                    //     decoration: InputDecoration(
+                    //       labelText: "Password",
+                    //       labelStyle: TextStyle(color: Color(0xff006A6A)),
+                    //       focusedBorder: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(12),
+                    //         borderSide: BorderSide(color: Color(0xff006A6A)),
+                    //       ),
+                    //       enabledBorder: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(12),
+                    //         borderSide: BorderSide(color: Color(0xff006A6A)),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 20.0),

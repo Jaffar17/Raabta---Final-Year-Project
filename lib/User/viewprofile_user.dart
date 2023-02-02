@@ -75,7 +75,7 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 20, right: 15),
+                      padding: const EdgeInsets.only(left: 20, right: 10),
                       child: ElevatedButton(
                         onPressed: () {
                           Navigator.push(context,
@@ -97,7 +97,7 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 20),
+                      padding: const EdgeInsets.only(left: 10, right: 20),
                       child: ElevatedButton(
                         onPressed: () {
                           // Navigator.push(context,
