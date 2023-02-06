@@ -58,14 +58,24 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
               Padding(
                 padding: const EdgeInsets.only(
                     top: 25, bottom: 15, right: 20, left: 20),
-                child: Text(
-                  "My Patients",
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFFF6BD12)),
-                ),
+          child: Container(
+            decoration: BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color(0xFFF6BD12),
+                        width: 2
+                    )
+                )
+            ),
+            child: Text(
+              "My Patients",
+              style: TextStyle(
+                fontSize: 40,
+                fontFamily: "MontserratMedium",
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+              ),
               ),
               Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 8.0),
@@ -132,13 +142,23 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
               Padding(
                 padding: const EdgeInsets.only(
                     top: 15, bottom: 15, right: 10, left: 10),
-                child: Text(
-                  "My Appointments",
-                  style: TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Color(0xFFF6BD12)),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Color(0xFFF6BD12),
+                        width: 2
+                      )
+                    )
+                  ),
+                  child: Text(
+                    "My Appointments",
+                    style: TextStyle(
+                        fontSize: 40,
+                        fontFamily: "MontserratMedium",
+                        fontWeight: FontWeight.w500,
+                       ),
+                  ),
                 ),
               ),
               Expanded(

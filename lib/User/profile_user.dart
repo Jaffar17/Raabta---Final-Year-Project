@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:intl/intl.dart';
+import 'package:raabta_fyp/User/navbar_user.dart';
 import 'package:raabta_fyp/User/viewprofile_user.dart';
 
 class ProfileUser extends StatefulWidget {
@@ -202,7 +203,7 @@ class _ProfileUserState extends State<ProfileUser> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => ViewprofileUser()));
+                        MaterialPageRoute(builder: (context) => NavBarUser()));
                   },
                   child: Text(
                     "NEXT ",

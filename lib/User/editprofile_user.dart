@@ -169,6 +169,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                           "SAVE ",
                           style: TextStyle(
                             fontSize: 22,
+                            fontFamily: "MontserratMedium",
                             fontWeight: FontWeight.w500,
                           ),
                         ),
