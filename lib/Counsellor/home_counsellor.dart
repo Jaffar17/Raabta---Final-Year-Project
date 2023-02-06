@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Counsellor/patient_counsellor.dart';
 
 class HomeCounsellor extends StatefulWidget {
   const HomeCounsellor({Key? key}) : super(key: key);
@@ -79,66 +80,73 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
               ),
               Padding(
                   padding: const EdgeInsets.only(top: 8, bottom: 8.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 200,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemCount: user.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Column(
-                          children: [
-                            Card(
-                              elevation: 18.0,
-                              shape: RoundedRectangleBorder(
-                                  side: const BorderSide(
-                                      color: Color(0xFF006A6A), width: 1.0),
-                                  borderRadius: BorderRadius.circular(15)),
-                              clipBehavior: Clip.antiAlias,
-                              margin: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 15, right: 20, left: 20),
-                                    child: CircleAvatar(
-                                      backgroundColor: Color(0xFFffffff),
-                                      radius: 45,
-                                      child: Image.asset(
-                                        user[index].picture,
-                                        fit: BoxFit.cover,
-                                        height: 100.0,
-                                        width: 100.0,
+                  child: InkWell(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 200,
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        scrollDirection: Axis.horizontal,
+                        itemCount: user.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Column(
+                            children: [
+                              Card(
+                                elevation: 18.0,
+                                shape: RoundedRectangleBorder(
+                                    side: const BorderSide(
+                                        color: Color(0xFF006A6A), width: 1.0),
+                                    borderRadius: BorderRadius.circular(15)),
+                                clipBehavior: Clip.antiAlias,
+                                margin: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 15, right: 20, left: 20),
+                                      child: CircleAvatar(
+                                        backgroundColor: Color(0xFFffffff),
+                                        radius: 45,
+                                        child: Image.asset(
+                                          user[index].picture,
+                                          fit: BoxFit.cover,
+                                          height: 100.0,
+                                          width: 100.0,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10,
-                                        bottom: 20,
-                                        right: 18,
-                                        left: 18),
-                                    child: Text(
-                                      user[index].name,
-                                      // listData.data[position].title,
-                                      style: TextStyle(
-                                        fontSize: 24.0,
-                                        fontWeight: FontWeight.w500,
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 10,
+                                          bottom: 20,
+                                          right: 18,
+                                          left: 18),
+                                      child: Text(
+                                        user[index].name,
+                                        // listData.data[position].title,
+                                        style: TextStyle(
+                                          fontSize: 24.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        );
-                      },
+                            ],
+                          );
+                        },
+                      ),
                     ),
-                  )),
+                    onTap: (){
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => PatientCounsellor()));
+                    },
+                  ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                     top: 15, bottom: 15, right: 10, left: 10),
@@ -154,7 +162,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                   child: Text(
                     "My Appointments",
                     style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 36,
                         fontFamily: "MontserratMedium",
                         fontWeight: FontWeight.w500,
                        ),
@@ -177,7 +185,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                   color: Color(0xFF006A6A), width: 1.0),
                               borderRadius: BorderRadius.circular(15)),
                           clipBehavior: Clip.antiAlias,
-                          margin: const EdgeInsets.all(8.0),
+                          margin: const EdgeInsets.all(12.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
