@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NavBarUser extends StatefulWidget {
   const NavBarUser({Key? key}) : super(key: key);
@@ -42,46 +43,45 @@ class _NavBarUserState extends State<NavBarUser> {
         backgroundColor: Color(0xffFFFFFF),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.checklist_rounded,
-                size: 35.0,
-                color: Color(0xff000000),
+              icon: FaIcon(
+                FontAwesomeIcons.solidComment,
+                //FontAwesomeIcons.solidNoteSticky,
+                size: 30,
+                color: Colors.black12,
+                //color: Colors.white24,
+                // color: Colors.white30,
               ),
               //backgroundColor: Color(0xff006A6A),
               label: "" //"Appointments"
               ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite_border_rounded,
-                size: 35.0,
-                color: Color(0xff000000),
+              icon: FaIcon(
+                FontAwesomeIcons.handHoldingHand,
+                size: 30,
               ),
               //backgroundColor: Color(0xff006A6A),
               label: "" //"Favourites"
               ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                size: 35.0,
-                color: Color(0xff000000),
+              icon: FaIcon(
+                FontAwesomeIcons.house,
+                size: 30,
               ),
               //backgroundColor: Color(0xff006A6A),
               label: "" //"Home"
               ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.chat_rounded,
-                size: 35.0,
-                color: Color(0xff000000),
+              icon: FaIcon(
+                FontAwesomeIcons.solidCalendar,
+                size: 30,
               ),
               //backgroundColor: Color(0xff006A6A),
               label: "" //"Messages"
               ),
           BottomNavigationBarItem(
-              icon: Icon(
-                Icons.account_box_rounded,
-                size: 35.0,
-                color: Color(0xff000000),
+              icon: FaIcon(
+                FontAwesomeIcons.solidUser,
+                size: 30,
               ),
               //backgroundColor: Color(0xff006A6A),
               label: "" //"Profile"
