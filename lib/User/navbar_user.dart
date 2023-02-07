@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:raabta_fyp/User/inbox_user.dart';
 
 class NavBarUser extends StatefulWidget {
   const NavBarUser({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class _NavBarUserState extends State<NavBarUser> {
   //static const TextStyle optionStyle =
   //   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text("Appointments"),
+    InboxUser(),
     Text("Appointments"),
     Text("Home"),
     Text("Appointments"),
@@ -40,26 +41,26 @@ class _NavBarUserState extends State<NavBarUser> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xffFFFFFF),
+        backgroundColor: Color(0xff006A6A),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.solidComment,
                 //FontAwesomeIcons.solidNoteSticky,
                 size: 30,
-                color: Colors.black12,
+                //color: Colors.black12,
                 //color: Colors.white24,
                 // color: Colors.white30,
               ),
-              //backgroundColor: Color(0xff006A6A),
+              backgroundColor: Color(0xff006A6A),
               label: "" //"Appointments"
               ),
           BottomNavigationBarItem(
               icon: FaIcon(
-                FontAwesomeIcons.handHoldingHand,
+                FontAwesomeIcons.userDoctor,
                 size: 30,
               ),
-              //backgroundColor: Color(0xff006A6A),
+              backgroundColor: Color(0xff006A6A),
               label: "" //"Favourites"
               ),
           BottomNavigationBarItem(
@@ -67,7 +68,7 @@ class _NavBarUserState extends State<NavBarUser> {
                 FontAwesomeIcons.house,
                 size: 30,
               ),
-              //backgroundColor: Color(0xff006A6A),
+              backgroundColor: Color(0xff006A6A),
               label: "" //"Home"
               ),
           BottomNavigationBarItem(
@@ -75,20 +76,20 @@ class _NavBarUserState extends State<NavBarUser> {
                 FontAwesomeIcons.solidCalendar,
                 size: 30,
               ),
-              //backgroundColor: Color(0xff006A6A),
+              backgroundColor: Color(0xff006A6A),
               label: "" //"Messages"
               ),
           BottomNavigationBarItem(
               icon: FaIcon(
-                FontAwesomeIcons.solidUser,
+                FontAwesomeIcons.addressCard,
                 size: 30,
               ),
-              //backgroundColor: Color(0xff006A6A),
+              backgroundColor: Color(0xff006A6A),
               label: "" //"Profile"
               )
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xff006A6A),
+        selectedItemColor: Color(0xffF6BD12),
         onTap: _onItemTapped,
       ),
     );

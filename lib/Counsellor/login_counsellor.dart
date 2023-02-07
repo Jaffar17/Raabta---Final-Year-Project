@@ -43,7 +43,7 @@ class _LoginCounsellorState extends State<LoginCounsellor> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomeCounsellor()));
+                          MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
                       //
                     },
                     child: Row(
