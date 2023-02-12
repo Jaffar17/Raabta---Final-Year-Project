@@ -1,14 +1,14 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 
-class EditprofielCounsellor extends StatefulWidget {
-  const EditprofielCounsellor({Key? key}) : super(key: key);
+class EditProfileCounsellor extends StatefulWidget {
+  const EditProfileCounsellor({Key? key}) : super(key: key);
 
   @override
-  State<EditprofielCounsellor> createState() => _EditprofielCounsellorState();
+  State<EditProfileCounsellor> createState() => _EditProfileCounsellorState();
 }
 
-class _EditprofielCounsellorState extends State<EditprofielCounsellor> {
+class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
 
   TextEditingController _cname = new TextEditingController();
   TextEditingController _cemail = new TextEditingController();

@@ -15,24 +15,24 @@ class _LoginUserState extends State<LoginUser> {
     return SafeArea(
         child: Scaffold(
           body: Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/Background.jpeg"), fit: BoxFit.cover)),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image(
+                const Image(
                   image: AssetImage("assets/images/RaabtaLogo.png"),
                   height: 150,
                   width: 150,
                 ),
-                Image(
+                const Image(
                   image: AssetImage("assets/images/Cover.png"),
                   // height: 200,
                   // width: 200,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 32.0, bottom: 18.0),
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0, right: 8.0, top: 32.0, bottom: 18.0),
                   child: Text("Welcome!\nStart your journey", style: TextStyle(fontSize: 20 ),textAlign: TextAlign.center,),
                 ),
                 Padding(
@@ -40,13 +40,21 @@ class _LoginUserState extends State<LoginUser> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ProfileUser()));
+                          MaterialPageRoute(builder: (context) => const ProfileUser()));
                       //
                     },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xffFFFFFF),
+                      minimumSize: const Size(100, 50),
+                      side: const BorderSide(width: 1, color: Color(0xff006A6A)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                      children: const [
                         Text(
                           "Sign In with ",
                           style: TextStyle(fontSize: 22, color: Color(0xff006A6A)),
@@ -57,14 +65,6 @@ class _LoginUserState extends State<LoginUser> {
                           //width: 30,
                         )
                       ],
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xffFFFFFF),
-                      minimumSize: Size(100, 50),
-                      side: BorderSide(width: 1, color: Color(0xff006A6A)),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18),
-                      ),
                     ),
                   ),
                 ),

@@ -60,7 +60,7 @@ class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => EditprofielCounsellor()));
+                                MaterialPageRoute(builder: (context) => EditProfileCounsellor()));
                             //
                           },
                           child: Text("EDIT", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),

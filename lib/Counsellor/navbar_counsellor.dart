@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:raabta_fyp/User/counsellorsList_user.dart';
-import 'package:raabta_fyp/User/editprofile_user.dart';
-import 'package:raabta_fyp/User/inbox_user.dart';
+import 'package:raabta_fyp/Counsellor/editprofile_counsellor.dart';
+import 'package:raabta_fyp/Counsellor/home_counsellor.dart';
+import 'package:raabta_fyp/Counsellor/inbox_counsellor.dart';
 
-class NavBarUser extends StatefulWidget {
-  const NavBarUser({Key? key}) : super(key: key);
+class NavBarCounsellor extends StatefulWidget {
+  const NavBarCounsellor({Key? key}) : super(key: key);
 
   @override
-  State<NavBarUser> createState() => _NavBarUserState();
+  State<NavBarCounsellor> createState() => _NavBarCounsellorState();
 }
 
-class _NavBarUserState extends State<NavBarUser> {
+class _NavBarCounsellorState extends State<NavBarCounsellor> {
   int _selectedIndex = 2;
 
   //static const TextStyle optionStyle =
   //   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    InboxUser(),
-    CounsellorsList(),
-    Text("Home"),
+    Text("Notes"),
+    InboxCounsellor(),
+    HomeCounsellor(),
     Text("Appointments"),
-    EditprofileUser(),
+    EditProfileCounsellor(),
   ];
 
   void _onItemTapped(int index) {
@@ -29,7 +29,6 @@ class _NavBarUserState extends State<NavBarUser> {
       _selectedIndex = index;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +36,11 @@ class _NavBarUserState extends State<NavBarUser> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Color(0xff006A6A),
+        backgroundColor: const Color(0xff006A6A),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: FaIcon(
-                FontAwesomeIcons.solidComment,
+                FontAwesomeIcons.noteSticky,
                 //FontAwesomeIcons.solidNoteSticky,
                 size: 30,
                 //color: Colors.black12,
@@ -50,15 +49,15 @@ class _NavBarUserState extends State<NavBarUser> {
               ),
               backgroundColor: Color(0xff006A6A),
               label: "" //"Appointments"
-              ),
+          ),
           BottomNavigationBarItem(
               icon: FaIcon(
-                FontAwesomeIcons.userDoctor,
+                FontAwesomeIcons.solidComment,
                 size: 30,
               ),
               backgroundColor: Color(0xff006A6A),
               label: "" //"Favourites"
-              ),
+          ),
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.house,
@@ -66,7 +65,7 @@ class _NavBarUserState extends State<NavBarUser> {
               ),
               backgroundColor: Color(0xff006A6A),
               label: "" //"Home"
-              ),
+          ),
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.solidCalendar,
@@ -74,7 +73,7 @@ class _NavBarUserState extends State<NavBarUser> {
               ),
               backgroundColor: Color(0xff006A6A),
               label: "" //"Messages"
-              ),
+          ),
           BottomNavigationBarItem(
               icon: FaIcon(
                 FontAwesomeIcons.addressCard,
@@ -82,10 +81,10 @@ class _NavBarUserState extends State<NavBarUser> {
               ),
               backgroundColor: Color(0xff006A6A),
               label: "" //"Profile"
-              )
+          )
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xffF6BD12),
+        selectedItemColor: const Color(0xffF6BD12),
         onTap: _onItemTapped,
       ),
     );

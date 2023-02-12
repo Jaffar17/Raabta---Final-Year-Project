@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-class InboxUser extends StatefulWidget {
-  const InboxUser({Key? key}) : super(key: key);
+class InboxCounsellor extends StatefulWidget {
+  const InboxCounsellor({Key? key}) : super(key: key);
 
   @override
-  State<InboxUser> createState() => _InboxUserState();
+  State<InboxCounsellor> createState() => _InboxCounsellorState();
 }
 
-class _InboxUserState extends State<InboxUser> {
-  List<TestData> tdList = [
-    TestData(name: "Patient 1", message: "Hello there!"),
-    TestData(name: "Patient 1", message: "Hello there!"),
-    TestData(name: "Patient 1", message: "Hello there!"),
+class _InboxCounsellorState extends State<InboxCounsellor> {
+  List<TestDataMsg> tdList = [
+    TestDataMsg(name: "Patient 1", message: "Hello there!"),
+    TestDataMsg(name: "Patient 1", message: "Hello there!"),
+    TestDataMsg(name: "Patient 1", message: "Hello there!"),
   ];
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,7 +37,7 @@ class _InboxUserState extends State<InboxUser> {
                   decoration: const BoxDecoration(
                       border: Border(
                           bottom:
-                              BorderSide(color: Color(0xFFF6BD12), width: 2))),
+                          BorderSide(color: Color(0xFFF6BD12), width: 2))),
                   child: const Text(
                     "Inbox",
                     textAlign: TextAlign.center,
@@ -92,10 +91,9 @@ class _InboxUserState extends State<InboxUser> {
     );
   }
 }
-
-class TestData {
+class TestDataMsg {
   String name;
   String message;
 
-  TestData({required this.name, required this.message});
+  TestDataMsg({required this.name, required this.message});
 }
