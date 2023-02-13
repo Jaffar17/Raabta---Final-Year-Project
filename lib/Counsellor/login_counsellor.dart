@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:raabta_fyp/Counsellor/appointment_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/home_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/navbar_counsellor.dart';
+import 'package:raabta_fyp/Counsellor/profile_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/viewprofile_counsellor.dart';
 
 class LoginCounsellor extends StatefulWidget {
@@ -44,7 +45,7 @@ class _LoginCounsellorState extends State<LoginCounsellor> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => NavBarCounsellor()));
+                          MaterialPageRoute(builder: (context) => ProfileCounsellor()));
                       //
                     },
                     child: Row(

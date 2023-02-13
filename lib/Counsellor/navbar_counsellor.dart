@@ -4,6 +4,9 @@ import 'package:raabta_fyp/Counsellor/editprofile_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/home_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/inbox_counsellor.dart';
 
+import 'appointment_counsellor.dart';
+import 'notes_counsellor.dart';
+
 class NavBarCounsellor extends StatefulWidget {
   const NavBarCounsellor({Key? key}) : super(key: key);
 
@@ -17,10 +20,10 @@ class _NavBarCounsellorState extends State<NavBarCounsellor> {
   //static const TextStyle optionStyle =
   //   TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
-    Text("Notes"),
+    NotesCounsellor(),
     InboxCounsellor(),
     HomeCounsellor(),
-    Text("Appointments"),
+    AppointmentCounsellor(),
     EditProfileCounsellor(),
   ];
 
