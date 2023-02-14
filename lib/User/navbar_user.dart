@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:raabta_fyp/User/counsellorsList_user.dart';
 import 'package:raabta_fyp/User/editprofile_user.dart';
+import 'package:raabta_fyp/User/home_user.dart';
 import 'package:raabta_fyp/User/inbox_user.dart';
+import 'package:raabta_fyp/User/user_appointments.dart';
 
 class NavBarUser extends StatefulWidget {
   const NavBarUser({Key? key}) : super(key: key);
@@ -19,8 +21,8 @@ class _NavBarUserState extends State<NavBarUser> {
   static const List<Widget> _widgetOptions = <Widget>[
     InboxUser(),
     CounsellorsList(),
-    Text("Home"),
-    Text("Appointments"),
+    HomeUser(),
+    UserAppointments(),
     EditprofileUser(),
   ];
 

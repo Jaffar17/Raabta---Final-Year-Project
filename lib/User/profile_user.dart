@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:intl/intl.dart';
 import 'package:raabta_fyp/User/navbar_user.dart';
+import 'package:raabta_fyp/User/personality_test.dart';
 import 'package:raabta_fyp/User/viewprofile_user.dart';
 
 class ProfileUser extends StatefulWidget {
@@ -203,7 +204,7 @@ class _ProfileUserState extends State<ProfileUser> {
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => NavBarUser()));
+                        MaterialPageRoute(builder: (context) => PersonalityTest()));
                   },
                   child: Text(
                     "NEXT ",
