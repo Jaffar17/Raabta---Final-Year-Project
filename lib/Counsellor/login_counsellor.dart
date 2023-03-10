@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/Counsellor/appointment_counsellor.dart';
+import 'package:raabta_fyp/Counsellor/counsellor_model.dart';
 import 'package:raabta_fyp/Counsellor/home_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/navbar_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/profile_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/viewprofile_counsellor.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+
+import 'counsellor_provider.dart';
+
 
 class LoginCounsellor extends StatefulWidget {
   const LoginCounsellor({Key? key}) : super(key: key);
@@ -13,6 +20,8 @@ class LoginCounsellor extends StatefulWidget {
 }
 
 class _LoginCounsellorState extends State<LoginCounsellor> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -43,10 +52,33 @@ class _LoginCounsellorState extends State<LoginCounsellor> {
                 Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const ProfileCounsellor()));
-                      //
+                    onPressed: ()async {
+                      {
+                        final GoogleSignInAccount? user = await _googleSignIn.signIn();
+
+                        final  GoogleSignInAuthentication? authentication = await user?.authentication;
+                        if(authentication?.accessToken!=null && authentication?.idToken!=null) {
+                          final credential = GoogleAuthProvider.credential(
+                            accessToken: authentication?.accessToken,
+                            idToken: authentication?.idToken,
+                          );
+                          UserCredential userCredential =
+                              await _auth.signInWithCredential((credential));
+                          if(userCredential.user != null){
+                            if(userCredential.additionalUserInfo!.isNewUser){
+                              context.read<CounsellorProvider>().addCounsellor( new Counsellor(id: double.parse(user!.id), displayName: user?.displayName, email: user!.email, photoUrl: user?.photoUrl));
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => const ProfileCounsellor()));
+                              _googleSignIn.signOut();
+                            }
+                            else{
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) => const HomeCounsellor()));
+                              _googleSignIn.signOut();
+                            }
+                          }
+                        }
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffFFFFFF),

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/User/user_provider.dart';
 import 'package:raabta_fyp/User/personality_test.dart';
 import 'package:raabta_fyp/User/profile_user.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:raabta_fyp/User/user_model.dart';
+import 'home_user.dart';
+import 'package:raabta_fyp/User/user_model.dart';
 
 class LoginUser extends StatefulWidget {
   const LoginUser({Key? key}) : super(key: key);
@@ -10,6 +17,8 @@ class LoginUser extends StatefulWidget {
 }
 
 class _LoginUserState extends State<LoginUser> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,10 +47,31 @@ class _LoginUserState extends State<LoginUser> {
                 Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const ProfileUser()));
-                      //
+                    onPressed: ()async {
+                      final GoogleSignInAccount? user = await _googleSignIn.signIn();
+
+                      final  GoogleSignInAuthentication? authentication = await user?.authentication;
+                      if(authentication?.accessToken!=null && authentication?.idToken!=null) {
+                        final credential = GoogleAuthProvider.credential(
+                          accessToken: authentication?.accessToken,
+                          idToken: authentication?.idToken,
+                        );
+                        UserCredential userCredential =
+                            await _auth.signInWithCredential((credential));
+                        if(userCredential.user != null){
+                          if(userCredential.additionalUserInfo!.isNewUser){
+                            context.read<UserProvider>().addUser( new UserModel(id: double.parse(user!.id), displayName: user?.displayName, email: user!.email, photoUrl: user?.photoUrl));
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => const ProfileUser()));
+                            _googleSignIn.signOut();
+                          }
+                          else{
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => const HomeUser()));
+                            _googleSignIn.signOut();
+                          }
+                        }
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffFFFFFF),
@@ -74,4 +104,6 @@ class _LoginUserState extends State<LoginUser> {
         )
     );
   }
+
+
 }

@@ -1,8 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Counsellor/counsellor_provider.dart';
+import 'package:raabta_fyp/User/user_provider.dart';
+import 'package:provider/provider.dart';
 import 'first_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MultiProvider(
+        providers:[
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProvider(create: (_) => CounsellorProvider()),
+
+        ],
+            child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
