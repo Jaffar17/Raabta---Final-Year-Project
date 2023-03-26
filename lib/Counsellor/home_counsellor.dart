@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/Counsellor/patient_counsellor.dart';
+import 'package:provider/provider.dart';
+import 'package:raabta_fyp/Models/counsellor/counsellor_appointments.dart';
+import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
+
 
 class HomeCounsellor extends StatefulWidget {
   const HomeCounsellor({Key? key}) : super(key: key);
@@ -9,41 +13,11 @@ class HomeCounsellor extends StatefulWidget {
 }
 
 class _HomeCounsellorState extends State<HomeCounsellor> {
-  List<Users> user = [
-    Users(name: "Patient 1", picture: "assets/images/ProfilePic.png"),
-    Users(name: "Patient 2", picture: "assets/images/ProfilePic.png"),
-    Users(name: "Patient 3", picture: "assets/images/ProfilePic.png"),
-    Users(name: "Patient 4", picture: "assets/images/ProfilePic.png"),
-  ];
-  List<Appointments> appointment = [
-    Appointments(
-        name: "Test Patient 5",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    Appointments(
-        name: "Test Patient 6",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    Appointments(
-        name: "Test Patient 7",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    Appointments(
-        name: "Test Patient 8",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    //forEach ka bhand hai
+    context.read<CounsellorProvider>().getConfirmedAppointments();
+    List<Appointments> confirmedAppointments =context.read<CounsellorProvider>().confirmedAppointments;
     return SafeArea(
         child: Scaffold(
       body: SingleChildScrollView(
@@ -88,7 +62,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                         shrinkWrap: true,
                         physics: ClampingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
-                        itemCount: user.length,
+                        itemCount: confirmedAppointments.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
                             children: [
@@ -110,8 +84,8 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                       child: CircleAvatar(
                                         backgroundColor: Color(0xFFffffff),
                                         radius: 45,
-                                        child: Image.asset(
-                                          user[index].picture,
+                                        child: Image.network(
+                                          confirmedAppointments[index].photoUrl!,
                                           fit: BoxFit.cover,
                                           height: 100.0,
                                           width: 100.0,
@@ -125,7 +99,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                           right: 18,
                                           left: 18),
                                       child: Text(
-                                        user[index].name,
+                                        confirmedAppointments[index].patientName!,
                                         // listData.data[position].title,
                                         style: TextStyle(
                                           fontSize: 24.0,
@@ -174,7 +148,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                   shrinkWrap: true,
                   physics: ClampingScrollPhysics(),
                   scrollDirection: Axis.vertical,
-                  itemCount: appointment.length,
+                  itemCount: confirmedAppointments.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
@@ -196,8 +170,8 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                 child: CircleAvatar(
                                   backgroundColor: Color(0xFFffffff),
                                   radius: 40,
-                                  child: Image.asset(
-                                    appointment[index].picture,
+                                  child: Image.network(
+                                    confirmedAppointments[index].photoUrl!,
                                   ),
                                 ),
                               ),
@@ -214,7 +188,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                         padding: const EdgeInsets.only(
                                             top: 3, bottom: 4),
                                         child: Text(
-                                          appointment[index].name,
+                                          confirmedAppointments[index].patientName!,
                                           // listData.data[position].title,
                                           style: TextStyle(
                                             fontSize: 22.0,
@@ -232,7 +206,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                             padding:
                                                 const EdgeInsets.only(left: 4),
                                             child: Text(
-                                              appointment[index].date,
+                                              confirmedAppointments[index].appointmentDate!,
                                               // listData.data[position].title,
                                               style: TextStyle(
                                                 fontSize: 18.0,
@@ -253,7 +227,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                               padding: const EdgeInsets.only(
                                                   left: 4),
                                               child: Text(
-                                                appointment[index].time,
+                                                confirmedAppointments[index].appointmentTime!,
                                                 // listData.data[position].title,
                                                 style: TextStyle(
                                                   fontSize: 18.0,
@@ -282,7 +256,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                           ),
                                         ),
                                         Text(
-                                          appointment[index].status,
+                                          confirmedAppointments[index].status,
                                           style: TextStyle(
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.w500,
@@ -309,24 +283,6 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
   }
 }
 
-class Users {
-  String name;
-  String picture;
 
-  Users({required this.name, required this.picture});
-}
 
-class Appointments {
-  String name;
-  String picture;
-  String date;
-  String time;
-  String status;
 
-  Appointments(
-      {required this.name,
-      required this.picture,
-      required this.date,
-      required this.time,
-      required this.status});
-}

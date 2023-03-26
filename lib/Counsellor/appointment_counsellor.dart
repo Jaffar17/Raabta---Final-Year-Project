@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 
+import 'package:provider/provider.dart';
+import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
+
+import '../Models/counsellor/counsellor_appointments.dart';
+import 'UpdateAppointment.dart';
+
+
+
 class AppointmentCounsellor extends StatefulWidget {
   const AppointmentCounsellor({Key? key}) : super(key: key);
 
@@ -9,47 +17,12 @@ class AppointmentCounsellor extends StatefulWidget {
 
 class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
 
-  List<Appointments> appointment = [
-    Appointments(
-        name: "Test Patient 1",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    Appointments(
-        name: "Test Patient 2",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    Appointments(
-        name: "Test Patient 3",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    Appointments(
-        name: "Test Patient 4",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    Appointments(
-        name: "Test Patient 5",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    Appointments(
-        name: "Test Patient 6",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
+    context.watch<CounsellorProvider>().getAppointments();
+    List<Appointments>? appointment = context.read<CounsellorProvider>().counsellor.appointments;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -85,7 +58,7 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    itemCount: appointment.length,
+                    itemCount: appointment?.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Column(
                         children: [
@@ -107,8 +80,8 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                                   child: CircleAvatar(
                                     backgroundColor: Color(0xFFffffff),
                                     radius: 40,
-                                    child: Image.asset(
-                                      appointment[index].picture,
+                                    child: Image.network(
+                                      appointment![index].photoUrl.toString(),
                                     ),
                                   ),
                                 ),
@@ -125,7 +98,7 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                                           padding: const EdgeInsets.only(
                                               top: 3, bottom: 4),
                                           child: Text(
-                                            appointment[index].name,
+                                            appointment![index].patientName.toString(),
                                             // listData.data[position].title,
                                             style: TextStyle(
                                               fontSize: 22.0,
@@ -143,7 +116,7 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                                               padding:
                                               const EdgeInsets.only(left: 4),
                                               child: Text(
-                                                appointment[index].date,
+                                                appointment[index].appointmentDate.toString(),
                                                 // listData.data[position].title,
                                                 style: TextStyle(
                                                   fontSize: 18.0,
@@ -164,7 +137,7 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                                                 padding: const EdgeInsets.only(
                                                     left: 4),
                                                 child: Text(
-                                                  appointment[index].time,
+                                                  appointment[index].appointmentTime.toString(),
                                                   // listData.data[position].title,
                                                   style: TextStyle(
                                                     fontSize: 18.0,
@@ -192,13 +165,30 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
-                                          Text(
-                                            appointment[index].status,
-                                            style: TextStyle(
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.green),
-                                          )
+                                          Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 60, right: 5, bottom: 5),
+                                              child: appointment![index].status == "Pending"
+                                                  ? acceptOrReject(
+                                                  appointment: appointment![index])
+                                                  : Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        bottom: 5),
+                                                    child: Text(
+                                                      appointment![index].status,
+                                                      style: TextStyle(
+                                                          color: appointment![index]
+                                                              .status ==
+                                                              "Confirmed"
+                                                              ? Color(0xff00B012)
+                                                              : Colors.red,
+                                                          fontSize: 20),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )),
                                         ],
                                       ),
                                     )
@@ -221,17 +211,3 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
   }
 }
 
-class Appointments {
-  String name;
-  String picture;
-  String date;
-  String time;
-  String status;
-
-  Appointments(
-      {required this.name,
-        required this.picture,
-        required this.date,
-        required this.time,
-        required this.status});
-}

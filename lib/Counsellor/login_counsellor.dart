@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/Counsellor/appointment_counsellor.dart';
-import 'package:raabta_fyp/Counsellor/counsellor_model.dart';
+import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
 import 'package:raabta_fyp/Counsellor/home_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/navbar_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/profile_counsellor.dart';
@@ -9,7 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
-import 'counsellor_provider.dart';
+import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
 
 
 class LoginCounsellor extends StatefulWidget {
@@ -54,6 +54,7 @@ class _LoginCounsellorState extends State<LoginCounsellor> {
                   child: ElevatedButton(
                     onPressed: ()async {
                       {
+
                         final GoogleSignInAccount? user = await _googleSignIn.signIn();
 
                         final  GoogleSignInAuthentication? authentication = await user?.authentication;
@@ -66,14 +67,16 @@ class _LoginCounsellorState extends State<LoginCounsellor> {
                               await _auth.signInWithCredential((credential));
                           if(userCredential.user != null){
                             if(userCredential.additionalUserInfo!.isNewUser){
-                              context.read<CounsellorProvider>().addCounsellor( new Counsellor(id: double.parse(user!.id), displayName: user?.displayName, email: user!.email, photoUrl: user?.photoUrl));
+                              await context.read<CounsellorProvider>().addCounsellor( new Counsellor(id: user!.id, displayName: user?.displayName, email: user!.email, photoUrl: user?.photoUrl,appointments: []));
+                              await context.read<CounsellorProvider>().getCounsellorById(user.id);
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) => const ProfileCounsellor()));
-                              _googleSignIn.signOut();
+                               _googleSignIn.signOut();
                             }
                             else{
+                              await context.read<CounsellorProvider>().getCounsellorById(user!.id);
                               Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => const HomeCounsellor()));
+                                  MaterialPageRoute(builder: (context) => const NavBarCounsellor()));
                               _googleSignIn.signOut();
                             }
                           }

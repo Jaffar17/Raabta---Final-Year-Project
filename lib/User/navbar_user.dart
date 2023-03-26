@@ -22,7 +22,7 @@ class _NavBarUserState extends State<NavBarUser> {
     InboxUser(),
     CounsellorsList(),
     HomeUser(),
-    UserAppointments(),
+    UserAppointmentsScreen(),
     EditprofileUser(),
   ];
 

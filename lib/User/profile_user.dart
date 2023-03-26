@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:intl/intl.dart';
+import '../controllers/user/user_provider.dart';
 import 'package:raabta_fyp/User/navbar_user.dart';
 import 'package:raabta_fyp/User/personality_test.dart';
 import 'package:raabta_fyp/User/viewprofile_user.dart';
+import 'package:provider/provider.dart';
 
 class ProfileUser extends StatefulWidget {
   const ProfileUser({Key? key}) : super(key: key);
@@ -15,12 +17,16 @@ class ProfileUser extends StatefulWidget {
 //Test Comment
 //Subhan
 class _ProfileUserState extends State<ProfileUser> {
-  TextEditingController _cnt = TextEditingController();
+
   TextEditingController dOBController = TextEditingController();
+  SingleValueDropDownController gender = SingleValueDropDownController();
+  SingleValueDropDownController preference = SingleValueDropDownController();
+  TextEditingController name = TextEditingController();
+
 
   void initState() {
     super.initState();
-    _cnt;
+    name.text= context.read<UserProvider>().user.fullName!;
   }
 
   @override
@@ -53,8 +59,9 @@ class _ProfileUserState extends State<ProfileUser> {
                 padding: const EdgeInsets.only(
                     left: 16.0, right: 16.0, bottom: 20.0),
                 child: TextField(
+                  controller: name,
                   decoration: InputDecoration(
-                    labelText: "Full Name",
+                    labelText:"Full Name",
                     labelStyle: TextStyle(color: Color(0xff006A6A)),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -114,7 +121,7 @@ class _ProfileUserState extends State<ProfileUser> {
                     left: 16.0, right: 16.0, bottom: 20.0),
                 child: DropDownTextField(
                   //initialValue: "name4",
-                  //controller: _cnt,
+                  controller: gender,
                   clearOption: true,
                   textFieldDecoration: InputDecoration(
                       labelText: "Gender",
@@ -150,7 +157,7 @@ class _ProfileUserState extends State<ProfileUser> {
                     ),
                     DropDownValueModel(name: 'Others', value: "value3"),
                   ],
-                  //onChanged: (val) {},
+
                 ),
               ),
               // Recommendation Tag
@@ -158,8 +165,7 @@ class _ProfileUserState extends State<ProfileUser> {
                 padding: const EdgeInsets.only(
                     left: 16.0, right: 16.0, bottom: 20.0),
                 child: DropDownTextField(
-                  //initialValue: "name4",
-                  //controller: _cnt,
+                  controller: preference,
                   clearOption: true,
                   textFieldDecoration: InputDecoration(
                       labelText: "Looking For?",
@@ -189,20 +195,23 @@ class _ProfileUserState extends State<ProfileUser> {
 
                   dropDownList: const [
                     DropDownValueModel(
-                        name: 'Anxiety', value: "value1"),
+                        name: 'Anxiety', value: "Anxiety"),
                     DropDownValueModel(
                       name: 'Career/ Academic',
-                      value: "value2",
+                      value: "Career/ Academic",
                     ),
-                    DropDownValueModel(name: 'Profession', value: "value3"),
+                    DropDownValueModel(name: 'Profession', value: "Profession"),
+
                   ],
-                  //onChanged: (val) {},
+
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                 child: ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async{
+                    //print(dOBController.text + gender.dropDownValue!.name + preference.dropDownValue!.name);
+                    await context.read<UserProvider>().profileComplete(dOBController.text, gender.dropDownValue!.name, preference.dropDownValue!.name);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => PersonalityTest()));
                   },

@@ -4,7 +4,9 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:intl/intl.dart';
 import 'package:raabta_fyp/User/navbar_user.dart';
 import 'package:raabta_fyp/User/viewprofile_user.dart';
+import 'package:provider/provider.dart';
 
+import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
 import 'navbar_counsellor.dart';
 
 class ProfileCounsellor extends StatefulWidget {
@@ -16,12 +18,16 @@ class ProfileCounsellor extends StatefulWidget {
 //Test Comment
 //Subhan
 class _ProfileCounsellorState extends State<ProfileCounsellor> {
-  TextEditingController _cnt = TextEditingController();
+  SingleValueDropDownController gender = SingleValueDropDownController();
+  SingleValueDropDownController specialisation = SingleValueDropDownController();
   TextEditingController dOBController = TextEditingController();
+  TextEditingController name = TextEditingController();
 
   void initState() {
+    // TODO: implement initState
     super.initState();
-    _cnt;
+    name.text = context.read<CounsellorProvider>().counsellor.displayName!;
+
   }
 
   @override
@@ -54,6 +60,7 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                     padding: const EdgeInsets.only(
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: TextField(
+                      controller: name,
                       decoration: InputDecoration(
                         labelText: "Full Name",
                         labelStyle: TextStyle(color: Color(0xff006A6A)),
@@ -115,7 +122,7 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: DropDownTextField(
                       //initialValue: "name4",
-                      //controller: _cnt,
+                      controller: gender,
                       clearOption: true,
                       textFieldDecoration: InputDecoration(
                           labelText: "Gender",
@@ -160,7 +167,7 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: DropDownTextField(
                       //initialValue: "name4",
-                      //controller: _cnt,
+                      controller: specialisation,
                       clearOption: true,
                       textFieldDecoration: InputDecoration(
                           labelText: "Specialization?",
@@ -203,7 +210,8 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                   Padding(
                     padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
+                        await context.read<CounsellorProvider>().profileComplete(dOBController.text, gender.dropDownValue!.name, specialisation.dropDownValue!.name);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => NavBarCounsellor()));
                       },

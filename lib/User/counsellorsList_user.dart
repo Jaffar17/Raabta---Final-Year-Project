@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
+import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
+import 'package:raabta_fyp/controllers/user/user_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:raabta_fyp/Models/user/user_appointments.dart';
+import 'package:raabta_fyp/Models/counsellor/counsellor_appointments.dart';
+import 'package:uuid/uuid.dart';
+
 
 class CounsellorsList extends StatefulWidget {
   const CounsellorsList({Key? key}) : super(key: key);
@@ -9,17 +17,33 @@ class CounsellorsList extends StatefulWidget {
 }
 
 class _CounsellorsListState extends State<CounsellorsList> {
-  List<TestDataCounsellors> counsellorsList = [
-    TestDataCounsellors(
-        name: "Dr. Test 1", qualification: "MBBS", specialization: "Anxiety"),
-    TestDataCounsellors(
-        name: "Dr. Test 1", qualification: "MBBS", specialization: "Anxiety"),
-    TestDataCounsellors(
-        name: "Dr. Test 1", qualification: "MBBS", specialization: "Anxiety"),
-  ];
+  Future<void> createAppointment(Counsellor c) async {
+    var uuid = Uuid();
+    String appointmentId= uuid.v4();
+
+    await context.read<UserProvider>().createAppointment(UserAppointments(
+        id: appointmentId,
+        counsellorName: c.displayName,
+        photoUrl: c.photoUrl,
+        appointmentDate: "newDate",
+        appointmentTime: "new time"));
+
+    await context.read<UserProvider>().setAppointment(
+        c,
+        Appointments(
+            id: appointmentId,
+            patientName: context.read<UserProvider>().user.fullName,
+            photoUrl: context.read<UserProvider>().user.photoUrl,
+            userId: context.read<UserProvider>().user.id ,
+            appointmentDate: "newDate",
+            appointmentTime: "new time"));
+  }
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserProvider>().getCounsellors();
+    List<Counsellor> counsellorsList =
+        context.watch<UserProvider>().counsellors;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -72,7 +96,9 @@ class _CounsellorsListState extends State<CounsellorsList> {
                           //   ),
                           //   borderRadius: BorderRadius.circular(10),
                           // ),
-                          leading: Image.asset("assets/images/ProfilePic.png"),
+
+                          leading:
+                              Image.network(counsellorsList[index].photoUrl!),
                           title: //Padding(
                               //padding: const EdgeInsets.only(top: 10.0),
                               // child:
@@ -82,7 +108,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
                               //padding: const EdgeInsets.all(4.0),
                               //child:
                               Text(
-                                counsellorsList[index].name,
+                                counsellorsList[index].displayName!,
                                 style: const TextStyle(
                                   fontSize: 20,
                                   fontFamily: "MontserratMedium",
@@ -116,8 +142,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
                                 child: Row(
                                   children: [
                                     const Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 8.0),
+                                      padding: EdgeInsets.only(right: 8.0),
                                       child: FaIcon(
                                         FontAwesomeIcons.graduationCap,
                                         color: Color(0xff006A6A),
@@ -125,7 +150,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
                                       ),
                                     ),
                                     Text(
-                                      counsellorsList[index].qualification,
+                                      counsellorsList[index].specialisation!,
                                       style: const TextStyle(fontSize: 12),
                                     ),
                                     // const Padding(
@@ -139,34 +164,40 @@ class _CounsellorsListState extends State<CounsellorsList> {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Row(
-                                  children: [
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(right: 8.0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.bullseye,
-                                        color: Color(0xff006A6A),
-                                        size: 15,
-                                      ),
-                                    ),
-                                    Text(
-                                      counsellorsList[index].specialization,
-                                      style: const TextStyle(fontSize: 12),
-                                    ),
-                                    const Padding(
-                                      padding:
-                                      EdgeInsets.only(left: 117.0),
-                                      child: FaIcon(
-                                        FontAwesomeIcons.solidComment,
-                                        color: Color(0xff006A6A),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(4.0),
+                              //   child: Row(
+                              //     children: [
+                              //       const Padding(
+                              //         padding:
+                              //             EdgeInsets.only(right: 8.0),
+                              //         child: FaIcon(
+                              //           FontAwesomeIcons.bullseye,
+                              //           color: Color(0xff006A6A),
+                              //           size: 15,
+                              //         ),
+                              //       ),
+                              //       Text(
+                              //         counsellorsList[index].specialization,
+                              //         style: const TextStyle(fontSize: 12),
+                              //       ),
+                              //       const Padding(
+                              //         padding:
+                              //         EdgeInsets.only(left: 117.0),
+                              //         child: FaIcon(
+                              //           FontAwesomeIcons.solidComment,
+                              //           color: Color(0xff006A6A),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    await createAppointment(
+                                        counsellorsList[index]);
+                                  },
+                                  child: Icon(Icons.add)),
                             ],
                           ),
                         ),

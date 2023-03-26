@@ -1,5 +1,7 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../controllers/user/user_provider.dart';
 
 class EditprofileUser extends StatefulWidget {
   const EditprofileUser({Key? key}) : super(key: key);
@@ -9,18 +11,18 @@ class EditprofileUser extends StatefulWidget {
 }
 
 class _EditprofileUserState extends State<EditprofileUser> {
-
+  SingleValueDropDownController preference= new SingleValueDropDownController();
   TextEditingController _cname = new TextEditingController();
   TextEditingController _cemail = new TextEditingController();
-  TextEditingController _cpassword = new TextEditingController();
+
 
   void initState() {
     // TODO: implement initState
     super.initState();
     // Step 2 <- SEE HERE
-    _cname.text = 'User 1';
-    _cemail.text = 'user1@gmail.com';
-    _cpassword.text = 'user123';
+    _cname.text = context.read<UserProvider>().user.fullName!;
+    _cemail.text = context.read<UserProvider>().user.email!;
+
   }
 
   @override
@@ -48,11 +50,11 @@ class _EditprofileUserState extends State<EditprofileUser> {
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 10.0),
-                      child: Image.asset(
-                        "assets/images/ProfilePic.png",
+                      child:Image.network(context.read<UserProvider>().user.photoUrl.toString()),
+                        //"assets/images/ProfilePic.png",
                         // width: 150,
                         // height: 180,
-                      ),
+
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
@@ -92,32 +94,12 @@ class _EditprofileUserState extends State<EditprofileUser> {
                         ),
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.only(
-                    //       left: 16.0, right: 16.0, bottom: 20.0),
-                    //   child: TextField(
-                    //     controller: _cpassword,
-                    //     obscureText: true,
-                    //     decoration: InputDecoration(
-                    //       labelText: "Password",
-                    //       labelStyle: TextStyle(color: Color(0xff006A6A)),
-                    //       focusedBorder: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(12),
-                    //         borderSide: BorderSide(color: Color(0xff006A6A)),
-                    //       ),
-                    //       enabledBorder: OutlineInputBorder(
-                    //         borderRadius: BorderRadius.circular(12),
-                    //         borderSide: BorderSide(color: Color(0xff006A6A)),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 20.0),
                       child: DropDownTextField(
                         //initialValue: "name4",
-                        //controller: _cnt,
+                        controller: preference,
                         clearOption: true,
                         textFieldDecoration: InputDecoration(
                             labelText: "Looking For?",
@@ -134,7 +116,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                             // dropdownColor: Colors.green,
                             //searchDecoration:
 
-                            hintText: "What are you looking for?"
+                            hintText: context.read<UserProvider>().user.preference!,
                         ),
 
                         validator: (value) {
@@ -161,7 +143,8 @@ class _EditprofileUserState extends State<EditprofileUser> {
                     Padding(
                       padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                       child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async{
+                          await context.read<UserProvider>().editProfile(_cname.text, _cemail.text, preference.dropDownValue!.name);
                           // Navigator.push(context,
                           //     MaterialPageRoute(builder: (context) => ViewprofileUser()));
                         },

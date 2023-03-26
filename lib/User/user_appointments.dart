@@ -1,53 +1,20 @@
 import 'package:flutter/material.dart';
-
-class UserAppointments extends StatefulWidget {
-  const UserAppointments({Key? key}) : super(key: key);
+import 'package:provider/provider.dart';
+import 'package:raabta_fyp/Models/user/user_appointments.dart';
+import 'package:raabta_fyp/controllers/user/user_provider.dart';
+class UserAppointmentsScreen extends StatefulWidget {
+  const UserAppointmentsScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserAppointments> createState() => _UserAppointmentsState();
+  State<UserAppointmentsScreen> createState() => _UserAppointmentsState();
 }
 
-class _UserAppointmentsState extends State<UserAppointments> {
-  List<TestAppointments> appointment = [
-    TestAppointments(
-        name: "Test Doctor 1",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    TestAppointments(
-        name: "Test Doctor 1",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    TestAppointments(
-        name: "Test Doctor 1",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    TestAppointments(
-        name: "Test Doctor 1",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    TestAppointments(
-        name: "Test Doctor 1",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-    TestAppointments(
-        name: "Test Doctor 1",
-        picture: "assets/images/ProfilePic.png",
-        date: "01/03/2023",
-        time: "09:00 pm",
-        status: "Accepted"),
-  ];
+class _UserAppointmentsState extends State<UserAppointmentsScreen> {
+
   @override
   Widget build(BuildContext context) {
+    context.watch<UserProvider>().getAppointments();
+    List<UserAppointments>? appointments = context.read<UserProvider>().user.appointments;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
@@ -83,7 +50,7 @@ class _UserAppointmentsState extends State<UserAppointments> {
                   shrinkWrap: true,
                   physics: const ClampingScrollPhysics(),
                   scrollDirection: Axis.vertical,
-                  itemCount: appointment.length,
+                  itemCount: appointments!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Column(
                       children: [
@@ -105,8 +72,8 @@ class _UserAppointmentsState extends State<UserAppointments> {
                                 child: CircleAvatar(
                                   backgroundColor: const Color(0xFFffffff),
                                   radius: 40,
-                                  child: Image.asset(
-                                    appointment[index].picture,
+                                  child: Image.network(
+                                    appointments[index].photoUrl!,
                                   ),
                                 ),
                               ),
@@ -123,7 +90,7 @@ class _UserAppointmentsState extends State<UserAppointments> {
                                         padding: const EdgeInsets.only(
                                             top: 3, bottom: 4),
                                         child: Text(
-                                          appointment[index].name,
+                                          appointments[index].counsellorName.toString(),
                                           // listData.data[position].title,
                                           style: const TextStyle(
                                             fontSize: 22.0,
@@ -141,7 +108,7 @@ class _UserAppointmentsState extends State<UserAppointments> {
                                             padding:
                                             const EdgeInsets.only(left: 4),
                                             child: Text(
-                                              appointment[index].date,
+                                              appointments[index].appointmentDate!,
                                               // listData.data[position].title,
                                               style: const TextStyle(
                                                 fontSize: 18.0,
@@ -162,7 +129,7 @@ class _UserAppointmentsState extends State<UserAppointments> {
                                               padding: const EdgeInsets.only(
                                                   left: 4),
                                               child: Text(
-                                                appointment[index].time,
+                                                appointments[index].appointmentTime!,
                                                 // listData.data[position].title,
                                                 style: const TextStyle(
                                                   fontSize: 18.0,
@@ -191,7 +158,7 @@ class _UserAppointmentsState extends State<UserAppointments> {
                                           ),
                                         ),
                                         Text(
-                                          appointment[index].status,
+                                          appointments[index].status,
                                           style: const TextStyle(
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.w500,
@@ -218,17 +185,3 @@ class _UserAppointmentsState extends State<UserAppointments> {
   }
 }
 
-class TestAppointments {
-  String name;
-  String picture;
-  String date;
-  String time;
-  String status;
-
-  TestAppointments(
-      {required this.name,
-        required this.picture,
-        required this.date,
-        required this.time,
-        required this.status});
-}

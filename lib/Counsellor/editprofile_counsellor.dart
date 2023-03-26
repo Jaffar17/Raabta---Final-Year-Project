@@ -1,5 +1,7 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
+import 'package:provider/provider.dart';
 
 class EditProfileCounsellor extends StatefulWidget {
   const EditProfileCounsellor({Key? key}) : super(key: key);
@@ -12,15 +14,14 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
 
   TextEditingController _cname = new TextEditingController();
   TextEditingController _cemail = new TextEditingController();
-  TextEditingController _cpassword = new TextEditingController();
+  SingleValueDropDownController specialisation = new SingleValueDropDownController();
 
   void initState() {
     // TODO: implement initState
     super.initState();
     // Step 2 <- SEE HERE
-    _cname.text = 'Counsellor 1';
-    _cemail.text = 'counsellor1@gmail.com';
-    _cpassword.text = 'counsellor123';
+    _cname.text = context.read<CounsellorProvider>().counsellor.displayName!;
+    _cemail.text = context.read<CounsellorProvider>().counsellor.email!;
   }
 
   @override
@@ -48,8 +49,8 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
       Padding(
           padding: const EdgeInsets.only(
               left: 16.0, right: 16.0, bottom: 10.0),
-          child: Image.asset(
-            "assets/images/ProfilePic.png",
+          child: Image.network(
+            context.read<CounsellorProvider>().counsellor.photoUrl!,
             // width: 150,
             // height: 180,
           ),
@@ -117,7 +118,7 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
             left: 16.0, right: 16.0, bottom: 20.0),
         child: DropDownTextField(
           //initialValue: "name4",
-          //controller: _cnt,
+          controller: specialisation,
           clearOption: true,
           textFieldDecoration: InputDecoration(
               labelText: "Specialization",
@@ -161,7 +162,8 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
       Padding(
         padding: const EdgeInsets.only(left: 40, right: 40, top: 10),
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async{
+            await context.read<CounsellorProvider>().editProfile(_cname.text, _cemail.text, specialisation.dropDownValue!.name);
             // Navigator.push(context,
             //     MaterialPageRoute(builder: (context) => ViewprofileUser()));
           },

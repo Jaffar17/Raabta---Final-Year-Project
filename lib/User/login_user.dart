@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:raabta_fyp/User/user_provider.dart';
+import '../controllers/user/user_provider.dart';
 import 'package:raabta_fyp/User/personality_test.dart';
 import 'package:raabta_fyp/User/profile_user.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:raabta_fyp/User/user_model.dart';
+import 'package:raabta_fyp/Models/user/user_model.dart';
 import 'home_user.dart';
-import 'package:raabta_fyp/User/user_model.dart';
+
+
+import 'navbar_user.dart';
 
 class LoginUser extends StatefulWidget {
   const LoginUser({Key? key}) : super(key: key);
@@ -48,6 +50,7 @@ class _LoginUserState extends State<LoginUser> {
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                   child: ElevatedButton(
                     onPressed: ()async {
+
                       final GoogleSignInAccount? user = await _googleSignIn.signIn();
 
                       final  GoogleSignInAuthentication? authentication = await user?.authentication;
@@ -60,14 +63,16 @@ class _LoginUserState extends State<LoginUser> {
                             await _auth.signInWithCredential((credential));
                         if(userCredential.user != null){
                           if(userCredential.additionalUserInfo!.isNewUser){
-                            context.read<UserProvider>().addUser( new UserModel(id: double.parse(user!.id), displayName: user?.displayName, email: user!.email, photoUrl: user?.photoUrl));
+                            await context.read<UserProvider>().addUser( UserModel(id: user!.id, fullName: user.displayName, email: user.email, photoUrl: user.photoUrl, dateOfBirth: null, gender: null, preference: null,appointments: []));
+                            await context.read<UserProvider>().getUser(user!.id);
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) => const ProfileUser()));
-                            _googleSignIn.signOut();
+                            await _googleSignIn.signOut();
                           }
                           else{
+                            await context.read<UserProvider>().getUser(user!.id);
                             Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const HomeUser()));
+                                MaterialPageRoute(builder: (context) => const NavBarUser()));
                             _googleSignIn.signOut();
                           }
                         }

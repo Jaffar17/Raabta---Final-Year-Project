@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:raabta_fyp/Counsellor/counsellor_provider.dart';
-import 'package:raabta_fyp/User/user_provider.dart';
 import 'package:provider/provider.dart';
+import 'controllers/counsellor/counsellor_provider.dart';
+import 'controllers/user/user_provider.dart';
 import 'first_screen.dart';
 
 
@@ -16,7 +16,6 @@ void main()async {
         providers:[
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => CounsellorProvider()),
-
         ],
             child: MyApp(),
   ));
