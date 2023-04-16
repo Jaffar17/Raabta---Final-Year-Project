@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import '../controllers/user/user_provider.dart';
 import 'package:raabta_fyp/User/personality_test.dart';
@@ -6,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:raabta_fyp/Models/user/user_model.dart';
+import '../helper/Dialogs.dart';
 import 'home_user.dart';
 
 
@@ -21,11 +24,72 @@ class LoginUser extends StatefulWidget {
 class _LoginUserState extends State<LoginUser> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  bool isLoading=false;
+
+  _handleSignIn()async{
+    Dialogs.showProgressBar(context);
+    _signInWithGoogle().then((UserCredential) async {
+      Navigator.pop(context);
+      if(UserCredential != null){
+        if(UserCredential.additionalUserInfo!.isNewUser){
+          print(UserCredential.user!.uid);
+          await context.read<UserProvider>().addUser( new UserModel(id: UserCredential.user!.uid, fullName: UserCredential.user!.displayName, email: UserCredential.user!.email, photoUrl: UserCredential.user!.photoURL,appointments: []));
+          await context.read<UserProvider>().getUser(UserCredential.user!.uid);
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const ProfileUser()));
+          await _googleSignIn.signOut();
+        }
+        else{
+          try {
+            await context.read<UserProvider>().getUser(UserCredential.user!.uid);
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const NavBarUser()));
+            await _googleSignIn.signOut();
+          }
+          catch(e){
+            Dialogs.showSnackBar(context, "This email is registered as a Counsellor");
+          }
+
+        }
+      }
+
+
+
+    }
+    );
+  }
+
+  Future<UserCredential?> _signInWithGoogle() async {
+    try{
+      //await InternetAddress.lookup("google.com");
+      await _googleSignIn.signOut();
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      return await _auth.signInWithCredential(credential);
+    }
+    catch(e){
+      print('Internet Issue $e');
+      Dialogs.showSnackBar(context, "Please check your internet");
+      return null;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: Container(
+          body: isLoading?Center(child:CircularProgressIndicator()):Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/Background.jpeg"), fit: BoxFit.cover)),
@@ -50,33 +114,7 @@ class _LoginUserState extends State<LoginUser> {
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                   child: ElevatedButton(
                     onPressed: ()async {
-
-                      final GoogleSignInAccount? user = await _googleSignIn.signIn();
-
-                      final  GoogleSignInAuthentication? authentication = await user?.authentication;
-                      if(authentication?.accessToken!=null && authentication?.idToken!=null) {
-                        final credential = GoogleAuthProvider.credential(
-                          accessToken: authentication?.accessToken,
-                          idToken: authentication?.idToken,
-                        );
-                        UserCredential userCredential =
-                            await _auth.signInWithCredential((credential));
-                        if(userCredential.user != null){
-                          if(userCredential.additionalUserInfo!.isNewUser){
-                            await context.read<UserProvider>().addUser( UserModel(id: user!.id, fullName: user.displayName, email: user.email, photoUrl: user.photoUrl, dateOfBirth: null, gender: null, preference: null,appointments: []));
-                            await context.read<UserProvider>().getUser(user!.id);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const ProfileUser()));
-                            await _googleSignIn.signOut();
-                          }
-                          else{
-                            await context.read<UserProvider>().getUser(user!.id);
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => const NavBarUser()));
-                            _googleSignIn.signOut();
-                          }
-                        }
-                      }
+                      _handleSignIn();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffFFFFFF),

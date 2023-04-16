@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/Counsellor/appointment_counsellor.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
@@ -11,6 +13,8 @@ import 'package:provider/provider.dart';
 
 import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
 
+import '../helper/Dialogs.dart';
+
 
 class LoginCounsellor extends StatefulWidget {
   const LoginCounsellor({Key? key}) : super(key: key);
@@ -22,6 +26,66 @@ class LoginCounsellor extends StatefulWidget {
 class _LoginCounsellorState extends State<LoginCounsellor> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+
+
+  _handleSignIn()async{
+    Dialogs.showProgressBar(context);
+    _signInWithGoogle().then((UserCredential) async {
+      Navigator.pop(context);
+        if(UserCredential != null){
+          if(UserCredential.additionalUserInfo!.isNewUser){
+            print(UserCredential.user!.uid);
+             await context.read<CounsellorProvider>().addCounsellor( new Counsellor(id: UserCredential.user!.uid, displayName: UserCredential.user!.displayName, email: UserCredential.user!.email, photoUrl: UserCredential.user!.photoURL,appointments: []));
+             await context.read<CounsellorProvider>().getCounsellorById(UserCredential.user!.uid);
+             Navigator.pushReplacement(context,
+                 MaterialPageRoute(builder: (context) => const ProfileCounsellor()));
+             await _googleSignIn.signOut();
+          }
+          else{
+             try{
+               await context.read<CounsellorProvider>().getCounsellorById(UserCredential.user!.uid);
+               Navigator.pushReplacement(context,
+                   MaterialPageRoute(builder: (context) => const NavBarCounsellor()));
+               await _googleSignIn.signOut();
+             }
+             catch(e){
+               Dialogs.showSnackBar(context, "This account is already in use as User");
+             }
+          }
+        }
+      }
+    );
+  }
+
+  Future<UserCredential?> _signInWithGoogle() async {
+    try{
+      await InternetAddress.lookup("google.com");
+      await _googleSignIn.signOut();
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      return await _auth.signInWithCredential(credential);
+    }
+    catch(e){
+      print('Internet Issue $e');
+      Dialogs.showSnackBar(context, "Please check your internet");
+      return null;
+    }
+  }
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,36 +116,8 @@ class _LoginCounsellorState extends State<LoginCounsellor> {
                 Padding(
                   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                   child: ElevatedButton(
-                    onPressed: ()async {
-                      {
-
-                        final GoogleSignInAccount? user = await _googleSignIn.signIn();
-
-                        final  GoogleSignInAuthentication? authentication = await user?.authentication;
-                        if(authentication?.accessToken!=null && authentication?.idToken!=null) {
-                          final credential = GoogleAuthProvider.credential(
-                            accessToken: authentication?.accessToken,
-                            idToken: authentication?.idToken,
-                          );
-                          UserCredential userCredential =
-                              await _auth.signInWithCredential((credential));
-                          if(userCredential.user != null){
-                            if(userCredential.additionalUserInfo!.isNewUser){
-                              await context.read<CounsellorProvider>().addCounsellor( new Counsellor(id: user!.id, displayName: user?.displayName, email: user!.email, photoUrl: user?.photoUrl,appointments: []));
-                              await context.read<CounsellorProvider>().getCounsellorById(user.id);
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => const ProfileCounsellor()));
-                               _googleSignIn.signOut();
-                            }
-                            else{
-                              await context.read<CounsellorProvider>().getCounsellorById(user!.id);
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => const NavBarCounsellor()));
-                              _googleSignIn.signOut();
-                            }
-                          }
-                        }
-                      }
+                    onPressed: ()async{
+                      _handleSignIn();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xffFFFFFF),

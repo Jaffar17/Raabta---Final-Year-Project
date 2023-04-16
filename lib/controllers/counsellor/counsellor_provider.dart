@@ -10,6 +10,7 @@ class CounsellorProvider with ChangeNotifier{
   Counsellor counsellor = Counsellor();
   List<Appointments> confirmedAppointments=[];
   final CounsellorRepository _counsellorRepository= FirebaseCounsellorRepository();
+  bool isLoading=false;
 
   Future<void>addCounsellor(Counsellor counsellor)async{
     await _counsellorRepository.addCounsellor(counsellor);
@@ -36,8 +37,10 @@ class CounsellorProvider with ChangeNotifier{
   }
 
   Future<void>getAppointments()async{
-    counsellor= await _counsellorRepository.getCounsellorById(counsellor.id.toString());
+    counsellor=  await _counsellorRepository.getCounsellorById(counsellor.id.toString());
     notifyListeners();
+
+
   }
 
   void acceptAppointment(Appointments appointment)async{
@@ -77,8 +80,7 @@ class CounsellorProvider with ChangeNotifier{
     notifyListeners();
 
   }
-
-  void getConfirmedAppointments(){
+  Future<void> getConfirmedAppointments()async{
     counsellor.appointments!.forEach((element) {if(element.status=="Confirmed")confirmedAppointments.add(element);});
     notifyListeners();
   }

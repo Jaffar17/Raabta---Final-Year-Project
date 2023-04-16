@@ -10,9 +10,11 @@ class UserProvider with ChangeNotifier{
   final UserRepository _userRepository= FirebaseUsersRepository();
   UserModel user =UserModel();
   List<Counsellor> counsellors=[];
+   bool isLoading= true;
 
   Future<UserModel> getUser(String id)async{
     user = await _userRepository.getUser(id);
+    isLoading=false;
     notifyListeners();
     return user;
   }

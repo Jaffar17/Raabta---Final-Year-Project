@@ -54,7 +54,7 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
+                  child:ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
                     scrollDirection: Axis.vertical,
