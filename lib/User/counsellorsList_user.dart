@@ -17,6 +17,7 @@ class CounsellorsList extends StatefulWidget {
 }
 
 class _CounsellorsListState extends State<CounsellorsList> {
+
   Future<void> createAppointment(Counsellor c) async {
     var uuid = Uuid();
     String appointmentId= uuid.v4();
@@ -39,11 +40,16 @@ class _CounsellorsListState extends State<CounsellorsList> {
             appointmentTime: "new time"));
   }
 
+@override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<UserProvider>().getCounsellors();
+  }
+
   @override
   Widget build(BuildContext context) {
-    context.read<UserProvider>().getCounsellors();
-    List<Counsellor> counsellorsList =
-        context.watch<UserProvider>().counsellors;
+    final counsellorsList =  context.watch<UserProvider>().counsellors;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -54,7 +60,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
               image: DecorationImage(
                   image: AssetImage("assets/images/Background.jpeg"),
                   fit: BoxFit.cover)),
-          child: Column(
+          child: context.watch<UserProvider>().isLoading?Center(child:CircularProgressIndicator()):Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(
