@@ -5,6 +5,7 @@ import 'package:raabta_fyp/User/editprofile_user.dart';
 import 'package:raabta_fyp/User/home_user.dart';
 import 'package:raabta_fyp/User/inbox_user.dart';
 import 'package:raabta_fyp/User/user_appointments.dart';
+import 'package:raabta_fyp/User/viewprofile_user.dart';
 
 class NavBarUser extends StatefulWidget {
   const NavBarUser({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _NavBarUserState extends State<NavBarUser> {
     CounsellorsList(),
     HomeUser(),
     UserAppointmentsScreen(),
-    EditprofileUser(),
+    ViewprofileUser(),
   ];
 
   void _onItemTapped(int index) {

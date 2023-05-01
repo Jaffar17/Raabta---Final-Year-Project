@@ -49,11 +49,20 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 16.0, right: 16.0, bottom: 10.0),
-                    child: Image.asset(
-                      "assets/images/ProfileHeading.png",
-                      width: 150,
-                      height: 180,
+                        top: 35, bottom: 35, right: 20, left: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: Color(0xFFF6BD12), width: 2))),
+                      child: Text(
+                        "Profile Completeness",
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontFamily: "MontserratMedium",
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
                   Padding(

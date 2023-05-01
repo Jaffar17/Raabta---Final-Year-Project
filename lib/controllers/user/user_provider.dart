@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:raabta_fyp/controllers/user/user_repository.dart';
 import 'package:raabta_fyp/Models/user/user_model.dart';
 import 'package:raabta_fyp/Models/user/user_appointments.dart';
+import '../../Models/Chats/ChatRoom.dart';
 import '../../Models/counsellor/counsellor_model.dart';
 import '../../Models/counsellor/counsellor_appointments.dart';
 import 'user_repository.dart';
@@ -11,6 +12,8 @@ class UserProvider with ChangeNotifier{
   UserModel user =UserModel();
   List<Counsellor> counsellors = [];
    bool isLoading= true;
+  late ChatRoom? chatRoom = ChatRoom();
+  List<Messages>? userchat=[];
 
   Future<UserModel> getUser(String id)async{
     user = await _userRepository.getUser(id);
@@ -61,6 +64,33 @@ Future <void> setAppointment(Counsellor counsellor, Appointments c_appointment)a
     counsellor.appointments!.add(c_appointment);
     await _userRepository.setAppointment(counsellor);
 }
+  Future<void> createChatSession(ChatRoom chatRoom)async{
+    await _userRepository.createChatSession(chatRoom);
+  }
+
+  Future<ChatRoom?> getChatRoom(String chatRoomId) async{
+    print("controller before repo");
+    chatRoom =    await _userRepository.getChatRoom(chatRoomId) ;
+    print("controller after repo");
+    if(chatRoom!=null){
+      userchat=chatRoom!.messages;
+      notifyListeners();
+    }
+    else{
+      chatRoom=null;
+      notifyListeners();
+    }
+  }
+
+  Future <void> sendMessage (Messages message) async {
+    //userchat!.add(message);
+    chatRoom!.messages!.add(message);
+    print(chatRoom!.messages);
+    await _userRepository.createChatSession(chatRoom!);
+    notifyListeners();
+  }
+
+
 
 }
 
