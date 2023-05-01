@@ -22,6 +22,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
     // Step 2 <- SEE HERE
     _cname.text = context.read<UserProvider>().user.fullName!;
     _cemail.text = context.read<UserProvider>().user.email!;
+    // preference.dropDownValue =  context.read<UserProvider>().user.preference!;
 
   }
 
@@ -40,11 +41,20 @@ class _EditprofileUserState extends State<EditprofileUser> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 16.0, right: 16.0),
-                      child: Image.asset(
-                        "assets/images/ProfileHeading.png",
-                        width: 150,
-                        height: 200,
+                          top: 35, bottom: 35, right: 20, left: 20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(
+                                    color: Color(0xFFF6BD12), width: 2))),
+                        child: Text(
+                          "Edit Profile",
+                          style: TextStyle(
+                            fontSize: 36,
+                            fontFamily: "MontserratMedium",
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
@@ -98,7 +108,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       padding: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 20.0),
                       child: DropDownTextField(
-                        //initialValue: "name4",
+                        initialValue: "name4",
                         controller: preference,
                         clearOption: true,
                         textFieldDecoration: InputDecoration(

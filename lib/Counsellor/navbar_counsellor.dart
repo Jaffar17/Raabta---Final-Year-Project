@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:raabta_fyp/Counsellor/editprofile_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/home_counsellor.dart';
 import 'package:raabta_fyp/Counsellor/inbox_counsellor.dart';
+import 'package:raabta_fyp/Counsellor/viewprofile_counsellor.dart';
 
 import 'appointment_counsellor.dart';
 import 'notes_counsellor.dart';
@@ -24,7 +25,7 @@ class _NavBarCounsellorState extends State<NavBarCounsellor> {
     InboxCounsellor(),
     HomeCounsellor(),
     AppointmentCounsellor(),
-    EditProfileCounsellor(),
+    ViewprofileCounsellor(),
   ];
 
   void _onItemTapped(int index) {

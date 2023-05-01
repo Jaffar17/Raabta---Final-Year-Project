@@ -18,16 +18,26 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
           height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage("assets/images/Background.jpeg"), fit: BoxFit.cover)),
+                  image: AssetImage("assets/images/Background.jpeg"),
+                  fit: BoxFit.cover)),
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    left: 16.0, right: 16.0),
-                child: Image.asset(
-                  "assets/images/ProfileHeading.png",
-                  width: 150,
-                  height: 150,
+                    top: 35, bottom: 35, right: 20, left: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color(0xFFF6BD12), width: 2))),
+                  child: Text(
+                    "Profile",
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontFamily: "MontserratMedium",
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
               Padding(
@@ -42,13 +52,17 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
               Padding(
                   padding: const EdgeInsets.only(
                       left: 16.0, right: 16.0, bottom: 6.0, top: 10),
-                  child: Text("Patient 1", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),)
-              ),
+                  child: Text(
+                    "Patient 1",
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+                  )),
               Padding(
                   padding: const EdgeInsets.only(
                       left: 16.0, right: 16.0, bottom: 10.0),
-                  child: Text("Anxiety", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),)
-              ),
+                  child: Text(
+                    "Anxiety",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
+                  )),
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                 child: ElevatedButton(
@@ -57,7 +71,13 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                     //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
                     //
                   },
-                  child: Text("View Personality Test", style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500, color: Color(0xff006A6A)),),
+                  child: Text(
+                    "View Personality Test",
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff006A6A)),
+                  ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xffFFFFFF),
                     minimumSize: Size(300, 50),
@@ -69,7 +89,7 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+                padding: const EdgeInsets.only(left: 25, right: 25, top: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,11 +98,17 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                       padding: const EdgeInsets.only(left: 20, right: 10),
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => EditprofileUser()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EditprofileUser()));
                           //
                         },
-                        child: Text("EDIT", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                        child: Text(
+                          "EDIT",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff006A6A),
                           minimumSize: Size(120, 50),
@@ -104,7 +130,11 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                           //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
                           // //
                         },
-                        child: Text("LOGOUT", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                        child: Text(
+                          "LOGOUT",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xffF93535),
                           minimumSize: Size(120, 50),

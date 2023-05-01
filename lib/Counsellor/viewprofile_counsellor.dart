@@ -23,11 +23,20 @@ class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 16.0, right: 16.0),
-                  child: Image.asset(
-                    "assets/images/ProfileHeading.png",
-                    width: 150,
-                    height: 150,
+                      top: 35, bottom: 35, right: 20, left: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Color(0xFFF6BD12), width: 2))),
+                    child: Text(
+                      "Profile",
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontFamily: "MontserratMedium",
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
                 Padding(

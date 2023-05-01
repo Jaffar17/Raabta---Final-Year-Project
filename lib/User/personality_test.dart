@@ -33,11 +33,20 @@ class _PersonalityTestState extends State<PersonalityTest> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 8.0, right: 8.0, top: 7),
-                    child: Image.asset(
-                      "assets/images/ptest.png",
-                      height: 100,
-                      width: 200,
+                        top: 35, bottom: 35, right: 20, left: 20),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: Color(0xFFF6BD12), width: 2))),
+                      child: Text(
+                        "Personality Test",
+                        style: TextStyle(
+                          fontSize: 36,
+                          fontFamily: "MontserratMedium",
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ),
                   const Text(
