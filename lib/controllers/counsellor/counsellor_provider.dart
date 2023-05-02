@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:raabta_fyp/Models/Chats/ChatRoom.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_appointments.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
 import '../../Models/user/user_model.dart';
@@ -11,6 +12,9 @@ class CounsellorProvider with ChangeNotifier{
   List<Appointments> confirmedAppointments=[];
   final CounsellorRepository _counsellorRepository= FirebaseCounsellorRepository();
   bool isLoading=false;
+  List<ChatRoom> chats=[];
+  late ChatRoom? chatRoom=ChatRoom();
+  List<Messages>?counsellorChats=[];
 
   Future<void>addCounsellor(Counsellor counsellor)async{
     await _counsellorRepository.addCounsellor(counsellor);
@@ -84,5 +88,33 @@ class CounsellorProvider with ChangeNotifier{
     counsellor.appointments!.forEach((element) {if(element.status=="Confirmed")confirmedAppointments.add(element);});
     notifyListeners();
   }
+  //new edit
+  Future<void>getChats()async{
+    chats=[];
+    notifyListeners();
+    List<ChatRoom> allChats=await _counsellorRepository.getAllChats();
+    allChats.forEach((element)=>{
+      if(element.counsellorId == counsellor.id){
+        chats.add(element)
+      }
+    });
+    notifyListeners();
+    print(chats);
+
+  }
+
+  Future<ChatRoom?> getChatRoom(String chatRoomId) async{
+    print("controller before repo");
+    chatRoom =    await _counsellorRepository.getChatRoom(chatRoomId) ;
+    notifyListeners();
+    print("controller after repo");
+  }
+  Future<void>sendMessage(Messages message)async{
+    chatRoom!.messages!.add(message);
+    print(chatRoom);
+    await _counsellorRepository.sendMessage(chatRoom!);
+    notifyListeners();
+  }
+
 }
 

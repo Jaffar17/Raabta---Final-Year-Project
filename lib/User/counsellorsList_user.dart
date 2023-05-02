@@ -20,7 +20,7 @@ class CounsellorsList extends StatefulWidget {
 }
 
 class _CounsellorsListState extends State<CounsellorsList> {
-  Future<void>chatSession(String chatRoomId, String counsellorId,String counsellorName)async{
+  Future<void>chatSession(String chatRoomId, String counsellorId,String counsellorName, String counsellorImageUrl)async{
     context.read<UserProvider>().getChatRoom(context.read<UserProvider>().user.id.toString()+counsellorId);
 
     Future.delayed(const Duration(seconds: 1),(){
@@ -28,7 +28,8 @@ class _CounsellorsListState extends State<CounsellorsList> {
       print(chatroom.toString());
       if(chatroom == null)
       {
-        context.read<UserProvider>().createChatSession(new ChatRoom(id: context.read<UserProvider>().user.id.toString() + counsellorId, userId: context.read<UserProvider>().user.id.toString(), counsellorId: counsellorId));
+        //new edit
+        context.read<UserProvider>().createChatSession(new ChatRoom(id: context.read<UserProvider>().user.id.toString() + counsellorId, userId: context.read<UserProvider>().user.id.toString(), counsellorId: counsellorId, userName: context.read<UserProvider>().user.fullName, userImage: context.read<UserProvider>().user.photoUrl, counsellorName: counsellorName, counsellorImage: counsellorImageUrl));
         context.read<UserProvider>().getChatRoom(context.read<UserProvider>().user.id.toString()+counsellorId);
         Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoomScreen(chatSessionId: context.read<UserProvider>().user.id.toString()+counsellorId,counsellorId: counsellorId,counsellorName: counsellorName)));
         print("new chat");
@@ -190,7 +191,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
                                               bottom: 12.0),
                                           child: InkWell(
                                             onTap: () {
-                                              chatSession(context.read<UserProvider>().user.id.toString()+counsellorsList[index].id.toString(), counsellorsList[index].id.toString(), "Dr. "+counsellorsList[index].displayName!.split(' ')[0]);
+                                              chatSession(context.read<UserProvider>().user.id.toString()+counsellorsList[index].id.toString(), counsellorsList[index].id.toString(), "Dr. "+counsellorsList[index].displayName!.split(' ')[0], counsellorsList[index].photoUrl.toString());
                                               // Navigator.push(
                                               //     context,
                                               //     MaterialPageRoute(

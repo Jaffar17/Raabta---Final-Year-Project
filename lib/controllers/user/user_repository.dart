@@ -19,6 +19,7 @@ abstract class UserRepository {
   Future<ChatRoom?> getChatRoom(String chatRoomId);
 
   Future<void> sendMessage(ChatRoom chatRoom);
+  Future<List<ChatRoom>> getAllChats();
 
 
 }
@@ -96,7 +97,13 @@ class FirebaseUsersRepository implements UserRepository {
     await db
         .collection('chats')
         .doc(chatRoom.id.toString())
-        .set(ChatRoom().toJson());
+        .set(chatRoom.toJson());
+  }
+
+  Future<List<ChatRoom>>getAllChats()async{
+    List<ChatRoom>chats=[];
+    await db.collection('chats').get().then((value)=> value.docs.forEach((element){chats.add(ChatRoom.fromJson(element.data()));}));
+    return chats;
   }
 
 

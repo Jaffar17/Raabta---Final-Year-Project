@@ -11,9 +11,9 @@ class UserProvider with ChangeNotifier{
   final UserRepository _userRepository= FirebaseUsersRepository();
   UserModel user =UserModel();
   List<Counsellor> counsellors = [];
-   bool isLoading= true;
+  bool isLoading= true;
   late ChatRoom? chatRoom = ChatRoom();
-  List<Messages>? userchat=[];
+  List<ChatRoom> userChats=[];
 
   Future<UserModel> getUser(String id)async{
     user = await _userRepository.getUser(id);
@@ -73,7 +73,7 @@ Future <void> setAppointment(Counsellor counsellor, Appointments c_appointment)a
     chatRoom =    await _userRepository.getChatRoom(chatRoomId) ;
     print("controller after repo");
     if(chatRoom!=null){
-      userchat=chatRoom!.messages;
+      print(chatRoom!.messages);
       notifyListeners();
     }
     else{
@@ -86,8 +86,22 @@ Future <void> setAppointment(Counsellor counsellor, Appointments c_appointment)a
     //userchat!.add(message);
     chatRoom!.messages!.add(message);
     print(chatRoom!.messages);
-    await _userRepository.createChatSession(chatRoom!);
+    await _userRepository.sendMessage(chatRoom!);
     notifyListeners();
+  }
+//new edited
+  Future<List<ChatRoom>> getUserChats()async{
+    print(userChats);
+    print("inside controller before fetch");
+    userChats=[];
+    List<ChatRoom> allChats= await _userRepository.getAllChats();
+    allChats.forEach((element) {if (element.userId==user.id){
+      userChats.add(element);
+    }});
+    notifyListeners();
+    print('after fetching');
+    print(userChats);
+    return userChats;
   }
 
 

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/User/user_chat_screen.dart';
 
+import '../Models/Chats/ChatRoom.dart';
+import 'package:provider/provider.dart';
+
+import '../controllers/user/user_provider.dart';
 class InboxUser extends StatefulWidget {
   const InboxUser({Key? key}) : super(key: key);
 
@@ -14,8 +19,18 @@ class _InboxUserState extends State<InboxUser> {
     TestData(name: "Patient 1", message: "Hello there!"),
   ];
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<UserProvider>().getUserChats();
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    List<ChatRoom> chats = context.watch<UserProvider>().userChats;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -53,7 +68,7 @@ class _InboxUserState extends State<InboxUser> {
               ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  itemCount: tdList.length,
+                  itemCount: chats.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(
@@ -71,9 +86,9 @@ class _InboxUserState extends State<InboxUser> {
                           //   ),
                           //   borderRadius: BorderRadius.circular(10),
                           // ),
-                          leading: Image.asset("assets/images/ProfilePic.png"),
+                           leading: Image.network(chats[index].counsellorImage.toString()),
                           title: Text(
-                            tdList[index].name,
+                            chats[index].counsellorName.toString(),
                             style: const TextStyle(
                               fontSize: 20,
                               fontFamily: "MontserratMedium",
@@ -81,7 +96,11 @@ class _InboxUserState extends State<InboxUser> {
                           ),
                           subtitle: Text(
                               "${tdList[index].message.substring(0, 12)}..."),
+                          onTap: (){
+                             Navigator.push(context, MaterialPageRoute(builder:(context)=> ChatRoomScreen(chatSessionId: chats[index].id.toString(), counsellorId: chats[index].counsellorId.toString(), counsellorName: chats[index].counsellorName.toString())));
+                          },
                         ),
+
                       ),
                     );
                   }),

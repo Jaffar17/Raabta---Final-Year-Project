@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:raabta_fyp/Models/Chats/ChatRoom.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_appointments.dart';
 
@@ -9,6 +10,9 @@ abstract class CounsellorRepository{
   Future<Counsellor>getCounsellorById(String id);
   Future<UserModel>getUserById(String id);
   Future<void>updateAppointment(Counsellor counsellor, UserModel user);
+  Future<List<ChatRoom>>getAllChats();
+  Future<ChatRoom?> getChatRoom(String chatRoomId);
+  Future<void>sendMessage(ChatRoom chatRoom);
 
 }
 
@@ -46,4 +50,38 @@ class FirebaseCounsellorRepository implements CounsellorRepository {
     });
     return user;
   }
+
+  Future<List<ChatRoom>>getAllChats()async{
+    List<ChatRoom> chats=[];
+    await db.collection('chats').get().then((value)=>{value.docs.forEach((element) {chats.add(ChatRoom.fromJson(element.data()));})});
+    return chats;
+  }
+
+
+  Future<ChatRoom?> getChatRoom(String chatRoomId) async {
+    ChatRoom chatRoom = ChatRoom();
+    try {
+      await db
+          .collection('chats')
+          .doc(chatRoomId)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        chatRoom =
+            ChatRoom.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+      });
+      print(chatRoom.toString() + "firebases");
+      return chatRoom;
+    } catch (e) {
+      print("Exception");
+      return null;
+    }
+  }
+
+  Future<void>sendMessage(ChatRoom chatRoom)async{
+    await db
+        .collection('chats')
+        .doc(chatRoom.id.toString())
+        .set(chatRoom.toJson());
+  }
+
 }

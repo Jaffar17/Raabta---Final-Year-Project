@@ -1,31 +1,50 @@
-class ChatRoom
-{
+class ChatRoom {
   String? id;
   String? userId;
   String? counsellorId;
-  List<Messages>? messages=[];
+  String? userName;
+  String? userImage;
+  String? counsellorName;
+  String? counsellorImage;
+  List<Messages>? messages = [];
 
   ChatRoom({
-     this.id,
-     this.userId,
-     this.counsellorId,
+    this.id,
+    this.userId,
+    this.counsellorId,
+    this.userName,
+    this.userImage,
+    this.counsellorName,
+    this.counsellorImage,
   });
-  Map<String,dynamic> toJson()
-  {
-   final Map<String, dynamic> chatData= {};
-   chatData['id'] = this.id;
-   chatData['userId'] = this.userId;
-   chatData['counsellorId'] = this.counsellorId;
-   if(this.messages!= null){
-     chatData['messages']= this.messages!.map((e) => e.toJson()).toList();
-   }
-   return chatData;
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> chatData = {};
+    chatData['id'] = this.id;
+    chatData['userId'] = this.userId;
+    chatData['counsellorId'] = this.counsellorId;
+    //new edit
+    chatData['userName'] = this.userName;
+    chatData['userImage'] = this.userImage;
+    chatData['counsellorName'] = this.counsellorName;
+    chatData['counsellorImage'] = this.counsellorImage;
+    if (this.messages != null) {
+      chatData['messages'] = this.messages!.map((e) => e.toJson()).toList();
+    }
+    return chatData;
   }
 
-  ChatRoom.fromJson(Map<String,dynamic> map){
-    id=map['id'];
-    userId=map['userId'];
-    counsellorId=map['counsellorId'];
+  ChatRoom.fromJson(Map<String, dynamic> map){
+    id = map['id'];
+    userId = map['userId'];
+    counsellorId = map['counsellorId'];
+
+    //new edit
+    counsellorName = map['counsellorName'];
+    counsellorImage = map['counsellorImage'];
+    userName = map['userName'];
+    userImage = map['userImage'];
+
     if (map['messages'] != null) {
       messages = <Messages>[];
       map['messages'].forEach((v) {
@@ -34,13 +53,13 @@ class ChatRoom
     }
   }
 
+
   @override
   String toString() {
-    return 'ChatRoom{id: $id, userId: $userId, counsellorId: $counsellorId, messages: $messages}';
+    return 'ChatRoom{id: $id, userId: $userId, counsellorId: $counsellorId, userName: $userName, userImage: $userImage, counsellorName: $counsellorName, counsellorImage: $counsellorImage, messages: $messages}';
   }
 }
-
-class Messages {
+  class Messages {
   int ? id;
   String ?toId;
   String ?fromId;
