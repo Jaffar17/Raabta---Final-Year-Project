@@ -1,6 +1,15 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:raabta_fyp/Models/counsellor/counsellor_notes_model.dart';
+import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
+import 'package:provider/provider.dart';
+
+import '../Models/counsellor/counsellor_notes_model.dart';
+
+
+
+
 
 class NewNoteCounsellor extends StatefulWidget {
   const NewNoteCounsellor({Key? key}) : super(key: key);
@@ -12,9 +21,12 @@ class NewNoteCounsellor extends StatefulWidget {
 class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
 
   TextEditingController dOBController = TextEditingController();
+  SingleValueDropDownController patientName = SingleValueDropDownController();
+  TextEditingController notesController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    context.read<CounsellorProvider>().getPatientsListForNotes();
     return SafeArea(
       child: Scaffold(
             resizeToAvoidBottomInset: false,
@@ -95,7 +107,7 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                                     height: 40,
                                     child: DropDownTextField(
                                       //initialValue: "name4",
-                                      //controller: _cnt,
+                                      controller: patientName,
                                       clearOption: true,
                                       textFieldDecoration: InputDecoration(
                                     labelText: "Select Patient",
@@ -122,13 +134,10 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                                           return null;
                                         }
                                       },
-                                      dropDownItemCount: 3,
+                                      dropDownItemCount: context.read<CounsellorProvider>().patients_for_notes.length,
+                                      dropDownList: context.read<CounsellorProvider>().patients_for_notes,
 
-                                      dropDownList: const [
-                                        DropDownValueModel(name: 'Patient 1', value: "value1"),
-                                        DropDownValueModel(name: 'Patient 2', value: "value2",),
-                                        DropDownValueModel(name: 'Patient 3', value: "value3"),
-                                      ],
+
                                       //onChanged: (val) {},
                                     ),
                                   ),
@@ -197,6 +206,7 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                                   borderRadius: BorderRadius.all(Radius.circular(12)),
                                   elevation: 12,
                                   child: TextField(
+                                      controller: notesController,
                                       keyboardType: TextInputType.multiline,
                                       maxLines: 4,
                                       decoration: InputDecoration(
@@ -219,7 +229,10 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                                 child: ElevatedButton(
-                                  onPressed: () {
+                                  onPressed: () async {
+                                    Notes note = new Notes(id:context.read<CounsellorProvider>().counsellor.notes!.length+1,Date: dOBController.value.text,patientName: patientName.dropDownValue!.name ,note:notesController.value.text);
+                                    await context.read<CounsellorProvider>().addNotes(note);
+                                    Navigator.pop(context);
                                     // Navigator.push(context,
                                     //     MaterialPageRoute(builder: (context) => NavBarCounsellor()));
                                   },

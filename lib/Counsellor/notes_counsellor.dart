@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/Counsellor/viewnote_counsellor.dart';
 
+import '../Models/counsellor/counsellor_notes_model.dart';
+import '../controllers/counsellor/counsellor_provider.dart';
 import 'newnote_counsellor.dart';
+import 'package:provider/provider.dart';
 
 class NotesCounsellor extends StatefulWidget {
   const NotesCounsellor({Key? key}) : super(key: key);
@@ -12,14 +15,11 @@ class NotesCounsellor extends StatefulWidget {
 
 class _NotesCounsellorState extends State<NotesCounsellor> {
 
-  List<TestDataNotes> tdList = [
-    TestDataNotes(name: "Patient 1", message: "Improvement can be seen.", date: "2 Jan 2023"),
-    TestDataNotes(name: "Patient 2", message: "Treatment changed.", date: "31 Jan 2023"),
-    TestDataNotes(name: "Patient 3", message: "Symptoms still persists.", date: "10 Feb 2023"),
-  ];
+
 
   @override
   Widget build(BuildContext context) {
+    List<Notes> tdList = context.watch<CounsellorProvider>().counsellor.notes!;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -79,17 +79,17 @@ class _NotesCounsellorState extends State<NotesCounsellor> {
                             // ),
                             leading: Image.asset("assets/images/ProfilePic.png"),
                             title: Text(
-                              tdList[index].name,
+                              tdList[index].patientName.toString(),
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontFamily: "MontserratMedium",
                               ),
                             ),
                             subtitle: Text(
-                                "${tdList[index].message.substring(0, 12)}..."),
+                                tdList[index].note.toString()),
                             trailing: Padding(
                               padding: const EdgeInsets.only(bottom: 25),
-                              child: Text(tdList[index].date, style: TextStyle(fontSize: 14),),
+                              child: Text(tdList[index].Date.toString(), style: TextStyle(fontSize: 14),),
                             ),
                           ),
 
@@ -121,10 +121,3 @@ class _NotesCounsellorState extends State<NotesCounsellor> {
   }
 }
 
-class TestDataNotes {
-  String name;
-  String message;
-  String date;
-
-  TestDataNotes({required this.name, required this.message, required this.date});
-}

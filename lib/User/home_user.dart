@@ -35,7 +35,7 @@ class _HomeUserState extends State<HomeUser> {
                   child: ElevatedButton(
                     onPressed: () {
                       // Navigator.push(context,
-                      //     MaterialPageRoute(builder: (context) => const NavBarUser()));
+                      //      MaterialPageRoute(builder: (context) => const NavBarUser()));
                     },
                     child: const Text(
                       "RECORD ",
@@ -51,6 +51,7 @@ class _HomeUserState extends State<HomeUser> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
+
                     ),
                   ),
                 ),

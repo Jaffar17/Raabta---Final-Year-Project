@@ -1,7 +1,9 @@
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:raabta_fyp/Models/Chats/ChatRoom.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_appointments.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
+import '../../Models/counsellor/counsellor_notes_model.dart';
 import '../../Models/user/user_model.dart';
 import 'counsellor_repository.dart';
 
@@ -15,6 +17,7 @@ class CounsellorProvider with ChangeNotifier{
   List<ChatRoom> chats=[];
   late ChatRoom? chatRoom=ChatRoom();
   List<Messages>?counsellorChats=[];
+  List<DropDownValueModel>patients_for_notes=[];
 
   Future<void>addCounsellor(Counsellor counsellor)async{
     await _counsellorRepository.addCounsellor(counsellor);
@@ -85,7 +88,8 @@ class CounsellorProvider with ChangeNotifier{
 
   }
   Future<void> getConfirmedAppointments()async{
-    counsellor.appointments!.forEach((element) {if(element.status=="Confirmed")confirmedAppointments.add(element);});
+    confirmedAppointments=[];
+    counsellor.appointments!.forEach((element) {if(element.status=="Confirmed")confirmedAppointments.add(element) ;});
     notifyListeners();
   }
   //new edit
@@ -116,5 +120,21 @@ class CounsellorProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  void getPatientsListForNotes(){
+    patients_for_notes=[];
+    for( var i=0; i<counsellor.appointments!.length;i++){
+      if(counsellor.appointments![i].status=="Confirmed" && patients_for_notes.contains(DropDownValueModel(name: counsellor.appointments![i].patientName.toString(), value: counsellor.appointments![i].patientName))==false){
+        patients_for_notes.add(DropDownValueModel(name: counsellor.appointments![i].patientName.toString(), value: counsellor.appointments![i].patientName));
+        notifyListeners();
+      }
+    }
+    print(patients_for_notes);
+  }
+
+  Future<void>addNotes(Notes note)async{
+    counsellor.notes!.add(note);
+    await _counsellorRepository.addCounsellor(counsellor);
+    notifyListeners();
+  }
 }
 

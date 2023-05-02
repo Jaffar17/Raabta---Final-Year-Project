@@ -74,6 +74,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
   @override
   Widget build(BuildContext context) {
     final counsellorsList = context.watch<UserProvider>().counsellors;
+    print(counsellorsList);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,

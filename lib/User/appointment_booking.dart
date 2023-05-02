@@ -19,6 +19,7 @@ class AppointmentBooking extends StatefulWidget {
 
 class _AppointmentBookingState extends State<AppointmentBooking> {
   Future<void> createAppointment(Counsellor c, String date, String time) async {
+    print(c.toString());
     var uuid = const Uuid();
     String appointmentId = uuid.v4();
 

@@ -1,4 +1,5 @@
 import './counsellor_appointments.dart';
+import './counsellor_notes_model.dart';
 
 class Counsellor{
   String? id;
@@ -9,6 +10,7 @@ class Counsellor{
   String? gender;
   String? specialisation;
   List<Appointments>? appointments;
+  List<Notes>? notes;
 
   Counsellor({
      this.id,
@@ -18,7 +20,8 @@ class Counsellor{
      this.gender,
     this.specialisation,
     this.dob,
-    this.appointments
+    this.appointments,
+    this.notes,
   });
 
   Counsellor.fromJson(Map<String, dynamic> json) {
@@ -33,6 +36,12 @@ class Counsellor{
       appointments = <Appointments>[];
       json['appointments'].forEach((v) {
         appointments!.add(Appointments.fromJson(v));
+      });
+    }
+    if (json['notes'] != null) {
+      notes = <Notes>[];
+      json['notes'].forEach((v) {
+        notes!.add(Notes.fromJson(v));
       });
     }
   }
@@ -50,11 +59,15 @@ class Counsellor{
     if (appointments != null) {
       data['appointments'] = appointments!.map((v) => v.toJson()).toList();
     }
+
+    if (notes != null) {
+      data['notes'] = notes!.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 
   @override
   String toString() {
-    return 'Counsellor{id: $id, displayName: $displayName, email: $email, photoUrl: $photoUrl, dob: $dob, gender: $gender, specialisation: $specialisation}';
+    return 'Counsellor{id: $id, displayName: $displayName, email: $email, photoUrl: $photoUrl, dob: $dob, gender: $gender, specialisation: $specialisation, appointments: $appointments, notes: $notes}';
   }
 }

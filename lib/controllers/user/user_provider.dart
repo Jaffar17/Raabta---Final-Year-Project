@@ -39,6 +39,7 @@ class UserProvider with ChangeNotifier{
     counsellors=   await _userRepository.getAllCounsellors();
     isLoading=false;
     notifyListeners();
+
 }
 
   Future<void>editProfile(String fullName, String email, String preference)async{
