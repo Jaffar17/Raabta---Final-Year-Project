@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Counsellor/counsellor_chat_test.dart';
 import 'package:raabta_fyp/Models/Chats/ChatRoom.dart';
 import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
 import 'package:provider/provider.dart';
@@ -93,7 +94,7 @@ class _InboxCounsellorState extends State<InboxCounsellor> {
                           subtitle: Text(
                               "${chats[index].messages![0].message.toString()}..."),
                           onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder:(context)=> ChatRoomScreenCounsellor(chatSessionId: chats[index].id.toString(), userId: chats[index].userId.toString(), userName: chats[index].userName.toString())));
+                            Navigator.push(context, MaterialPageRoute(builder:(context)=> ChatScreenCounsellor(chatSessionId: chats[index].id.toString(), userId: chats[index].userId.toString(), userName: chats[index].userName.toString(), userImage: chats[index].userImage.toString(),)));
                           },
 
                         ),

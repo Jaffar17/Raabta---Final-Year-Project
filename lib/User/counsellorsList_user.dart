@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
 import 'package:raabta_fyp/User/appointment_booking.dart';
 import 'package:raabta_fyp/User/user_chat_screen.dart';
+import 'package:raabta_fyp/User/user_chat_test.dart';
 import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
 import 'package:raabta_fyp/controllers/user/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -31,12 +32,12 @@ class _CounsellorsListState extends State<CounsellorsList> {
         //new edit
         context.read<UserProvider>().createChatSession(new ChatRoom(id: context.read<UserProvider>().user.id.toString() + counsellorId, userId: context.read<UserProvider>().user.id.toString(), counsellorId: counsellorId, userName: context.read<UserProvider>().user.fullName, userImage: context.read<UserProvider>().user.photoUrl, counsellorName: counsellorName, counsellorImage: counsellorImageUrl));
         context.read<UserProvider>().getChatRoom(context.read<UserProvider>().user.id.toString()+counsellorId);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoomScreen(chatSessionId: context.read<UserProvider>().user.id.toString()+counsellorId,counsellorId: counsellorId,counsellorName: counsellorName)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreenUser(chatSessionId: context.read<UserProvider>().user.id.toString()+counsellorId,counsellorId: counsellorId,counsellorName: counsellorName, counsellorImage: counsellorImageUrl,)));
         print("new chat");
       }
       else {
         print("old chat");
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatRoomScreen(chatSessionId: context.read<UserProvider>().user.id.toString()+counsellorId,counsellorId: counsellorId,counsellorName: counsellorName)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreenUser(chatSessionId: context.read<UserProvider>().user.id.toString()+counsellorId,counsellorId: counsellorId,counsellorName: counsellorName, counsellorImage: counsellorImageUrl,)));
       }
 
     });

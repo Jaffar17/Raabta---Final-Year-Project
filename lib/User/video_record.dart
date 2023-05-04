@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
@@ -46,7 +47,8 @@ class _VideoRecorderState extends State<VideoRecorder> {
       final Directory appDirectory = await getTemporaryDirectory();
       final String videoDirectory = '${appDirectory.path}/Videos';
       await Directory(videoDirectory).create(recursive: true);
-      final String currentTime = DateTime.now().millisecondsSinceEpoch.toString();
+      final String currentTime =
+          DateTime.now().millisecondsSinceEpoch.toString();
       final String filePath = '$videoDirectory/$currentTime.mp4';
       //filePath
       await _controller.startVideoRecording();
@@ -60,26 +62,21 @@ class _VideoRecorderState extends State<VideoRecorder> {
   }
 
   Future<void> _stopRecording() async {
-
-
     try {
-      XFile tempvideo=await _controller.stopVideoRecording();
+      XFile tempvideo = await _controller.stopVideoRecording();
       print(tempvideo.path);
 
       if (_videoPath.isNotEmpty) {
-         File file = File(tempvideo.path);
-         final FirebaseStorage storage = FirebaseStorage.instance;
+        File file = File(tempvideo.path);
+        final FirebaseStorage storage = FirebaseStorage.instance;
         if (file.existsSync()) {
           // Upload the file to Firebase Storage
-          final storageRef =storage.ref().child('videos/${DateTime.now().toString()}.mp4');
+          final storageRef =
+              storage.ref().child('videos/${DateTime.now().toString()}.mp4');
           await storageRef.putFile(file);
           final url = await storageRef.getDownloadURL();
-
-
-
-          setState(() {
-            _videoPath = '';
-          });
+          print(url);
+          sendVideo(url);
         } else {
           print('File does not exist');
         }
@@ -89,17 +86,15 @@ class _VideoRecorderState extends State<VideoRecorder> {
     }
   }
 
-  Future<void> sendVideo(String videoUrl ) async {
-    var url = Uri.parse('https://jsonplaceholder.typicode.com/todos/1');
-    var response = await http.post(url,body:{
-      'videoLink':videoUrl
-    });
+  Future<void> sendVideo(String videoUrl) async {
+    var url = Uri.parse('https://zohair101.pythonanywhere.com/analyze_video');
+    var response = await http.post(url,
+        body: jsonEncode({'video_path': videoUrl}),
+        headers: {"Content-Type": "application/json"});
 
-    if (response.statusCode == 201) {
-      // Success
+    if (response.statusCode == 200) {
       print(response.body);
     } else {
-      // Error
       print('Request failed with status: ${response.statusCode}.');
     }
   }
@@ -127,7 +122,9 @@ class _VideoRecorderState extends State<VideoRecorder> {
           }
         },
         child: Icon(
-          _controller.value.isRecordingVideo ? Icons.stop : Icons.fiber_manual_record,
+          _controller.value.isRecordingVideo
+              ? Icons.stop
+              : Icons.fiber_manual_record,
         ),
       ),
     );

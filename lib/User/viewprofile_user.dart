@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/User/editprofile_user.dart';
+import 'package:raabta_fyp/User/user_chat_test.dart';
 
 class ViewprofileUser extends StatefulWidget {
   const ViewprofileUser({Key? key}) : super(key: key);
@@ -98,11 +99,12 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                       padding: const EdgeInsets.only(left: 20, right: 10),
                       child: ElevatedButton(
                         onPressed: () {
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreenUser()));
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => EditprofileUser()));
-                          //
+
                         },
                         child: Text(
                           "EDIT",

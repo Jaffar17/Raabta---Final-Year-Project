@@ -9,13 +9,17 @@ class PersonalityTest extends StatefulWidget {
 }
 
 class _PersonalityTestState extends State<PersonalityTest> {
-  double q1Value = 0;
-  double q2Value = 0;
-  double q3Value = 0;
-  double q4Value = 0;
-  double q5Value = 0;
-  double q6Value = 0;
-  
+  double q1Value = 1;
+  double q2Value = 1;
+  double q3Value = 1;
+  double q4Value = 1;
+  double q5Value = 1;
+  double q6Value = 1;
+  double q7Value = 1;
+  double q8Value = 1;
+  double q9Value = 1;
+  double q10Value = 1;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -74,13 +78,14 @@ class _PersonalityTestState extends State<PersonalityTest> {
                                  children: [
                                    const Padding(
                                      padding: EdgeInsets.only(left: 18.0, top: 8),
-                                     child: Text("Q1. This is a sample question", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                     child: Text("Q1. I am the life of the party.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
                                    ),
                                    Padding(
                                      padding: const EdgeInsets.all(8.0),
                                      child: Slider(value: q1Value,
-                                         max: 10,
-                                         divisions: 10,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
                                          activeColor: const Color(0xff006A6A),
                                          //inactiveColor: Color(0xff006A6A),
                                          label: q1Value.round().toString(),
@@ -107,13 +112,14 @@ class _PersonalityTestState extends State<PersonalityTest> {
                                  children: [
                                    const Padding(
                                      padding: EdgeInsets.only(left: 18.0, top: 8),
-                                     child: Text("Q2. This is a sample question", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                     child: Text("Q2. I feel little concern for others.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
                                    ),
                                    Padding(
                                      padding: const EdgeInsets.all(8.0),
                                      child: Slider(value: q2Value,
-                                         max: 10,
-                                         divisions: 10,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
                                          activeColor: const Color(0xff006A6A),
                                          //inactiveColor: Color(0xff006A6A),
                                          label: q2Value.round().toString(),
@@ -140,13 +146,14 @@ class _PersonalityTestState extends State<PersonalityTest> {
                                  children: [
                                    const Padding(
                                      padding: EdgeInsets.only(left: 18.0, top: 8),
-                                     child: Text("Q3. This is a sample question", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                     child: Text("Q3. I am always prepared.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
                                    ),
                                    Padding(
                                      padding: const EdgeInsets.all(8.0),
                                      child: Slider(value: q3Value,
-                                         max: 10,
-                                         divisions: 10,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
                                          activeColor: const Color(0xff006A6A),
                                          //inactiveColor: Color(0xff006A6A),
                                          label: q3Value.round().toString(),
@@ -173,13 +180,14 @@ class _PersonalityTestState extends State<PersonalityTest> {
                                  children: [
                                    const Padding(
                                      padding: EdgeInsets.only(left: 18.0, top: 8),
-                                     child: Text("Q4. This is a sample question", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                     child: Text("Q4. I get stressed out easily.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
                                    ),
                                    Padding(
                                      padding: const EdgeInsets.all(8.0),
                                      child: Slider(value: q4Value,
-                                         max: 10,
-                                         divisions: 10,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
                                          activeColor: const Color(0xff006A6A),
                                          //inactiveColor: Color(0xff006A6A),
                                          label: q4Value.round().toString(),
@@ -206,13 +214,14 @@ class _PersonalityTestState extends State<PersonalityTest> {
                                  children: [
                                    const Padding(
                                      padding: EdgeInsets.only(left: 18.0, top: 8),
-                                     child: Text("Q5. This is a sample question", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                     child: Text("Q5. I have a rich vocabulary.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
                                    ),
                                    Padding(
                                      padding: const EdgeInsets.all(8.0),
                                      child: Slider(value: q5Value,
-                                         max: 10,
-                                         divisions: 10,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
                                          activeColor: const Color(0xff006A6A),
                                          //inactiveColor: Color(0xff006A6A),
                                          label: q5Value.round().toString(),
@@ -239,13 +248,14 @@ class _PersonalityTestState extends State<PersonalityTest> {
                                  children: [
                                    const Padding(
                                      padding: EdgeInsets.only(left: 18.0, top: 8),
-                                     child: Text("Q6. This is a sample question", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                     child: Text("Q6. I don't talk a lot.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
                                    ),
                                    Padding(
                                      padding: const EdgeInsets.all(8.0),
                                      child: Slider(value: q6Value,
-                                         max: 10,
-                                         divisions: 10,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
                                          activeColor: const Color(0xff006A6A),
                                          //inactiveColor: Color(0xff006A6A),
                                          label: q6Value.round().toString(),
@@ -259,7 +269,143 @@ class _PersonalityTestState extends State<PersonalityTest> {
                                  ],
                                ),
                              ),
-                           )
+                           ),
+                           Padding(
+                             padding: const EdgeInsets.only(left: 16, right: 16, top: 15, bottom: 4),
+                             child: Container(
+                               decoration: BoxDecoration(
+                                   border: Border.all(color: const Color(0xff006A6A)),
+                                   borderRadius: BorderRadius.circular(10)
+                               ),
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   const Padding(
+                                     padding: EdgeInsets.only(left: 18.0, top: 8),
+                                     child: Text("Q7. I am interested in people.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                   ),
+                                   Padding(
+                                     padding: const EdgeInsets.all(8.0),
+                                     child: Slider(value: q7Value,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
+                                         activeColor: const Color(0xff006A6A),
+                                         //inactiveColor: Color(0xff006A6A),
+                                         label: q7Value.round().toString(),
+                                         onChanged: (double value){
+                                           setState(() {
+                                             q7Value = value;
+                                           });
+                                         }),
+                                   ),
+
+                                 ],
+                               ),
+                             ),
+                           ),
+                           Padding(
+                             padding: const EdgeInsets.only(left: 16, right: 16, top: 15, bottom: 4),
+                             child: Container(
+                               decoration: BoxDecoration(
+                                   border: Border.all(color: const Color(0xff006A6A)),
+                                   borderRadius: BorderRadius.circular(10)
+                               ),
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   const Padding(
+                                     padding: EdgeInsets.only(left: 18.0, top: 8),
+                                     child: Text("Q8. I leave my belongings around.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                   ),
+                                   Padding(
+                                     padding: const EdgeInsets.all(8.0),
+                                     child: Slider(value: q8Value,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
+                                         activeColor: const Color(0xff006A6A),
+                                         //inactiveColor: Color(0xff006A6A),
+                                         label: q8Value.round().toString(),
+                                         onChanged: (double value){
+                                           setState(() {
+                                             q8Value = value;
+                                           });
+                                         }),
+                                   ),
+
+                                 ],
+                               ),
+                             ),
+                           ),
+                           Padding(
+                             padding: const EdgeInsets.only(left: 16, right: 16, top: 15, bottom: 4),
+                             child: Container(
+                               decoration: BoxDecoration(
+                                   border: Border.all(color: const Color(0xff006A6A)),
+                                   borderRadius: BorderRadius.circular(10)
+                               ),
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   const Padding(
+                                     padding: EdgeInsets.only(left: 18.0, top: 8),
+                                     child: Text("Q9. I am relaxed most of the time.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                   ),
+                                   Padding(
+                                     padding: const EdgeInsets.all(8.0),
+                                     child: Slider(value: q9Value,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
+                                         activeColor: const Color(0xff006A6A),
+                                         //inactiveColor: Color(0xff006A6A),
+                                         label: q9Value.round().toString(),
+                                         onChanged: (double value){
+                                           setState(() {
+                                             q9Value = value;
+                                           });
+                                         }),
+                                   ),
+
+                                 ],
+                               ),
+                             ),
+                           ),
+                           Padding(
+                             padding: const EdgeInsets.only(left: 16, right: 16, top: 15, bottom: 4),
+                             child: Container(
+                               decoration: BoxDecoration(
+                                   border: Border.all(color: const Color(0xff006A6A)),
+                                   borderRadius: BorderRadius.circular(10)
+                               ),
+                               child: Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   const Padding(
+                                     padding: EdgeInsets.only(left: 18.0, top: 8),
+                                     child: Text("Q10. I have difficulty understanding abstract ideas.", style: TextStyle(fontSize: 18, color: Color(0xff006A6A)),),
+                                   ),
+                                   Padding(
+                                     padding: const EdgeInsets.all(8.0),
+                                     child: Slider(value: q10Value,
+                                         min: 1,
+                                         max: 5,
+                                         divisions: 5,
+                                         activeColor: const Color(0xff006A6A),
+                                         //inactiveColor: Color(0xff006A6A),
+                                         label: q10Value.round().toString(),
+                                         onChanged: (double value){
+                                           setState(() {
+                                             q10Value = value;
+                                           });
+                                         }),
+                                   ),
+
+                                 ],
+                               ),
+                             ),
+                           ),
                          ],
                        //),
                     //),
@@ -273,7 +419,7 @@ class _PersonalityTestState extends State<PersonalityTest> {
                             MaterialPageRoute(builder: (context) => const NavBarUser()));
                       },
                       child: const Text(
-                        "NEXT ",
+                        "SUBMIT ",
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,

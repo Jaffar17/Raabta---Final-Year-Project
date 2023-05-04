@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/User/user_chat_screen.dart';
+import 'package:raabta_fyp/User/user_chat_test.dart';
 
 import '../Models/Chats/ChatRoom.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +98,7 @@ class _InboxUserState extends State<InboxUser> {
                           subtitle: Text(
                               "${tdList[index].message.substring(0, 12)}..."),
                           onTap: (){
-                             Navigator.push(context, MaterialPageRoute(builder:(context)=> ChatRoomScreen(chatSessionId: chats[index].id.toString(), counsellorId: chats[index].counsellorId.toString(), counsellorName: chats[index].counsellorName.toString())));
+                             Navigator.push(context, MaterialPageRoute(builder:(context)=> ChatScreenUser(chatSessionId: chats[index].id.toString(), counsellorId: chats[index].counsellorId.toString(), counsellorName: chats[index].counsellorName.toString(), counsellorImage: chats[index].counsellorImage.toString(),)));
                           },
                         ),
 
