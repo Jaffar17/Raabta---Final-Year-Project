@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:raabta_fyp/Models/user/user_model.dart';
 import '../../Models/Chats/ChatRoom.dart';
 import '../../Models/counsellor/counsellor_model.dart';
+import '../../Models/user/video_response_model.dart';
 
 abstract class UserRepository {
   Future<void> addUser(UserModel user);
@@ -19,9 +20,12 @@ abstract class UserRepository {
   Future<ChatRoom?> getChatRoom(String chatRoomId);
 
   Future<void> sendMessage(ChatRoom chatRoom);
+
   Future<List<ChatRoom>> getAllChats();
 
+  Future<void> addVideoResponse(VideoResponse responseObject);
 
+  Future<VideoResponse?> getVideoResponse(String userId);
 }
 
 class FirebaseUsersRepository implements UserRepository {
@@ -100,11 +104,39 @@ class FirebaseUsersRepository implements UserRepository {
         .set(chatRoom.toJson());
   }
 
-  Future<List<ChatRoom>>getAllChats()async{
-    List<ChatRoom>chats=[];
-    await db.collection('chats').get().then((value)=> value.docs.forEach((element){chats.add(ChatRoom.fromJson(element.data()));}));
+  Future<List<ChatRoom>> getAllChats() async {
+    List<ChatRoom> chats = [];
+    await db
+        .collection('chats')
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              chats.add(ChatRoom.fromJson(element.data()));
+            }));
     return chats;
   }
 
+  Future<void> addVideoResponse(VideoResponse responseObject) async {
+    await db
+        .collection('user-video-responses')
+        .doc(responseObject.userId)
+        .set(responseObject.toJson());
+  }
 
+  Future<VideoResponse?> getVideoResponse(String userId) async {
+    try {
+      VideoResponse resourceObject = VideoResponse();
+      await db
+          .collection('user-video-responses')
+          .doc(userId)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        resourceObject = VideoResponse.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>);
+      });
+      print(resourceObject);
+      return resourceObject;
+    } catch (e) {
+      return null;
+    }
+  }
 }

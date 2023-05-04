@@ -171,7 +171,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
                                               bottom: 12.0),
                                           child: InkWell(
                                             onTap: () {
-                                              Navigator.pushReplacement(
+                                              Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>

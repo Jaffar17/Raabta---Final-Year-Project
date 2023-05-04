@@ -47,7 +47,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                 )
             ),
             child: Text(
-              "My Patients",
+              "My Clients",
               style: TextStyle(
                 fontSize: 40,
                 fontFamily: "MontserratMedium",
@@ -242,33 +242,34 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                           ],
                                         ),
                                       ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(
+                                      //       top: 30, left: 30),
+                                      //   child: Column(
+                                      //     mainAxisAlignment: MainAxisAlignment.end,
+                                      //     crossAxisAlignment:
+                                      //     CrossAxisAlignment.start,
+                                      //     children: [
+                                      //       Text(
+                                      //         "Status:",
+                                      //         style: TextStyle(
+                                      //           fontSize: 18.0,
+                                      //           fontWeight: FontWeight.w500,
+                                      //         ),
+                                      //       ),
+                                      //       Text(
+                                      //         confirmedAppointments[index].status,
+                                      //         style: TextStyle(
+                                      //             fontSize: 18.0,
+                                      //             fontWeight: FontWeight.w500,
+                                      //             color: Colors.green),
+                                      //       )
+                                      //     ],
+                                      //   ),
+                                      // )
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 30, left: 30),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Status:",
-                                          style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                        ),
-                                        Text(
-                                          confirmedAppointments[index].status,
-                                          style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.green),
-                                        )
-                                      ],
-                                    ),
-                                  )
+
                                 ],
                               ),
                             ],

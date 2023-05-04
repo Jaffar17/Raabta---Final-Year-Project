@@ -45,7 +45,7 @@ class _InboxCounsellorState extends State<InboxCounsellor> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 36, bottom: 8, right: 140, left: 140),
+                    top: 36, bottom: 8, right: 120, left: 120),
                 child: Container(
                   decoration: const BoxDecoration(
                       border: Border(

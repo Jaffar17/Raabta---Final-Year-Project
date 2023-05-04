@@ -41,37 +41,22 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                   //mainAxisAlignment: MainAxisAlignment.center,
                   //crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 36, bottom: 8, right: 70, left: 8),
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 50),
-                            child: IconButton(
-                              icon: Icon(Icons.arrow_back, size: 30,),
-                              onPressed: (){
-                                Navigator.pop(context);
-                              },
-                            ),
+                    Container(
+                      decoration: const BoxDecoration(
+                          border: Border(
+                              bottom:
+                              BorderSide(color: Color(0xFFF6BD12), width: 2))),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: Text(
+                          "New Notes",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 34,
+                            fontFamily: "MontserratMedium",
+                            //fontWeight: FontWeight.w500,
                           ),
-                          Container(
-                            decoration: const BoxDecoration(
-                                border: Border(
-                                    bottom:
-                                    BorderSide(color: Color(0xFFF6BD12), width: 2))),
-                            child: Text(
-                              "New Notes",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 36,
-                                fontFamily: "MontserratMedium",
-                                //fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-
-                        ],
+                        ),
                       ),
                     ),
                     Padding(
@@ -94,7 +79,7 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(left: 14, top: 12, bottom: 4),
-                                child: Text("Patient:", style: TextStyle(fontSize: 22, fontFamily: "MontserratMedium", ),),
+                                child: Text("Client:", style: TextStyle(fontSize: 22, fontFamily: "MontserratMedium", ),),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
@@ -110,7 +95,7 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                                       controller: patientName,
                                       clearOption: true,
                                       textFieldDecoration: InputDecoration(
-                                    labelText: "Select Patient",
+                                    labelText: "Select Client",
                                     // labelStyle: TextStyle(color: Color(0xff006A6A)),
                                   focusedBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),

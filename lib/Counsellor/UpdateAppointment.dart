@@ -20,14 +20,14 @@ class _acceptOrRejectState extends State<acceptOrReject> {
     return Row(
       children: [
         IconButton(
-          icon: Icon(Icons.check_circle),
+          icon: Icon(Icons.check_circle, color: Colors.green,),
           onPressed: (){
             context.read<CounsellorProvider>().acceptAppointment(widget.appointment);
           },
           iconSize: 40,
         ),
         IconButton(
-          icon: Icon(Icons.cancel),
+          icon: Icon(Icons.cancel, color: Colors.red,),
           onPressed: (){
             context.read<CounsellorProvider>().rejectAppointment(widget.appointment);
           },

@@ -5,6 +5,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+import '../Models/user/video_response_model.dart';
+import '../controllers/user/user_provider.dart';
 
 class VideoRecorder extends StatefulWidget {
   final CameraDescription camera;
@@ -93,9 +96,15 @@ class _VideoRecorderState extends State<VideoRecorder> {
         headers: {"Content-Type": "application/json"});
 
     if (response.statusCode == 200) {
-      print(response.body);
+      Map<String,dynamic> videoResponse=json.decode(response.body)['emotions'];
+      await context.read<UserProvider>().addVideoResponse(new VideoResponse(userId: context.read<UserProvider>().user.id.toString(), videoLink: videoUrl, emotions: videoResponse));
+      // var emotions = jsonDecode(response.body);
+
+      //print(emotions.type);
+      // return emotions;
     } else {
       print('Request failed with status: ${response.statusCode}.');
+      // return null;
     }
   }
 

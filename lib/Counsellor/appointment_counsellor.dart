@@ -46,7 +46,7 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                     child: Text(
                       "My Appointments",
                       style: TextStyle(
-                        fontSize: 36,
+                        fontSize: 34,
                         fontFamily: "MontserratMedium",
                         fontWeight: FontWeight.w500,
                       ),
@@ -103,6 +103,7 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                                             style: TextStyle(
                                               fontSize: 22.0,
                                               fontWeight: FontWeight.w500,
+                                              fontFamily: "MontserratMedium",
                                             ),
                                           ),
                                         ),
@@ -148,50 +149,44 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                                             ],
                                           ),
                                         ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Status:  ",
+                                              style: TextStyle(
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                            appointment![index].status == "Pending"
+                                                ? acceptOrReject(
+                                                appointment: appointment![index])
+                                                : Row(
+                                              children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.only(
+                                                      bottom: 5),
+                                                  child: Text(
+                                                    appointment![index].status,
+                                                    style: TextStyle(
+                                                        color: appointment![index]
+                                                            .status ==
+                                                            "Confirmed"
+                                                            ? Color(0xff00B012)
+                                                            : Colors.red,
+                                                        fontSize: 20),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        )
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 30, left: 30),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.end,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Status:",
-                                            style: TextStyle(
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          Padding(
-                                              padding: EdgeInsets.only(
-                                                  left: 60, right: 5, bottom: 5),
-                                              child: appointment![index].status == "Pending"
-                                                  ? acceptOrReject(
-                                                  appointment: appointment![index])
-                                                  : Row(
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(
-                                                        bottom: 5),
-                                                    child: Text(
-                                                      appointment![index].status,
-                                                      style: TextStyle(
-                                                          color: appointment![index]
-                                                              .status ==
-                                                              "Confirmed"
-                                                              ? Color(0xff00B012)
-                                                              : Colors.red,
-                                                          fontSize: 20),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )),
-                                        ],
-                                      ),
-                                    )
+
                                   ],
                                 ),
                               ],

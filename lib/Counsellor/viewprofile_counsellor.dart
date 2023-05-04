@@ -59,13 +59,13 @@ class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
                     child: Text("Anxiety", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),)
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 40, right: 40, top: 50),
+                  padding: const EdgeInsets.only(left: 25, right: 25, top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 15),
+                        padding: const EdgeInsets.only(left: 20, right: 10),
                         child: ElevatedButton(
                           onPressed: () {
                             Navigator.push(context,
@@ -87,7 +87,7 @@ class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 15, right: 20),
+                        padding: const EdgeInsets.only(left: 10, right: 20),
                         child: ElevatedButton(
                           onPressed: () {
                             // Navigator.push(context,

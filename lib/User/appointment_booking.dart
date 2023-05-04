@@ -2,6 +2,7 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
+import 'package:raabta_fyp/User/counsellorsList_user.dart';
 import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
 
@@ -229,15 +230,11 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                     padding: const EdgeInsets.only(left: 12, right: 12),
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        Navigator.pop(context); // We need to route back to counsellors screen, as of now not happening
+                                        // Navigator.of(context, rootNavigator: true).pop();
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
                                       },
-                                      child: const Text(
-                                        "OK",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color(0xffFFFFFF)),
-                                      ),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color(0xff006A6A),
                                         minimumSize: const Size(100, 30),
@@ -245,6 +242,13 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(18),
                                         ),
+                                      ),
+                                      child: const Text(
+                                        "OK",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xffFFFFFF)),
                                       ),
                                     ),
                                   ),
@@ -258,13 +262,6 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                       );
                     });
               },
-              child: const Text(
-                "CONFIRM",
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xffFFFFFF)),
-              ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xff006A6A),
                 minimumSize: const Size(300, 50),
@@ -272,6 +269,13 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(18),
                 ),
+              ),
+              child: const Text(
+                "CONFIRM",
+                style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xffFFFFFF)),
               ),
             ),
           ),

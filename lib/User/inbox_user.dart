@@ -96,7 +96,7 @@ class _InboxUserState extends State<InboxUser> {
                             ),
                           ),
                           subtitle: Text(
-                              "${tdList[index].message.substring(0, 12)}..."),
+                              "${chats[index].messages![0].message.toString()}..."),
                           onTap: (){
                              Navigator.push(context, MaterialPageRoute(builder:(context)=> ChatScreenUser(chatSessionId: chats[index].id.toString(), counsellorId: chats[index].counsellorId.toString(), counsellorName: chats[index].counsellorName.toString(), counsellorImage: chats[index].counsellorImage.toString(),)));
                           },

@@ -35,14 +35,13 @@ class _NotesCounsellorState extends State<NotesCounsellor> {
             //mainAxisAlignment: MainAxisAlignment.center,
             //crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    top: 36, bottom: 8, right: 120, left: 120),
-                child: Container(
-                  decoration: const BoxDecoration(
-                      border: Border(
-                          bottom:
-                          BorderSide(color: Color(0xFFF6BD12), width: 2))),
+              Container(
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom:
+                        BorderSide(color: Color(0xFFF6BD12), width: 2))),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12.0),
                   child: const Text(
                     "My Notes",
                     textAlign: TextAlign.center,
