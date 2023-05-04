@@ -1,4 +1,6 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/User/video_record.dart';
 
 class HomeUser extends StatefulWidget {
   const HomeUser({Key? key}) : super(key: key);
@@ -33,9 +35,12 @@ class _HomeUserState extends State<HomeUser> {
                 Padding(
                   padding: const EdgeInsets.only(top: 25.0, bottom: 10),
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Navigator.push(context,
-                      //      MaterialPageRoute(builder: (context) => const NavBarUser()));
+                    onPressed: () async{
+                      final cameras = await availableCameras();
+                      final firstCamera = cameras[1];
+
+                      Navigator.push(context,
+                           MaterialPageRoute(builder: (context) => VideoRecorder(camera: firstCamera,)));
                     },
                     child: const Text(
                       "RECORD ",
