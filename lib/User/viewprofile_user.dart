@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/User/editprofile_user.dart';
 import 'package:raabta_fyp/User/user_chat_test.dart';
-
+import 'package:provider/provider.dart';
+import 'package:raabta_fyp/controllers/user/user_provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 class ViewprofileUser extends StatefulWidget {
   const ViewprofileUser({Key? key}) : super(key: key);
 
@@ -10,6 +12,7 @@ class ViewprofileUser extends StatefulWidget {
 }
 
 class _ViewprofileUserState extends State<ViewprofileUser> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -44,8 +47,8 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
               Padding(
                 padding: const EdgeInsets.only(
                     left: 16.0, right: 16.0, bottom: 10.0),
-                child: Image.asset(
-                  "assets/images/ProfilePic.png",
+                child: Image.network(
+                  context.read<UserProvider>().user.photoUrl.toString(),
                   // width: 150,
                   // height: 180,
                 ),
@@ -54,41 +57,41 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                   padding: const EdgeInsets.only(
                       left: 16.0, right: 16.0, bottom: 6.0, top: 10),
                   child: Text(
-                    "Patient 1",
+                    context.read<UserProvider>().user.fullName.toString(),
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
                   )),
               Padding(
                   padding: const EdgeInsets.only(
                       left: 16.0, right: 16.0, bottom: 10.0),
                   child: Text(
-                    "Anxiety",
+                    context.read<UserProvider>().user.preference.toString(),
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                   )),
-              Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
-                    //
-                  },
-                  child: Text(
-                    "View Personality Test",
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xff006A6A)),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xffFFFFFF),
-                    minimumSize: Size(300, 50),
-                    side: BorderSide(width: 1, color: Color(0xff006A6A)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
+              //   child: ElevatedButton(
+              //     onPressed: () {
+              //       // Navigator.push(context,
+              //       //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
+              //       //
+              //     },
+              //     child: Text(
+              //       "View Personality Test",
+              //       style: TextStyle(
+              //           fontSize: 22,
+              //           fontWeight: FontWeight.w500,
+              //           color: Color(0xff006A6A)),
+              //     ),
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: Color(0xffFFFFFF),
+              //       minimumSize: Size(300, 50),
+              //       side: BorderSide(width: 1, color: Color(0xff006A6A)),
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(18),
+              //       ),
+              //     ),
+              //   ),
+              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 25, top: 20),
                 child: Row(
@@ -127,10 +130,9 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                     Padding(
                       padding: const EdgeInsets.only(left: 10, right: 20),
                       child: ElevatedButton(
-                        onPressed: () {
-                          // Navigator.push(context,
-                          //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
-                          // //
+                        onPressed: () async{
+                          await _googleSignIn.signOut();
+                          Navigator.pop(context);
                         },
                         child: Text(
                           "LOGOUT",

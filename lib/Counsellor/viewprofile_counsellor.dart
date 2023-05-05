@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/Counsellor/editprofile_counsellor.dart';
+import 'package:provider/provider.dart';
+import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ViewprofileCounsellor extends StatefulWidget {
   const ViewprofileCounsellor({Key? key}) : super(key: key);
@@ -9,6 +12,7 @@ class ViewprofileCounsellor extends StatefulWidget {
 }
 
 class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -42,8 +46,8 @@ class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
                 Padding(
                   padding: const EdgeInsets.only(
                       left: 16.0, right: 16.0, bottom: 10.0),
-                  child: Image.asset(
-                    "assets/images/ProfilePic.png",
+                  child: Image.network(
+                    context.read<CounsellorProvider>().counsellor.photoUrl.toString(),
                     // width: 150,
                     // height: 180,
                   ),
@@ -51,12 +55,12 @@ class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
                 Padding(
                     padding: const EdgeInsets.only(
                         left: 16.0, right: 16.0, bottom: 6.0, top: 10),
-                    child: Text("Counsellor 1", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),)
+                    child: Text(context.read<CounsellorProvider>().counsellor.displayName.toString(), style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),)
                 ),
                 Padding(
                     padding: const EdgeInsets.only(
                         left: 16.0, right: 16.0, bottom: 10.0),
-                    child: Text("Anxiety", style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),)
+                    child: Text(context.read<CounsellorProvider>().counsellor.specialisation.toString(), style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),)
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 25, right: 25, top: 20),
@@ -89,10 +93,9 @@ class _ViewprofileCounsellorState extends State<ViewprofileCounsellor> {
                       Padding(
                         padding: const EdgeInsets.only(left: 10, right: 20),
                         child: ElevatedButton(
-                          onPressed: () {
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
-                            // //
+                          onPressed: () async{
+                            Navigator.pop(context);
+                            await _googleSignIn.signOut();
                           },
                           child: Text("LOGOUT", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                           style: ElevatedButton.styleFrom(

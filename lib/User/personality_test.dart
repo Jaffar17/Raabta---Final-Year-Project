@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:raabta_fyp/User/navbar_user.dart';
+import 'package:raabta_fyp/controllers/user/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class PersonalityTest extends StatefulWidget {
   const PersonalityTest({Key? key}) : super(key: key);
@@ -414,7 +416,8 @@ class _PersonalityTestState extends State<PersonalityTest> {
                   Padding(
                     padding: const EdgeInsets.only(top: 15.0, bottom: 15),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
+                        await context.read<UserProvider>().personalityEvaluation([q1Value,q2Value,q3Value,q4Value,q5Value,q6Value,q7Value,q8Value,q9Value,q10Value]);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => const NavBarUser()));
                       },

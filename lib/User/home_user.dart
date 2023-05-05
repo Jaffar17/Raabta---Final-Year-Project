@@ -1,5 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Models/user/personality_test.dart';
+import 'package:raabta_fyp/User/personality_test.dart';
 import 'package:raabta_fyp/User/video_record.dart';
 
 import '../controllers/user/user_provider.dart';
@@ -13,10 +15,11 @@ class HomeUser extends StatefulWidget {
 }
 
 class _HomeUserState extends State<HomeUser> {
+
+  @override
+
   @override
   Widget build(BuildContext context) {
-    context.read<UserProvider>().getVideoResponse();
-
     List<String> description = [
       """Extroversion (E) is the personality trait of seeking fulfillment from sources outside the self or
       in community. High scorers tend to be very social while low scorers prefer to work on their projects alone.""",
@@ -50,7 +53,7 @@ class _HomeUserState extends State<HomeUser> {
                   child: Text(
                     "Get Insights about yourself",
                     style:
-                        TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
+                    TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
                   ),
                 ),
                 Text(
@@ -68,8 +71,8 @@ class _HomeUserState extends State<HomeUser> {
                           context,
                           MaterialPageRoute(
                               builder: (context) => VideoRecorder(
-                                    camera: firstCamera,
-                                  )));
+                                camera: firstCamera,
+                              )));
                     },
                     child: const Text(
                       "RECORD ",
@@ -82,7 +85,7 @@ class _HomeUserState extends State<HomeUser> {
                       backgroundColor: const Color(0xff006A6A),
                       minimumSize: const Size(300, 50),
                       side:
-                          const BorderSide(width: 1, color: Color(0xff006A6A)),
+                      const BorderSide(width: 1, color: Color(0xff006A6A)),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18),
                       ),
@@ -95,9 +98,10 @@ class _HomeUserState extends State<HomeUser> {
                   child: Text(
                     "Personality Test Results",
                     style:
-                        TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
+                    TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
                   ),
                 ),
+                _Evaluations(context.read<UserProvider>().user.Ptest),
               ],
             ),
           ),
@@ -105,4 +109,65 @@ class _HomeUserState extends State<HomeUser> {
       ),
     );
   }
+
+}
+
+Widget _Evaluations(PersonalityTestModel? evaluation){
+  return Table(
+    border: TableBorder.all(),
+    children: [
+      TableRow(
+        children: [
+          TableCell(
+            child: Text("Extroversion"),
+          ),
+          TableCell(
+            child: Text(evaluation!.extroversion.toString()),
+          ),
+        ],
+      ),
+      TableRow(
+        children: [
+          TableCell(
+            child: Text('Agreeableness'),
+          ),
+          TableCell(
+            child: Text(evaluation!.Agreeableness.toString()),
+          ),
+        ],
+      ),
+
+      TableRow(
+        children: [
+          TableCell(
+            child: Text('Conscientiousness'),
+          ),
+          TableCell(
+            child: Text(evaluation!.conscientiousness.toString()),
+          ),
+        ],
+      ),
+      TableRow(
+        children: [
+          TableCell(
+            child: Text('Neuroticism'),
+          ),
+          TableCell(
+            child: Text(evaluation!.neurotocism.toString()),
+          ),
+        ],
+      ),
+      TableRow(
+        children: [
+          TableCell(
+            child: Text('Openness to Experience'),
+          ),
+          TableCell(
+            child: Text(evaluation!.openess.toString()),
+          ),
+        ],
+      ),
+    ],
+  );
+
 }

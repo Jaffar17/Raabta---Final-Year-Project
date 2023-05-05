@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:raabta_fyp/controllers/user/user_repository.dart';
 import 'package:raabta_fyp/Models/user/user_model.dart';
@@ -15,6 +17,7 @@ class UserProvider with ChangeNotifier {
   bool isLoading = true;
   late ChatRoom? chatRoom = ChatRoom();
   List<ChatRoom> userChats = [];
+  Map<String,double>?emotions;
 
   Future<UserModel> getUser(String id) async {
     user = await _userRepository.getUser(id);
@@ -116,24 +119,36 @@ class UserProvider with ChangeNotifier {
     await _userRepository.addVideoResponse(responseObject);
   }
 
-  Future<Map<String, double>?> getVideoResponse() async {
-    VideoResponse? resp =
-        await _userRepository.getVideoResponse(user.id.toString());
+  Future<Map<String,double>?> getVideoResponse() async{
+    VideoResponse? resp =  await _userRepository.getVideoResponse(user.id.toString()) ;
+    print(resp);
+     Map<String, double> emotions={};
+      if(resp!=null) {
 
-    if (resp != null) {
-      Map<String, double> emotions = {};
-      emotions["angry"] = resp.emotions!["angry"];
-      emotions["disgust"] = resp.emotions!["disgust"];
-      emotions["fear"] = resp.emotions!["fear"];
-      emotions["happy"] = resp.emotions!["happy"];
-      emotions["neutral"] = resp.emotions!["neutral"];
-      emotions["sad"] = resp.emotions!["sad"];
-      emotions["surprise"] = resp.emotions!["surprise"];
-      print(emotions);
-      return emotions;
-    } else {
-      print(null);
-      return null;
-    }
+        emotions!["angry"] = resp.emotions!["angry"];
+        emotions!["disgust"] = resp.emotions!["disgust"];
+        emotions!["fear"] = resp.emotions!["fear"];
+        emotions!["happy"] = resp.emotions!["happy"];
+        emotions!["neutral"] = resp.emotions!["neutral"];
+        emotions!["sad"] = resp.emotions!["sad"];
+        emotions!["surprise"] = resp.emotions!["surprise"];
+        print(emotions);
+        return emotions;
+      }
+      else{
+        return null;
+
+
+      }
+  }
+
+  Future<void>personalityEvaluation(List<double> answers)async{
+    user.Ptest!.extroversion= double.parse((4 +answers[0]-answers[5]).toStringAsFixed(2));
+    user.Ptest!.Agreeableness = double.parse((2.8 - answers[1] + answers[6]).toStringAsFixed(2));
+    user.Ptest!.conscientiousness = double.parse(( 2.8 + answers[2] - answers[7]).toStringAsFixed(2));
+    user.Ptest!.neurotocism = double.parse((7.6 -answers[3] + answers[8]).toStringAsFixed(2));
+    user.Ptest!.openess = double.parse((1.6 + answers[4] - answers[9]).toStringAsFixed(2));
+    notifyListeners();
+    await _userRepository.addUser(user);
   }
 }

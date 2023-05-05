@@ -82,8 +82,8 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
           Padding(
             padding:
                 const EdgeInsets.only(left: 16.0, right: 16.0, bottom: 8.0),
-            child: Image.asset(
-              "assets/images/ProfilePic.png",
+            child: Image.network(
+              widget.object.photoUrl.toString(),
               width: 150,
               height: 180,
             ),
@@ -91,7 +91,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              "Dr. Test",
+              widget.object.displayName.toString(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,

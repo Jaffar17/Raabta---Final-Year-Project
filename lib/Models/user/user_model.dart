@@ -1,5 +1,6 @@
 
 
+import './personality_test.dart';
 import './user_appointments.dart';
 
 class UserModel{
@@ -11,7 +12,7 @@ class UserModel{
   String? gender;
   String? preference;
   List<UserAppointments>?appointments;
-
+  PersonalityTestModel? Ptest;
   UserModel({
      this.id,
      this.fullName,
@@ -20,7 +21,8 @@ class UserModel{
      this. dateOfBirth,
      this.gender,
      this.preference,
-    this.appointments
+    this.appointments,
+    this.Ptest
   });
 
   UserModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,10 @@ class UserModel{
       });
     }
 
+    if(json['pTest']!=null){
+      Ptest = PersonalityTestModel.fromJson(json['pTest']);
+    }
+
   }
 
   Map <String, dynamic> toJson()
@@ -53,7 +59,10 @@ class UserModel{
     if (appointments != null) {
       data['appointments'] = appointments!.map((v) => v.toJson()).toList();
     }
-    print(appointments.toString());
+
+    if(Ptest!=null){
+      data["pTest"]= Ptest!.toJson();
+    }
     return data;
   }
 

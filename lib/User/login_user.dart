@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:raabta_fyp/Models/user/user_model.dart';
+import 'package:raabta_fyp/Models/user/personality_test.dart';
 import '../helper/Dialogs.dart';
 import 'home_user.dart';
 
@@ -33,18 +34,19 @@ class _LoginUserState extends State<LoginUser> {
       if(UserCredential != null){
         if(UserCredential.additionalUserInfo!.isNewUser){
           print(UserCredential.user!.uid);
-          await context.read<UserProvider>().addUser( new UserModel(id: UserCredential.user!.uid, fullName: UserCredential.user!.displayName, email: UserCredential.user!.email, photoUrl: UserCredential.user!.photoURL,appointments: []));
+          await context.read<UserProvider>().addUser( new UserModel(id: UserCredential.user!.uid, fullName: UserCredential.user!.displayName, email: UserCredential.user!.email, photoUrl: UserCredential.user!.photoURL,appointments: [],Ptest: new PersonalityTestModel(extroversion: 0.0, Agreeableness: 0.0, conscientiousness: 0.0, neurotocism: 0.0, openess: 0.0)));
           await context.read<UserProvider>().getUser(UserCredential.user!.uid);
           Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) => const ProfileUser()));
-          await _googleSignIn.signOut();
+          //await _googleSignIn.signOut();
         }
         else{
           try {
             await context.read<UserProvider>().getUser(UserCredential.user!.uid);
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const NavBarUser()));
-            await _googleSignIn.signOut();
+            //await _googleSignIn.signOut();
+
           }
           catch(e){
             Dialogs.showSnackBar(context, "This email is registered as a Counsellor");
