@@ -6,8 +6,11 @@ import 'package:camera/camera.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:raabta_fyp/User/home_user.dart';
+import 'package:raabta_fyp/User/navbar_user.dart';
 import '../Models/user/video_response_model.dart';
 import '../controllers/user/user_provider.dart';
+import '../helper/Dialogs.dart';
 
 class VideoRecorder extends StatefulWidget {
   final CameraDescription camera;
@@ -66,6 +69,7 @@ class _VideoRecorderState extends State<VideoRecorder> {
 
   Future<void> _stopRecording() async {
     try {
+      Dialogs.showProgressBar(context);
       XFile tempvideo = await _controller.stopVideoRecording();
       print(tempvideo.path);
 
@@ -80,6 +84,10 @@ class _VideoRecorderState extends State<VideoRecorder> {
           final url = await storageRef.getDownloadURL();
           print(url);
           sendVideo(url);
+          Future.delayed(Duration(seconds: 30),(){
+            Navigator.pop(context);
+            Navigator.push(context,MaterialPageRoute(builder:(context)=>NavBarUser()));
+          });
         } else {
           print('File does not exist');
         }

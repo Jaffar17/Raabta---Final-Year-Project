@@ -133,7 +133,7 @@ class FirebaseUsersRepository implements UserRepository {
         resourceObject = VideoResponse.fromJson(
             documentSnapshot.data() as Map<String, dynamic>);
       });
-      print(resourceObject);
+      //print(resourceObject);
       return resourceObject;
     } catch (e) {
       return null;

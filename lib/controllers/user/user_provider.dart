@@ -17,7 +17,7 @@ class UserProvider with ChangeNotifier {
   bool isLoading = true;
   late ChatRoom? chatRoom = ChatRoom();
   List<ChatRoom> userChats = [];
-  Map<String,double>?emotions;
+  Map<String,double>?emotions={"angry":0.0};
 
   Future<UserModel> getUser(String id) async {
     user = await _userRepository.getUser(id);
@@ -119,12 +119,11 @@ class UserProvider with ChangeNotifier {
     await _userRepository.addVideoResponse(responseObject);
   }
 
-  Future<Map<String,double>?> getVideoResponse() async{
+  Future<void>getVideoResponse() async{
+    isLoading=true;
+    notifyListeners();
     VideoResponse? resp =  await _userRepository.getVideoResponse(user.id.toString()) ;
-    print(resp);
-     Map<String, double> emotions={};
       if(resp!=null) {
-
         emotions!["angry"] = resp.emotions!["angry"];
         emotions!["disgust"] = resp.emotions!["disgust"];
         emotions!["fear"] = resp.emotions!["fear"];
@@ -132,14 +131,18 @@ class UserProvider with ChangeNotifier {
         emotions!["neutral"] = resp.emotions!["neutral"];
         emotions!["sad"] = resp.emotions!["sad"];
         emotions!["surprise"] = resp.emotions!["surprise"];
-        print(emotions);
-        return emotions;
+        isLoading=false;
+        notifyListeners();
+        print(emotions!.toString() +"exist");
+
       }
       else{
-        return null;
-
-
+        isLoading=false;
+        emotions={};
+        notifyListeners();
+        print(emotions!.toString() +"does not exist");
       }
+
   }
 
   Future<void>personalityEvaluation(List<double> answers)async{
