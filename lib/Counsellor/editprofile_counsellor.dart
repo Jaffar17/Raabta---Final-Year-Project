@@ -1,5 +1,6 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/User/home_user.dart';
 import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,6 +16,8 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
   TextEditingController _cemail = new TextEditingController();
   SingleValueDropDownController specialisation =
       new SingleValueDropDownController();
+  bool emailCheck = true;
+  bool nameCheck = true;
 
   void initState() {
     // TODO: implement initState
@@ -26,6 +29,16 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
 
   @override
   Widget build(BuildContext context) {
+    emailCheck = true;
+    nameCheck = true;
+
+    if (_cname.text == ""){
+      nameCheck = false;
+    }
+    if (_cemail.text == ""){
+      emailCheck = false;
+    }
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -71,12 +84,21 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                   controller: _cname,
                   decoration: InputDecoration(
                     labelText: "Full Name",
+                    errorText: nameCheck? null: "Name is empty!",
                     labelStyle: TextStyle(color: Color(0xff006A6A)),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: Color(0xff006A6A)),
                     ),
                     enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Color(0xff006A6A)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Color(0xff006A6A)),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: Color(0xff006A6A)),
                     ),
@@ -90,12 +112,21 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                   controller: _cemail,
                   decoration: InputDecoration(
                     labelText: "Email",
+                    errorText: emailCheck? null: "Email is empty!",
                     labelStyle: TextStyle(color: Color(0xff006A6A)),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: Color(0xff006A6A)),
                     ),
                     enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Color(0xff006A6A)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide(color: Color(0xff006A6A)),
+                    ),
+                    focusedErrorBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: Color(0xff006A6A)),
                     ),
@@ -126,7 +157,7 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                 padding: const EdgeInsets.only(
                     left: 16.0, right: 16.0, bottom: 20.0),
                 child: DropDownTextField(
-                  //initialValue: "name4",
+                  // initialValue: "name4",
                   controller: specialisation,
                   clearOption: true,
                   textFieldDecoration: InputDecoration(
@@ -156,12 +187,12 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                   dropDownItemCount: 6,
 
                   dropDownList: const [
-                    DropDownValueModel(name: 'Anxiety', value: "value1"),
+                    DropDownValueModel(name: 'Anxiety Issues', value: "Anxiety Issues"),
                     DropDownValueModel(
-                      name: 'Career/ Academic',
-                      value: "value2",
+                      name: 'Career/ Academic Issues',
+                      value: "Career/ Academic Issues",
                     ),
-                    DropDownValueModel(name: 'Profession', value: "value3"),
+                    DropDownValueModel(name: 'Professional Issues', value: "Professional Issues"),
                   ],
                   //onChanged: (val) {},
                 ),
@@ -170,12 +201,80 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                 padding: const EdgeInsets.only(left: 40, right: 40, top: 10),
                 child: ElevatedButton(
                   onPressed: () async {
+                    setState(() {
+                      if (_cname.text == ""){
+                        nameCheck = false;
+                      }
+                      if (_cemail.text == ""){
+                        emailCheck = false;
+                      }
+                    });
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius:
+                                BorderRadius.circular(20.0)), //this right here
+                            child: Container(
+                              height: 200,
+                              // width: 400,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8, right: 8, bottom: 12.0),
+                                      child: Text(
+                                          'Your profile has been updated.'),
+                                    ),
+
+                                    SizedBox(
+                                      width: 320.0,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 12, right: 12),
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            // Navigator.of(context, rootNavigator: true).pop();
+                                            Navigator.pop(context);
+                                            Navigator.pop(context);
+                                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
+                                          },
+                                          style: ElevatedButton.styleFrom(
+                                            backgroundColor: const Color(0xff006A6A),
+                                            minimumSize: const Size(100, 30),
+                                            side: const BorderSide(width: 1, color: Color(0xff006A6A)),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(18),
+                                            ),
+                                          ),
+                                          child: const Text(
+                                            "OK",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold,
+                                                color: Color(0xffFFFFFF)),
+                                          ),
+                                        ),
+                                      ),
+                                      // color: const Color(0xFF1BC0C5),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        });
                     await context.read<CounsellorProvider>().editProfile(
                         _cname.text,
                         _cemail.text,
-                        specialisation.dropDownValue!.name);
+                        specialisation.dropDownValue!.value.toString());
+                    Navigator.pop(context);
                     // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (context) => ViewprofileUser()));
+                        // MaterialPageRoute(builder: (context) => HomeUser()));
                   },
                   child: Text(
                     "SAVE ",

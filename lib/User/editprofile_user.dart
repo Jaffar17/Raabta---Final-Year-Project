@@ -14,6 +14,8 @@ class _EditprofileUserState extends State<EditprofileUser> {
   SingleValueDropDownController preference= new SingleValueDropDownController();
   TextEditingController _cname = new TextEditingController();
   TextEditingController _cemail = new TextEditingController();
+  bool emailCheck = true;
+  bool nameCheck = true;
 
 
   void initState() {
@@ -22,12 +24,21 @@ class _EditprofileUserState extends State<EditprofileUser> {
     // Step 2 <- SEE HERE
     _cname.text = context.read<UserProvider>().user.fullName!;
     _cemail.text = context.read<UserProvider>().user.email!;
-    // preference.dropDownValue =  context.read<UserProvider>().user.preference!;
+    // preference.dropDownValue?.value =  context.read<UserProvider>().user.preference!;
 
   }
 
   @override
   Widget build(BuildContext context) {
+    nameCheck = true;
+    emailCheck = true;
+    if (_cname.text == ""){
+      nameCheck = false;
+    }
+    if (_cemail.text == ""){
+      emailCheck = false;
+    }
+
     return SafeArea(
         child: Scaffold(
           body: SingleChildScrollView(
@@ -73,12 +84,21 @@ class _EditprofileUserState extends State<EditprofileUser> {
                         controller: _cname,
                         decoration: InputDecoration(
                           labelText: "Full Name",
+                          errorText: nameCheck? null: "Name is empty!",
                           labelStyle: TextStyle(color: Color(0xff006A6A)),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
                           enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
@@ -89,15 +109,25 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       padding: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 20.0),
                       child: TextField(
+
                         controller: _cemail,
                         decoration: InputDecoration(
                           labelText: "Email",
+                          errorText: emailCheck? null: "Email is empty!",
                           labelStyle: TextStyle(color: Color(0xff006A6A)),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
                           enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
@@ -108,11 +138,12 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       padding: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 20.0),
                       child: DropDownTextField(
-                        initialValue: "name4",
-                        controller: preference,
+                        initialValue: context.read<UserProvider>().user.preference!,
+                        // initialValue: "Anxiety Issues",
+                        // controller: preference,
                         clearOption: true,
                         textFieldDecoration: InputDecoration(
-                            labelText: "Looking For?",
+                            labelText: "Looking Help For?",
                             labelStyle: TextStyle(color: Color(0xff006A6A)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
@@ -140,12 +171,12 @@ class _EditprofileUserState extends State<EditprofileUser> {
 
                         dropDownList: const [
                           DropDownValueModel(
-                              name: 'Anxiety', value: "value1"),
+                              name: 'Anxiety Issues', value: "Anxiety Issues"),
                           DropDownValueModel(
-                            name: 'Career/ Academic',
-                            value: "value2",
+                            name: 'Career/ Academic Issues',
+                            value: "Career/ Academic Issues",
                           ),
-                          DropDownValueModel(name: 'Profession', value: "value3"),
+                          DropDownValueModel(name: 'Professional Issues', value: "Professional Issues"),
                         ],
                         //onChanged: (val) {},
                       ),
@@ -154,7 +185,78 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                       child: ElevatedButton(
                         onPressed: () async{
+                          setState(() {
+                            if (_cname.text == ""){
+                              nameCheck = false;
+                            }
+                            if (_cemail.text == ""){
+                              emailCheck = false;
+                            }
+                          });
+                          print("check:");
+                          print(_cemail.text);
+                          print(_cname.text);
+                          print(preference.dropDownValue!.name);
                           await context.read<UserProvider>().editProfile(_cname.text, _cemail.text, preference.dropDownValue!.name);
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Dialog(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(20.0)), //this right here
+                                  child: Container(
+                                    height: 200,
+                                    // width: 400,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 12.0),
+                                            child: Text(
+                                                'Your profile has been updated.'),
+                                          ),
+
+                                          SizedBox(
+                                            width: 320.0,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 12, right: 12),
+                                              child: ElevatedButton(
+                                                onPressed: () {
+                                                  // Navigator.of(context, rootNavigator: true).pop();
+                                                  Navigator.pop(context);
+                                                  Navigator.pop(context);
+                                                  // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: const Color(0xff006A6A),
+                                                  minimumSize: const Size(100, 30),
+                                                  side: const BorderSide(width: 1, color: Color(0xff006A6A)),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(18),
+                                                  ),
+                                                ),
+                                                child: const Text(
+                                                  "OK",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Color(0xffFFFFFF)),
+                                                ),
+                                              ),
+                                            ),
+                                            // color: const Color(0xFF1BC0C5),
+                                          ),
+
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              });
                           // Navigator.push(context,
                           //     MaterialPageRoute(builder: (context) => ViewprofileUser()));
                         },

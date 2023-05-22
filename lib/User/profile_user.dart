@@ -19,9 +19,16 @@ class ProfileUser extends StatefulWidget {
 class _ProfileUserState extends State<ProfileUser> {
 
   TextEditingController dOBController = TextEditingController();
+
   SingleValueDropDownController gender = SingleValueDropDownController();
+
   SingleValueDropDownController preference = SingleValueDropDownController();
+
   TextEditingController name = TextEditingController();
+  bool dobValue = true;
+  bool genderValue = true;
+  bool prefValue = true;
+  bool nameValue = true;
 
 
   void initState() {
@@ -29,8 +36,33 @@ class _ProfileUserState extends State<ProfileUser> {
     name.text= context.read<UserProvider>().user.fullName!;
   }
 
+  void dispose() {
+    dOBController.dispose();
+    gender.dispose();
+    preference.dispose();
+    name.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    dobValue = true;
+    genderValue = true;
+    prefValue = true;
+    nameValue = true;
+
+    if (dOBController.text == "" || dOBController.text.length <=0){
+      dobValue = false;
+    }
+    if (name.text == ""){
+      nameValue = false;
+    }
+    if (gender.dropDownValue == null){
+      genderValue = false;
+    }
+    if(preference.dropDownValue == null){
+      prefValue = false;
+    }
 
     return SafeArea(
         child:
@@ -39,7 +71,7 @@ class _ProfileUserState extends State<ProfileUser> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/images/Background.jpeg"),
                       fit: BoxFit.cover)),
@@ -51,11 +83,11 @@ class _ProfileUserState extends State<ProfileUser> {
                     padding: const EdgeInsets.only(
                         top: 35, bottom: 35, right: 20, left: 20),
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
                                   color: Color(0xFFF6BD12), width: 2))),
-                      child: Text(
+                      child: const Text(
                         "Profile Completeness",
                         style: TextStyle(
                           fontSize: 36,
@@ -72,12 +104,21 @@ class _ProfileUserState extends State<ProfileUser> {
                       controller: name,
                       decoration: InputDecoration(
                         labelText:"Full Name",
-                        labelStyle: TextStyle(color: Color(0xff006A6A)),
+                        errorText: nameValue ? null: "Name is empty!",
+                        labelStyle: const TextStyle(color: Color(0xff006A6A)),
                         focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xff006A6A)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xff006A6A)),
+                        ),
+                        errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Color(0xff006A6A)),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Color(0xff006A6A)),
                         ),
@@ -90,15 +131,29 @@ class _ProfileUserState extends State<ProfileUser> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: TextField(
                       controller: dOBController,
+                      // onChanged: (value){
+                      //   setState(() {
+                      //     dobValue = isDOBValid(dOBController);
+                      //   });
+                      // },
                       //editing controller of this TextField
                       decoration: InputDecoration(
                         labelText: "Date of Birth",
-                        labelStyle: TextStyle(color: Color(0xff006A6A)),
+                        errorText: dobValue ? null : "Please select Date of Birth",
+                        labelStyle: const TextStyle(color: Color(0xff006A6A)),
                         focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xff006A6A)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: const BorderSide(color: Color(0xff006A6A)),
+                        ),
+                        errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Color(0xff006A6A)),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Color(0xff006A6A)),
                         ),
@@ -135,14 +190,14 @@ class _ProfileUserState extends State<ProfileUser> {
                       clearOption: true,
                       textFieldDecoration: InputDecoration(
                           labelText: "Gender",
-                          labelStyle: TextStyle(color: Color(0xff006A6A)),
+                          labelStyle: const TextStyle(color: Color(0xff006A6A)),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           // enableSearch: true,
                           // dropdownColor: Colors.green,
@@ -160,12 +215,12 @@ class _ProfileUserState extends State<ProfileUser> {
                       dropDownItemCount: 6,
 
                       dropDownList: const [
-                        DropDownValueModel(name: 'Male', value: "value1"),
+                        DropDownValueModel(name: 'Male', value: "Male"),
                         DropDownValueModel(
                           name: 'Female',
-                          value: "value2",
+                          value: "Female",
                         ),
-                        DropDownValueModel(name: 'Others', value: "value3"),
+                        DropDownValueModel(name: 'Others', value: "Others"),
                       ],
 
                     ),
@@ -178,15 +233,15 @@ class _ProfileUserState extends State<ProfileUser> {
                       controller: preference,
                       clearOption: true,
                       textFieldDecoration: InputDecoration(
-                          labelText: "Looking For?",
-                          labelStyle: TextStyle(color: Color(0xff006A6A)),
+                          labelText: "Looking Help For?",
+                          labelStyle: const TextStyle(color: Color(0xff006A6A)),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           // enableSearch: true,
                           // dropdownColor: Colors.green,
@@ -205,12 +260,12 @@ class _ProfileUserState extends State<ProfileUser> {
 
                       dropDownList: const [
                         DropDownValueModel(
-                            name: 'Anxiety', value: "Anxiety"),
+                            name: 'Anxiety Issues', value: "Anxiety Issues"),
                         DropDownValueModel(
-                          name: 'Career/ Academic',
-                          value: "Career/ Academic",
+                          name: 'Career/ Academic Issues',
+                          value: "Career/ Academic Issues",
                         ),
-                        DropDownValueModel(name: 'Profession', value: "Profession"),
+                        DropDownValueModel(name: 'Professional Issues', value: "Professional Issues"),
 
                       ],
 
@@ -220,12 +275,31 @@ class _ProfileUserState extends State<ProfileUser> {
                     padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
                     child: ElevatedButton(
                       onPressed: () async{
+                        setState(() {
+                          if (dOBController.text == "" || dOBController.text.length <=0){
+                            dobValue = false;
+                          }
+                          if (name.text == ""){
+                            nameValue = false;
+                          }
+                          if (gender.dropDownValue == null){
+                            genderValue = false;
+                          }
+                          if(preference.dropDownValue == null){
+                            prefValue = false;
+                          }
+                        });
+                        print("dob");
+                        print(nameValue);
+
                         //print(dOBController.text + gender.dropDownValue!.name + preference.dropDownValue!.name);
-                        await context.read<UserProvider>().profileComplete(dOBController.text, gender.dropDownValue!.name, preference.dropDownValue!.name);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => PersonalityTest()));
+                        if (dobValue == true && nameValue == true && genderValue== true && prefValue== true){
+                          await context.read<UserProvider>().profileComplete(dOBController.text, gender.dropDownValue!.name, preference.dropDownValue!.name);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => const PersonalityTest()));
+                        }
                       },
-                      child: Text(
+                      child: const Text(
                         "NEXT ",
                         style: TextStyle(
                             fontSize: 22,
@@ -233,9 +307,9 @@ class _ProfileUserState extends State<ProfileUser> {
                             color: Color(0xff006A6A)),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xffFFFFFF),
-                        minimumSize: Size(300, 50),
-                        side: BorderSide(width: 1, color: Color(0xff006A6A)),
+                        backgroundColor: const Color(0xffFFFFFF),
+                        minimumSize: const Size(300, 50),
+                        side: const BorderSide(width: 1, color: Color(0xff006A6A)),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18),
                         ),
@@ -249,4 +323,21 @@ class _ProfileUserState extends State<ProfileUser> {
         )
     );
   }
+
+  bool isNameValid(TextEditingController name){
+    if (name.value!=null){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  bool isDOBValid(TextEditingController dOBController){
+    if (dOBController.value!= null){
+      return true;
+    }
+    return false;
+  }
 }
+

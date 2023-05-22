@@ -46,7 +46,6 @@ class _LoginUserState extends State<LoginUser> {
             Navigator.pushReplacement(context,
                 MaterialPageRoute(builder: (context) => const NavBarUser()));
             //await _googleSignIn.signOut();
-
           }
           catch(e){
             Dialogs.showSnackBar(context, "This email is registered as a Counsellor");

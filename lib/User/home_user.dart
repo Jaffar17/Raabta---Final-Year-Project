@@ -54,6 +54,7 @@ class _HomeUserState extends State<HomeUser> {
             //yeha sey kaam agai start karna hai pie chart aur extra widget ka
             child: context.watch<UserProvider>().isLoading?Center(child: CircularProgressIndicator()):Column(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 context.read<UserProvider>().emotions!.isEmpty?_NotRecorded(context):_Emotion_Detection_Results(context.read<UserProvider>().emotions!),
                 // Padding(
@@ -180,61 +181,74 @@ Widget _NotRecorded (BuildContext context){
   );
 }
 Widget _Evaluations(PersonalityTestModel? evaluation){
-  return Table(
-    border: TableBorder.all(),
-    children: [
-      TableRow(
-        children: [
-          TableCell(
-            child: Text("Extroversion"),
-          ),
-          TableCell(
-            child: Text(evaluation!.extroversion.toString()),
-          ),
-        ],
-      ),
-      TableRow(
-        children: [
-          TableCell(
-            child: Text('Agreeableness'),
-          ),
-          TableCell(
-            child: Text(evaluation!.Agreeableness.toString()),
-          ),
-        ],
-      ),
+  return Padding(
+    padding: const EdgeInsets.only(left: 28.0, right: 28),
+    child: Table(
+      border: TableBorder.all(),
+      children: [
+        TableRow(
+          children: [
+            TableCell(
+              child: Text(" Extroversion"),
+            ),
+            Center(
+              child: TableCell(
+                child: Text(evaluation!.extroversion.toString()),
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            TableCell(
+              child: Text(' Agreeableness'),
+            ),
+            Center(
+              child: TableCell(
+                child: Text(evaluation!.Agreeableness.toString()),
+              ),
+            ),
+          ],
+        ),
 
-      TableRow(
-        children: [
-          TableCell(
-            child: Text('Conscientiousness'),
-          ),
-          TableCell(
-            child: Text(evaluation!.conscientiousness.toString()),
-          ),
-        ],
-      ),
-      TableRow(
-        children: [
-          TableCell(
-            child: Text('Neuroticism'),
-          ),
-          TableCell(
-            child: Text(evaluation!.neurotocism.toString()),
-          ),
-        ],
-      ),
-      TableRow(
-        children: [
-          TableCell(
-            child: Text('Openness to Experience'),
-          ),
-          TableCell(
-            child: Text(evaluation!.openess.toString()),
-          ),
-        ],
-      ),
-    ],
+        TableRow(
+          children: [
+            TableCell(
+              child: Text(' Conscientiousness'),
+            ),
+            Center(
+              child: TableCell(
+                child: Text(evaluation!.conscientiousness.toString()),
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            TableCell(
+              child: Text(' Neuroticism'),
+            ),
+            Center(
+              child: TableCell(
+                child: Text(evaluation!.neurotocism.toString()),
+              ),
+            ),
+          ],
+        ),
+        TableRow(
+          children: [
+            TableCell(
+              child: Text(' Openness to Experience'),
+            ),
+            Center(
+              child: TableCell(
+                child: Text(evaluation!.openess.toString()),
+              ),
+            ),
+          ],
+        ),
+      ],
+    ),
   );
 
 }
