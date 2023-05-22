@@ -17,7 +17,8 @@ class UserProvider with ChangeNotifier {
   bool isLoading = true;
   late ChatRoom? chatRoom = ChatRoom();
   List<ChatRoom> userChats = [];
-  Map<String,double>?emotions={"angry":0.0};
+  //yeh key value hata k dekhna
+  Map<String,double>?emotions={};
 
   Future<UserModel> getUser(String id) async {
     user = await _userRepository.getUser(id);

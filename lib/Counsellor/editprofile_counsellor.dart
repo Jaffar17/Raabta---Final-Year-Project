@@ -14,8 +14,7 @@ class EditProfileCounsellor extends StatefulWidget {
 class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
   TextEditingController _cname = new TextEditingController();
   TextEditingController _cemail = new TextEditingController();
-  SingleValueDropDownController specialisation =
-      new SingleValueDropDownController();
+  late SingleValueDropDownController specialisation;
   bool emailCheck = true;
   bool nameCheck = true;
 
@@ -31,6 +30,8 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
   Widget build(BuildContext context) {
     emailCheck = true;
     nameCheck = true;
+    SingleValueDropDownController specialisation =
+    new SingleValueDropDownController(data: new DropDownValueModel(name: context.read<CounsellorProvider>().counsellor.specialisation.toString(), value: context.read<CounsellorProvider>().counsellor.specialisation.toString()));
 
     if (_cname.text == ""){
       nameCheck = false;
@@ -110,6 +111,7 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                     left: 16.0, right: 16.0, bottom: 20.0),
                 child: TextField(
                   controller: _cemail,
+                  enabled: false,
                   decoration: InputDecoration(
                     labelText: "Email",
                     errorText: emailCheck? null: "Email is empty!",
@@ -118,7 +120,7 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: Color(0xff006A6A)),
                     ),
-                    enabledBorder: OutlineInputBorder(
+                    disabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(color: Color(0xff006A6A)),
                     ),

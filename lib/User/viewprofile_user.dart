@@ -20,7 +20,7 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
         body: Container(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage("assets/images/Background.jpeg"),
                   fit: BoxFit.cover)),
@@ -30,11 +30,11 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                 padding: const EdgeInsets.only(
                     top: 35, bottom: 35, right: 20, left: 20),
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       border: Border(
                           bottom: BorderSide(
                               color: Color(0xFFF6BD12), width: 2))),
-                  child: Text(
+                  child: const Text(
                     "Profile",
                     style: TextStyle(
                       fontSize: 36,
@@ -67,31 +67,6 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                     context.read<UserProvider>().user.preference.toString(),
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                   )),
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
-              //   child: ElevatedButton(
-              //     onPressed: () {
-              //       // Navigator.push(context,
-              //       //     MaterialPageRoute(builder: (context) => ViewprofileCounsellor()));
-              //       //
-              //     },
-              //     child: Text(
-              //       "View Personality Test",
-              //       style: TextStyle(
-              //           fontSize: 22,
-              //           fontWeight: FontWeight.w500,
-              //           color: Color(0xff006A6A)),
-              //     ),
-              //     style: ElevatedButton.styleFrom(
-              //       backgroundColor: Color(0xffFFFFFF),
-              //       minimumSize: Size(300, 50),
-              //       side: BorderSide(width: 1, color: Color(0xff006A6A)),
-              //       shape: RoundedRectangleBorder(
-              //         borderRadius: BorderRadius.circular(18),
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(left: 25, right: 25, top: 20),
                 child: Row(
@@ -107,23 +82,18 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => EditprofileUser()));
-
                         },
-                        child: Text(
-                          "EDIT",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff006A6A),
                           minimumSize: Size(120, 50),
-                          // side: BorderSide(
-                          //     width: 1,
-                          //     color: Color(0xff100D57)
-                          // ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18),
                           ),
+                        ),
+                        child: const Text(
+                          "EDIT",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -134,11 +104,6 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                           await _googleSignIn.signOut();
                           Navigator.pop(context);
                         },
-                        child: Text(
-                          "LOGOUT",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xffF93535),
                           minimumSize: Size(120, 50),
@@ -146,6 +111,11 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18),
                           ),
+                        ),
+                        child: const Text(
+                          "LOGOUT",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),

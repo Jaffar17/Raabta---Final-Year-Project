@@ -11,7 +11,7 @@ class EditprofileUser extends StatefulWidget {
 }
 
 class _EditprofileUserState extends State<EditprofileUser> {
-  SingleValueDropDownController preference= new SingleValueDropDownController();
+  late SingleValueDropDownController preference;
   TextEditingController _cname = new TextEditingController();
   TextEditingController _cemail = new TextEditingController();
   bool emailCheck = true;
@@ -24,12 +24,15 @@ class _EditprofileUserState extends State<EditprofileUser> {
     // Step 2 <- SEE HERE
     _cname.text = context.read<UserProvider>().user.fullName!;
     _cemail.text = context.read<UserProvider>().user.email!;
-    // preference.dropDownValue?.value =  context.read<UserProvider>().user.preference!;
+     //preference.dropDownValue?.value =  context.read<UserProvider>().user.preference!;
 
   }
 
   @override
   Widget build(BuildContext context) {
+    SingleValueDropDownController preference= new SingleValueDropDownController(data: DropDownValueModel(
+        name: context.read<UserProvider>().user.preference.toString(), value: context.read<UserProvider>().user.preference.toString()),);
+
     nameCheck = true;
     emailCheck = true;
     if (_cname.text == ""){
@@ -109,17 +112,17 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       padding: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 20.0),
                       child: TextField(
-
+                        enabled: false,
                         controller: _cemail,
                         decoration: InputDecoration(
                           labelText: "Email",
                           errorText: emailCheck? null: "Email is empty!",
                           labelStyle: TextStyle(color: Color(0xff006A6A)),
-                          focusedBorder: OutlineInputBorder(
+                          disabledBorder:OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
-                          enabledBorder: OutlineInputBorder(
+                          focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
@@ -138,9 +141,9 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       padding: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 20.0),
                       child: DropDownTextField(
-                        initialValue: context.read<UserProvider>().user.preference!,
-                        // initialValue: "Anxiety Issues",
-                        // controller: preference,
+                        //initialValue: context.read<UserProvider>().user.preference!,
+                        //initialValue: "Anxiety Issues",
+                        controller: preference,
                         clearOption: true,
                         textFieldDecoration: InputDecoration(
                             labelText: "Looking Help For?",
