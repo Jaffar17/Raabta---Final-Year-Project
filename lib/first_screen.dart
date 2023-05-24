@@ -47,7 +47,7 @@ class _FirstScreenState extends State<FirstScreen> {
                   },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xff006A6A),
-                        minimumSize: const Size(120, 40),
+                        minimumSize: const Size(150, 40),
                         side: const BorderSide(
                           width: 1,
                           color: Color(0xff100D57)
