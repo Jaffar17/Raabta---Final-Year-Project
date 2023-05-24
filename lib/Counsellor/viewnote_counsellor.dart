@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Models/user/user_model.dart';
+import 'package:provider/provider.dart';
+import '../Models/counsellor/counsellor_notes_model.dart';
+import '../controllers/counsellor/counsellor_provider.dart';
 
 class ViewNotesCounsellor extends StatefulWidget {
-  const ViewNotesCounsellor({Key? key}) : super(key: key);
+  int note_id;
+  ViewNotesCounsellor({Key? key, required this.note_id}) : super(key: key);
 
   @override
   State<ViewNotesCounsellor> createState() => _ViewNotesCounsellorState();
@@ -21,6 +26,8 @@ class _ViewNotesCounsellorState extends State<ViewNotesCounsellor> {
 
     @override
   Widget build(BuildContext context) {
+      Notes note = context.read<CounsellorProvider>().counsellor.notes![widget.note_id];
+      _cnotes.text = note.note.toString();
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -100,12 +107,12 @@ class _ViewNotesCounsellorState extends State<ViewNotesCounsellor> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10,  bottom: 4),
-                          child: Text("Patient 1", style: TextStyle(fontSize: 22, fontFamily: "MontserratMedium", ),),
+                          child: Text(note.patientName.toString(), style: TextStyle(fontSize: 22, fontFamily: "MontserratMedium", ),),
                         ),
 
                         Padding(
                           padding: const EdgeInsets.only(  bottom: 20),
-                          child: Text("02 January 2023", style: TextStyle(fontSize: 16,  ),),
+                          child: Text(note.Date.toString(), style: TextStyle(fontSize: 16,  ),),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(

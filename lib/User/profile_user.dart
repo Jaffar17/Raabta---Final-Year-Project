@@ -179,10 +179,10 @@ class _ProfileUserState extends State<ProfileUser> {
                       onTap: () async {
                         DateTime? pickedDate = await showDatePicker(
                             context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1950),
+                            initialDate: DateTime(2009, 1, 1),
+                            firstDate: DateTime(1900),
                             //DateTime.now() - not to allow to choose before today.
-                            lastDate: DateTime(2100));
+                            lastDate: DateTime(2009, 12, 31));
 
                         if (pickedDate != null) {
                           //pickedDate output format => 2021-03-10 00:00:00.000

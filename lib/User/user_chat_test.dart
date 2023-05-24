@@ -91,7 +91,8 @@ class _ChatScreenUserState extends State<ChatScreenUser> {
               //   ),
               // ),
               _messageSpace(chat!),
-              _inputSpace(chat)
+              _inputSpace(chat),
+              SizedBox(height:MediaQuery.of(context).viewInsets.bottom),
             ],
           ),
         ),
@@ -150,11 +151,13 @@ class _ChatScreenUserState extends State<ChatScreenUser> {
     return Container(
       padding: const EdgeInsets.all(10),
       width: double.infinity,
-      height: 60,
+      height: 70,
       child: Row(
         children: <Widget>[
           Expanded(
               child: TextField(
+                scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                // textInputAction: ,
             controller: _message,
             // onSubmitted: (String str) {
             //   addMessage(_message.text);

@@ -12,6 +12,7 @@ import 'package:raabta_fyp/Models/counsellor/counsellor_appointments.dart';
 import 'package:uuid/uuid.dart';
 
 import '../Models/Chats/ChatRoom.dart';
+import '../helper/Dialogs.dart';
 
 class CounsellorsList extends StatefulWidget {
   const CounsellorsList({Key? key}) : super(key: key);
@@ -30,10 +31,17 @@ class _CounsellorsListState extends State<CounsellorsList> {
       if(chatroom == null)
       {
         //new edit
+        // Dialogs.showProgressBar(context);
         context.read<UserProvider>().createChatSession(new ChatRoom(id: context.read<UserProvider>().user.id.toString() + counsellorId, userId: context.read<UserProvider>().user.id.toString(), counsellorId: counsellorId, userName: context.read<UserProvider>().user.fullName, userImage: context.read<UserProvider>().user.photoUrl, counsellorName: counsellorName, counsellorImage: counsellorImageUrl));
         context.read<UserProvider>().getChatRoom(context.read<UserProvider>().user.id.toString()+counsellorId);
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreenUser(chatSessionId: context.read<UserProvider>().user.id.toString()+counsellorId,counsellorId: counsellorId,counsellorName: counsellorName, counsellorImage: counsellorImageUrl,)));
-        print("new chat");
+        Dialogs.showProgressBar(context);
+        Future.delayed(const Duration(seconds: 1),(){
+          Navigator.pop(context);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreenUser(chatSessionId: context.read<UserProvider>().user.id.toString()+counsellorId,counsellorId: counsellorId,counsellorName: counsellorName, counsellorImage: counsellorImageUrl,)));
+          print("new chat");
+        });
+        // Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatScreenUser(chatSessionId: context.read<UserProvider>().user.id.toString()+counsellorId,counsellorId: counsellorId,counsellorName: counsellorName, counsellorImage: counsellorImageUrl,)));
+        // print("new chat");
       }
       else {
         print("old chat");
@@ -118,6 +126,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
                             padding: const EdgeInsets.only(
                                 top: 8.0, bottom: 4.0, right: 18, left: 18),
                             child: Card(
+                              elevation: 8,
                               shape: RoundedRectangleBorder(
                                   side: const BorderSide(color: Colors.black12),
                                   borderRadius: BorderRadius.circular(10)),
@@ -193,7 +202,13 @@ class _CounsellorsListState extends State<CounsellorsList> {
                                               bottom: 12.0),
                                           child: InkWell(
                                             onTap: () {
+
                                               chatSession(context.read<UserProvider>().user.id.toString()+counsellorsList[index].id.toString(), counsellorsList[index].id.toString(), "Dr. "+counsellorsList[index].displayName!.split(' ')[0], counsellorsList[index].photoUrl.toString());
+                                              // Future.delayed(Duration(seconds: 1),(){
+                                              //   Navigator.pop(context);
+                                              //   chatSession(context.read<UserProvider>().user.id.toString()+counsellorsList[index].id.toString(), counsellorsList[index].id.toString(), "Dr. "+counsellorsList[index].displayName!.split(' ')[0], counsellorsList[index].photoUrl.toString());
+                                              //   // Navigator.push(context,MaterialPageRoute(builder:(context)=>NavBarUser()));
+                                              // });
                                               // Navigator.push(
                                               //     context,
                                               //     MaterialPageRoute(

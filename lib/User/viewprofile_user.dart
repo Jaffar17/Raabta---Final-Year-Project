@@ -30,7 +30,7 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 75, bottom: 35, right: 20, left: 20),
+                    top: 40, bottom: 35, right: 20, left: 20),
                 child: Container(
                   decoration: const BoxDecoration(
                       border: Border(

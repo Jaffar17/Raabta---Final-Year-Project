@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
 import 'package:raabta_fyp/User/counsellorsList_user.dart';
+import 'package:raabta_fyp/User/navbar_user.dart';
 import 'package:uuid/uuid.dart';
 import 'package:provider/provider.dart';
 
@@ -133,9 +134,26 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                 DateTime? pickedDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.now(),
-                    firstDate: DateTime(2023),
+                    firstDate: DateTime.now(),
                     //DateTime.now() - not to allow to choose before today.
-                    lastDate: DateTime(2100));
+                    lastDate: DateTime(2025,12,31));
+                builder: (context, child) {
+                  return Theme(
+                    data: Theme.of(context).copyWith(
+                      colorScheme: ColorScheme.light(
+                        primary: Color(0xff006A6A), // <-- SEE HERE
+                        onPrimary: Colors.redAccent, // <-- SEE HERE
+                        onSurface: Color(0xff006A6A), // <-- SEE HERE
+                      ),
+                      textButtonTheme: TextButtonThemeData(
+                        style: TextButton.styleFrom(
+                          primary: Colors.red, // button text color
+                        ),
+                      ),
+                    ),
+                    child: child!,
+                  );
+                };
 
                 if (pickedDate != null) {
                   //pickedDate output format => 2021-03-10 00:00:00.000
@@ -230,14 +248,16 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                                     padding: const EdgeInsets.only(left: 12, right: 12),
                                     child: ElevatedButton(
                                       onPressed: () {
+                                        // createAppointment(widget.object, dateController.text, timeSlot.dropDownValue!.value.toString());
                                         // Navigator.of(context, rootNavigator: true).pop();
                                         Navigator.pop(context);
-                                        Navigator.pop(context);
-                                        // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
+                                        // Navigator.pop(context);
+                                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> NavBarUser())); // We need to route back to counsellors screen, as of now not happening
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: const Color(0xff006A6A),
-                                        minimumSize: const Size(100, 30),
+                                        minimumSize: const Size(80, 40),
+                                        maximumSize: const Size(80, 40),
                                         side: const BorderSide(width: 1, color: Color(0xff006A6A)),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(18),

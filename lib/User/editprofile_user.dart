@@ -49,7 +49,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("assets/images/Background.jpeg"), fit: BoxFit.cover)),
               child: Column(
@@ -58,11 +58,11 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       padding: const EdgeInsets.only(
                           top: 35, bottom: 35, right: 20, left: 20),
                       child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     color: Color(0xFFF6BD12), width: 2))),
-                        child: Text(
+                        child: const Text(
                           "Edit Profile",
                           style: TextStyle(
                             fontSize: 36,
@@ -74,7 +74,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(
-                          left: 16.0, right: 16.0, bottom: 10.0),
+                          left: 16.0, right: 16.0, bottom: 26.0),
                       child:Image.network(context.read<UserProvider>().user.photoUrl.toString()),
                         //"assets/images/ProfilePic.png",
                         // width: 150,
@@ -89,22 +89,22 @@ class _EditprofileUserState extends State<EditprofileUser> {
                         decoration: InputDecoration(
                           labelText: "Full Name",
                           errorText: nameCheck? null: "Name is empty!",
-                          labelStyle: TextStyle(color: Color(0xff006A6A)),
+                          labelStyle: const TextStyle(color: Color(0xff006A6A)),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                         ),
                       ),
@@ -120,22 +120,22 @@ class _EditprofileUserState extends State<EditprofileUser> {
                           fillColor: Colors.red,
                           labelText: "Email",
                           errorText: emailCheck? null: "Email is empty!",
-                          labelStyle: TextStyle(color: Color(0xff006A6A)),
+                          labelStyle: const TextStyle(color: Color(0xff006A6A)),
                           disabledBorder:OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Colors.black),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: const BorderSide(color: Color(0xff006A6A)),
                           ),
                         ),
                       ),
@@ -150,14 +150,14 @@ class _EditprofileUserState extends State<EditprofileUser> {
                         clearOption: true,
                         textFieldDecoration: InputDecoration(
                             labelText: "Looking Help For?",
-                            labelStyle: TextStyle(color: Color(0xff006A6A)),
+                            labelStyle: const TextStyle(color: Color(0xff006A6A)),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: Color(0xff006A6A)),
+                              borderSide: const BorderSide(color: Color(0xff006A6A)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(color: Color(0xff006A6A)),
+                              borderSide: const BorderSide(color: Color(0xff006A6A)),
                             ),
                             // enableSearch: true,
                             // dropdownColor: Colors.green,
@@ -220,7 +220,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Center(
+                                          const Center(
                                             child: Text(
                                                 'Your profile has been updated.', style: TextStyle(fontSize: 16),),
                                           ),
@@ -234,7 +234,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                                                   // Navigator.of(context, rootNavigator: true).pop();
                                                   Navigator.pop(context);
                                                   // Navigator.pop(context);
-                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavBarUser()));
+                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const NavBarUser()));
                                                   // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
                                                 },
                                                 style: ElevatedButton.styleFrom(
@@ -267,7 +267,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                           // Navigator.push(context,
                           //     MaterialPageRoute(builder: (context) => ViewprofileUser()));
                         },
-                        child: Text(
+                        child: const Text(
                           "SAVE ",
                           style: TextStyle(
                             fontSize: 22,
@@ -276,9 +276,9 @@ class _EditprofileUserState extends State<EditprofileUser> {
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff006A6A),
-                          minimumSize: Size(300, 50),
-                          side: BorderSide(width: 1, color: Color(0xff006A6A)),
+                          backgroundColor: const Color(0xff006A6A),
+                          minimumSize: const Size(300, 50),
+                          side: const BorderSide(width: 1, color: Color(0xff006A6A)),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18),
                           ),

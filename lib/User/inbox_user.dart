@@ -75,6 +75,7 @@ class _InboxUserState extends State<InboxUser> {
                       padding: const EdgeInsets.only(
                           top: 8.0, bottom: 4.0, right: 18, left: 18),
                       child: Card(
+                        elevation: 8,
                         shape: RoundedRectangleBorder(
                             side: const BorderSide(color: Colors.black12),
                             borderRadius: BorderRadius.circular(10)),
