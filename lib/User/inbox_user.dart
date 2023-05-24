@@ -66,7 +66,7 @@ class _InboxUserState extends State<InboxUser> {
                   ),
                 ),
               ),
-              ListView.builder(
+              chats.isNotEmpty? ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: chats.length,
@@ -104,7 +104,10 @@ class _InboxUserState extends State<InboxUser> {
 
                       ),
                     );
-                  }),
+                  }) : Padding(
+                    padding: const EdgeInsets.only(top: 50.0),
+                    child: Center(child: Text("No messages to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
+                  ),
             ],
           ),
         ),

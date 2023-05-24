@@ -102,6 +102,17 @@ class _ProfileUserState extends State<ProfileUser> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: TextField(
                       controller: name,
+                      onChanged: (val)=>{
+                        if (name.text.isNotEmpty){
+                          setState((){
+                            nameValue = true;
+                          })
+                        }else{
+                          setState((){
+                            nameValue = false;
+                          })
+                        }
+                      },
                       decoration: InputDecoration(
                         labelText:"Full Name",
                         errorText: nameValue ? null: "Name is empty!",
@@ -131,15 +142,20 @@ class _ProfileUserState extends State<ProfileUser> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: TextField(
                       controller: dOBController,
-                      // onChanged: (value){
-                      //   setState(() {
-                      //     dobValue = isDOBValid(dOBController);
-                      //   });
-                      // },
-                      //editing controller of this TextField
+                      onChanged: (val)=>{
+                        if (dOBController.text.isNotEmpty){
+                          setState((){
+                            dobValue = true;
+                          })
+                        }else{
+                          setState((){
+                            dobValue = false;
+                          })
+                        }
+                      },
                       decoration: InputDecoration(
                         labelText: "Date of Birth",
-                        errorText: dobValue ? null : "Please select Date of Birth",
+                        // errorText: dobValue ? null : "Please select Date of Birth",
                         labelStyle: const TextStyle(color: Color(0xff006A6A)),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
@@ -186,6 +202,17 @@ class _ProfileUserState extends State<ProfileUser> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: DropDownTextField(
                       //initialValue: "name4",
+                      onChanged: (val)=>{
+                        if (val != null){
+                          setState((){
+                            genderValue = true;
+                          })
+                        }else{
+                          setState((){
+                            genderValue = false;
+                          })
+                        }
+                      },
                       controller: gender,
                       clearOption: true,
                       textFieldDecoration: InputDecoration(
@@ -231,6 +258,17 @@ class _ProfileUserState extends State<ProfileUser> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: DropDownTextField(
                       controller: preference,
+                      onChanged: (val)=>{
+                        if (val != null){
+                          setState((){
+                            prefValue = true;
+                          })
+                        }else{
+                          setState((){
+                            prefValue = false;
+                          })
+                        }
+                      },
                       clearOption: true,
                       textFieldDecoration: InputDecoration(
                           labelText: "Looking Help For?",
@@ -273,8 +311,8 @@ class _ProfileUserState extends State<ProfileUser> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
-                    child: ElevatedButton(
-                      onPressed: () async{
+                    child:nameValue && dobValue && genderValue && prefValue? ElevatedButton(
+                      onPressed:   () async{
                         setState(() {
                           if (dOBController.text == "" || dOBController.text.length <=0){
                             dobValue = false;
@@ -295,16 +333,33 @@ class _ProfileUserState extends State<ProfileUser> {
                         //print(dOBController.text + gender.dropDownValue!.name + preference.dropDownValue!.name);
                         if (dobValue == true && nameValue == true && genderValue== true && prefValue== true){
                           await context.read<UserProvider>().profileComplete(dOBController.text, gender.dropDownValue!.name, preference.dropDownValue!.name);
-                          Navigator.push(context,
+                          Navigator.pushReplacement(context,
                               MaterialPageRoute(builder: (context) => const PersonalityTest()));
                         }
-                      },
+                      } ,
                       child: const Text(
                         "NEXT ",
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
                             color: Color(0xff006A6A)),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffFFFFFF),
+                        minimumSize: const Size(300, 50),
+                        side: const BorderSide(width: 1, color: Color(0xff006A6A)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                    ):ElevatedButton(
+                      onPressed:  null ,
+                      child: const Text(
+                        "NEXT ",
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueGrey),
                       ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xffFFFFFF),

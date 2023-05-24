@@ -16,8 +16,6 @@ class HomeUser extends StatefulWidget {
 }
 
 class _HomeUserState extends State<HomeUser> {
-
-
   @override
   void initState() {
     // TODO: implement initState
@@ -50,137 +48,142 @@ class _HomeUserState extends State<HomeUser> {
                   image: AssetImage("assets/images/Background.jpeg"),
                   fit: BoxFit.cover)),
           child: Padding(
-            padding: const EdgeInsets.only(top: 120.0),
+            padding: const EdgeInsets.only(top: 0),
             //yeha sey kaam agai start karna hai pie chart aur extra widget ka
-            child: context.watch<UserProvider>().isLoading?Center(child: CircularProgressIndicator()):Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                context.read<UserProvider>().emotions!.isEmpty?_NotRecorded(context):_Emotion_Detection_Results(context.read<UserProvider>().emotions!),
-                // Padding(
-                //   padding: const EdgeInsets.only(
-                //       top: 125, bottom: 15, left: 10, right: 10),
-                //   child: Text(
-                //     "Get Insights about yourself",
-                //     style:
-                //     TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
-                //   ),
-                // ),
-                // Text(
-                //   "Record a 1-minute video of yourself giving \na small introduction of yourself",
-                //   style: TextStyle(fontFamily: "MontserratMedium"),
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 25.0, bottom: 10),
-                //   child: ElevatedButton(
-                //     onPressed: () async {
-                //       final cameras = await availableCameras();
-                //       final firstCamera = cameras[1];
-                //
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //               builder: (context) => VideoRecorder(
-                //                 camera: firstCamera,
-                //               )));
-                //     },
-                //     child: Text(
-                //       "RECORD ",
-                //       style: TextStyle(
-                //           fontSize: 22,
-                //           fontWeight: FontWeight.bold,
-                //           color: Color(0xffFFFFFF)),
-                //     ),
-                //     style: ElevatedButton.styleFrom(
-                //       backgroundColor: const Color(0xff006A6A),
-                //       minimumSize: const Size(300, 50),
-                //       side:
-                //       const BorderSide(width: 1, color: Color(0xff006A6A)),
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(18),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 15, bottom: 15, left: 10, right: 10),
-                  child: Text(
-                    "Personality Test Results",
-                    style:
-                    TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
+            child: context.watch<UserProvider>().isLoading
+                ? Center(child: CircularProgressIndicator())
+                : Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      context.read<UserProvider>().emotions!.isEmpty
+                          ? _NotRecorded(context)
+                          : _Emotion_Detection_Results(
+                              context.read<UserProvider>().emotions!),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //       top: 125, bottom: 15, left: 10, right: 10),
+                      //   child: Text(
+                      //     "Get Insights about yourself",
+                      //     style:
+                      //     TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
+                      //   ),
+                      // ),
+                      // Text(
+                      //   "Record a 1-minute video of yourself giving \na small introduction of yourself",
+                      //   style: TextStyle(fontFamily: "MontserratMedium"),
+                      // ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(top: 25.0, bottom: 10),
+                      //   child: ElevatedButton(
+                      //     onPressed: () async {
+                      //       final cameras = await availableCameras();
+                      //       final firstCamera = cameras[1];
+                      //
+                      //       Navigator.push(
+                      //           context,
+                      //           MaterialPageRoute(
+                      //               builder: (context) => VideoRecorder(
+                      //                 camera: firstCamera,
+                      //               )));
+                      //     },
+                      //     child: Text(
+                      //       "RECORD ",
+                      //       style: TextStyle(
+                      //           fontSize: 22,
+                      //           fontWeight: FontWeight.bold,
+                      //           color: Color(0xffFFFFFF)),
+                      //     ),
+                      //     style: ElevatedButton.styleFrom(
+                      //       backgroundColor: const Color(0xff006A6A),
+                      //       minimumSize: const Size(300, 50),
+                      //       side:
+                      //       const BorderSide(width: 1, color: Color(0xff006A6A)),
+                      //       shape: RoundedRectangleBorder(
+                      //         borderRadius: BorderRadius.circular(18),
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 15, bottom: 15, left: 10, right: 10),
+                            child: Text(
+                              "Personality Test Results",
+                              style: TextStyle(
+                                  fontFamily: "MontserratMedium", fontSize: 20),
+                            ),
+                          ),
+                          _Evaluations(context.read<UserProvider>().user.Ptest),
+                        ],
+                      ),
+                    ],
                   ),
-                ),
-                _Evaluations(context.read<UserProvider>().user.Ptest),
-              ],
-            ),
           ),
         ),
       ),
     );
   }
-
 }
 
-Widget _Emotion_Detection_Results(Map<String,double> data){
+Widget _Emotion_Detection_Results(Map<String, double> data) {
   return PieChart(dataMap: data);
 }
 
-Widget _NotRecorded (BuildContext context){
+Widget _NotRecorded(BuildContext context) {
   return Container(
-    child:Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(
-              top: 125, bottom: 15, left: 10, right: 10),
+      child: Column(
+    children: [
+      Padding(
+        padding:
+            const EdgeInsets.only(top: 0, bottom: 15, left: 10, right: 10),
+        child: Text(
+          "Get Insights about yourself",
+          style: TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
+        ),
+      ),
+      Text(
+        "Record a 1-minute video of yourself giving \na small introduction of yourself",
+        style: TextStyle(fontFamily: "MontserratMedium"),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 25.0, bottom: 0),
+        child: ElevatedButton(
+          onPressed: () async {
+            final cameras = await availableCameras();
+            final firstCamera = cameras[1];
+
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => VideoRecorder(
+                          camera: firstCamera,
+                        )));
+          },
           child: Text(
-            "Get Insights about yourself",
-            style:
-            TextStyle(fontFamily: "MontserratMedium", fontSize: 20),
+            "RECORD ",
+            style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Color(0xffFFFFFF)),
           ),
-        ),
-        Text(
-          "Record a 1-minute video of yourself giving \na small introduction of yourself",
-          style: TextStyle(fontFamily: "MontserratMedium"),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 25.0, bottom: 10),
-          child: ElevatedButton(
-            onPressed: () async {
-              final cameras = await availableCameras();
-              final firstCamera = cameras[1];
-
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => VideoRecorder(
-                        camera: firstCamera,
-                      )));
-            },
-            child: Text(
-              "RECORD ",
-              style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xffFFFFFF)),
-            ),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xff006A6A),
-              minimumSize: const Size(300, 50),
-              side:
-              const BorderSide(width: 1, color: Color(0xff006A6A)),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18),
-              ),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xff006A6A),
+            minimumSize: const Size(300, 50),
+            side: const BorderSide(width: 1, color: Color(0xff006A6A)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(18),
             ),
           ),
         ),
-
-      ],
-    )
-  );
+      ),
+    ],
+  ));
 }
-Widget _Evaluations(PersonalityTestModel? evaluation){
+
+Widget _Evaluations(PersonalityTestModel? evaluation) {
   return Padding(
     padding: const EdgeInsets.only(left: 28.0, right: 28),
     child: Table(
@@ -210,7 +213,6 @@ Widget _Evaluations(PersonalityTestModel? evaluation){
             ),
           ],
         ),
-
         TableRow(
           children: [
             TableCell(
@@ -250,5 +252,4 @@ Widget _Evaluations(PersonalityTestModel? evaluation){
       ],
     ),
   );
-
 }

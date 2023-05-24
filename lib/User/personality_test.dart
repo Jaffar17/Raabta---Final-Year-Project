@@ -417,9 +417,100 @@ class _PersonalityTestState extends State<PersonalityTest> {
                     padding: const EdgeInsets.only(top: 15.0, bottom: 15),
                     child: ElevatedButton(
                       onPressed: () async{
-                        await context.read<UserProvider>().personalityEvaluation([q1Value,q2Value,q3Value,q4Value,q5Value,q6Value,q7Value,q8Value,q9Value,q10Value]);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const NavBarUser()));
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(20.0)), //this right here
+                                child: Container(
+                                  height: 180,
+                                  // width: 400,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Center(
+                                          child: Text(
+                                            'Are your responses final?', style: TextStyle(fontSize: 14),),
+                                        ),
+
+                                        SizedBox(
+                                          width: 320.0,
+                                          child: Padding(
+                                              padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  ElevatedButton(
+                                                    onPressed: () async {
+                                                      await context.read<UserProvider>().personalityEvaluation([q1Value,q2Value,q3Value,q4Value,q5Value,q6Value,q7Value,q8Value,q9Value,q10Value]);
+                                                      Navigator.pushReplacement(context,
+                                                          MaterialPageRoute(builder: (context) => const NavBarUser()));
+                                                      // Navigator.of(context, rootNavigator: true).pop();
+                                                      // Navigator.pop(context);
+                                                      // Navigator.pop(context);
+                                                      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
+                                                    },
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: Color(0xff006A6A),
+                                                      // minimumSize: const Size(80, 40),
+                                                      // maximumSize: const Size(80, 40),
+                                                      side: const BorderSide(width: 1, color: const Color(0xff006A6A)),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(18),
+                                                      ),
+                                                    ),
+                                                    child: const Text(
+                                                      "YES",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: Color(0xffFFFFFF)),
+                                                    ),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () async {
+                                                      // Navigator.of(context, rootNavigator: true).pop();
+                                                      // Navigator.pop(context);
+                                                      Navigator.pop(context);
+                                                      // await _googleSignIn.signOut();
+                                                      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=> FirstScreen()), (route) => false);
+                                                      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
+                                                    },
+                                                    style: ElevatedButton.styleFrom(
+                                                      backgroundColor: const Color(0xffFFFFFF),
+                                                      // minimumSize: const Size(80, 40),
+                                                      // maximumSize: const Size(80, 40),
+                                                      side: const BorderSide(width: 1, color:  const Color(0xff006A6A)),
+                                                      shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(18),
+                                                      ),
+                                                    ),
+                                                    child: const Text(
+                                                      "NO",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: Color(0xff006A6A)),
+                                                    ),
+                                                  ),
+                                                ],
+                                              )
+                                          ),
+                                          // color: const Color(0xFF1BC0C5),
+                                        ),
+
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            });
+
                       },
                       child: const Text(
                         "SUBMIT ",

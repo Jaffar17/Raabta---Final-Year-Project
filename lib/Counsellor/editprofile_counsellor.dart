@@ -211,6 +211,10 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                         emailCheck = false;
                       }
                     });
+                    await context.read<CounsellorProvider>().editProfile(
+                        _cname.text,
+                        _cemail.text,
+                        specialisation.dropDownValue!.value.toString());
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {

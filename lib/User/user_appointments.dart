@@ -31,7 +31,7 @@ class _UserAppointmentsState extends State<UserAppointmentsScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
+                  padding: const EdgeInsets.only( top:80,
                         right: 20, left: 20),
                   child: Container(
                     decoration: const BoxDecoration(
@@ -48,6 +48,7 @@ class _UserAppointmentsState extends State<UserAppointmentsScreen> {
                     ),
                   ),
                 ),
+                appointments!.isNotEmpty ?
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
@@ -184,6 +185,9 @@ class _UserAppointmentsState extends State<UserAppointmentsScreen> {
                       );
                     },
                   ),
+                ) : Padding(
+                  padding: const EdgeInsets.only(top: 50.0),
+                  child: Center(child: Text("No appointments to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
                 ),
                 SizedBox(
                   height: 40,

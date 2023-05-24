@@ -36,15 +36,15 @@ class _LoginUserState extends State<LoginUser> {
           print(UserCredential.user!.uid);
           await context.read<UserProvider>().addUser( new UserModel(id: UserCredential.user!.uid, fullName: UserCredential.user!.displayName, email: UserCredential.user!.email, photoUrl: UserCredential.user!.photoURL,appointments: [],Ptest: new PersonalityTestModel(extroversion: 0.0, Agreeableness: 0.0, conscientiousness: 0.0, neurotocism: 0.0, openess: 0.0)));
           await context.read<UserProvider>().getUser(UserCredential.user!.uid);
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) => const ProfileUser()));
+          Navigator.pushAndRemoveUntil(context,
+              MaterialPageRoute(builder: (context) => const ProfileUser()), (route) => false);
           //await _googleSignIn.signOut();
         }
         else{
           try {
             await context.read<UserProvider>().getUser(UserCredential.user!.uid);
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const NavBarUser()));
+      Navigator.pushAndRemoveUntil(context,
+      MaterialPageRoute(builder: (context) => const NavBarUser()), (route) => false);
             //await _googleSignIn.signOut();
           }
           catch(e){

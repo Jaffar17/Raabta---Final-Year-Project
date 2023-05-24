@@ -2,6 +2,7 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../controllers/user/user_provider.dart';
+import 'navbar_user.dart';
 
 class EditprofileUser extends StatefulWidget {
   const EditprofileUser({Key? key}) : super(key: key);
@@ -114,13 +115,15 @@ class _EditprofileUserState extends State<EditprofileUser> {
                       child: TextField(
                         enabled: false,
                         controller: _cemail,
+                        onChanged: null,
                         decoration: InputDecoration(
+                          fillColor: Colors.red,
                           labelText: "Email",
                           errorText: emailCheck? null: "Email is empty!",
                           labelStyle: TextStyle(color: Color(0xff006A6A)),
                           disabledBorder:OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                            borderSide: BorderSide(color: Colors.black),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
@@ -209,7 +212,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                                       borderRadius:
                                       BorderRadius.circular(20.0)), //this right here
                                   child: Container(
-                                    height: 200,
+                                    height: 180,
                                     // width: 400,
                                     child: Padding(
                                       padding: const EdgeInsets.all(12.0),
@@ -217,26 +220,27 @@ class _EditprofileUserState extends State<EditprofileUser> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 8, right: 8, bottom: 12.0),
+                                          Center(
                                             child: Text(
-                                                'Your profile has been updated.'),
+                                                'Your profile has been updated.', style: TextStyle(fontSize: 16),),
                                           ),
 
                                           SizedBox(
                                             width: 320.0,
                                             child: Padding(
-                                              padding: const EdgeInsets.only(left: 12, right: 12),
+                                              padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
                                               child: ElevatedButton(
                                                 onPressed: () {
                                                   // Navigator.of(context, rootNavigator: true).pop();
                                                   Navigator.pop(context);
-                                                  Navigator.pop(context);
+                                                  // Navigator.pop(context);
+                                                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => NavBarUser()));
                                                   // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
                                                 },
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: const Color(0xff006A6A),
-                                                  minimumSize: const Size(100, 30),
+                                                  minimumSize: const Size(80, 40),
+                                                  maximumSize: const Size(80, 40),
                                                   side: const BorderSide(width: 1, color: Color(0xff006A6A)),
                                                   shape: RoundedRectangleBorder(
                                                     borderRadius: BorderRadius.circular(18),
