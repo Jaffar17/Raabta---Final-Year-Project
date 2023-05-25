@@ -62,45 +62,47 @@ class _InboxCounsellorState extends State<InboxCounsellor> {
                   ),
                 ),
               ),
-              chats.isNotEmpty ? ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: chats.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: 8.0, bottom: 4.0, right: 18, left: 18),
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: Colors.black12),
-                            borderRadius: BorderRadius.circular(10)),
-                        shadowColor: Colors.black,
-                        child: ListTile(
-                          // shape: RoundedRectangleBorder(
-                          //   side: const BorderSide(
-                          //       //width: 2,
-                          //    //   color: Colors.amberAccent
-                          //   ),
-                          //   borderRadius: BorderRadius.circular(10),
-                          // ),
-                          leading: Image.network(chats[index].userImage.toString()),
-                          title: Text(
-                            chats[index].userName.toString(),
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontFamily: "MontserratMedium",
+              chats.isNotEmpty ? Expanded(
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: chats.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, bottom: 4.0, right: 18, left: 18),
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                              side: const BorderSide(color: Colors.black12),
+                              borderRadius: BorderRadius.circular(10)),
+                          shadowColor: Colors.black,
+                          child: ListTile(
+                            // shape: RoundedRectangleBorder(
+                            //   side: const BorderSide(
+                            //       //width: 2,
+                            //    //   color: Colors.amberAccent
+                            //   ),
+                            //   borderRadius: BorderRadius.circular(10),
+                            // ),
+                            leading: Image.network(chats[index].userImage.toString()),
+                            title: Text(
+                              chats[index].userName.toString(),
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontFamily: "MontserratMedium",
+                              ),
                             ),
-                          ),
-                          subtitle: Text(
-                              "${chats[index].messages![0].message.toString()}..."),
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder:(context)=> ChatScreenCounsellor(chatSessionId: chats[index].id.toString(), userId: chats[index].userId.toString(), userName: chats[index].userName.toString(), userImage: chats[index].userImage.toString(),)));
-                          },
+                            subtitle: Text(
+                                "${chats[index].messages![0].message.toString()}..."),
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder:(context)=> ChatScreenCounsellor(chatSessionId: chats[index].id.toString(), userId: chats[index].userId.toString(), userName: chats[index].userName.toString(), userImage: chats[index].userImage.toString(),)));
+                            },
 
+                          ),
                         ),
-                      ),
-                    );
-                  }): Padding(
+                      );
+                    }),
+              ): Padding(
                 padding: const EdgeInsets.only(top: 50.0),
                 child: Center(child: Text("No messages to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
               ),

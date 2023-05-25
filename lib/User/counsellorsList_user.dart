@@ -117,118 +117,120 @@ class _CounsellorsListState extends State<CounsellorsList> {
                         ),
                       ),
                     ),
-                    ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: counsellorsList.length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                                top: 8.0, bottom: 4.0, right: 18, left: 18),
-                            child: Card(
-                              elevation: 8,
-                              shape: RoundedRectangleBorder(
-                                  side: const BorderSide(color: Colors.black12),
-                                  borderRadius: BorderRadius.circular(10)),
-                              shadowColor: Colors.black,
-                              child: ListTile(
-                                leading: Image.network(
-                                    counsellorsList[index].photoUrl!),
-                                title: Row(
-                                  children: [
-                                    Text(
-                                      "Dr. ${counsellorsList[index].displayName!.split(' ')[0]}",
-                                      style: const TextStyle(
-                                        fontSize: 20,
-                                        fontFamily: "MontserratMedium",
+                    Expanded(
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: counsellorsList.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, bottom: 4.0, right: 18, left: 18),
+                              child: Card(
+                                elevation: 8,
+                                shape: RoundedRectangleBorder(
+                                    side: const BorderSide(color: Colors.black12),
+                                    borderRadius: BorderRadius.circular(10)),
+                                shadowColor: Colors.black,
+                                child: ListTile(
+                                  leading: Image.network(
+                                      counsellorsList[index].photoUrl!),
+                                  title: Row(
+                                    children: [
+                                      Text(
+                                        "Dr. ${counsellorsList[index].displayName!.split(' ')[0]}",
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: "MontserratMedium",
+                                        ),
                                       ),
-                                    ),
-                                    //),
-                                  ],
-                                ),
-                                subtitle: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Row(
+                                      //),
+                                    ],
+                                  ),
+                                  subtitle: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Row(
+                                          children: [
+                                            const Padding(
+                                              padding:
+                                                  EdgeInsets.only(right: 8.0),
+                                              child: FaIcon(
+                                                FontAwesomeIcons.bullseye,
+                                                color: Color(0xff006A6A),
+                                                size: 15,
+                                              ),
+                                            ),
+                                            Text(
+                                              counsellorsList[index]
+                                                  .specialisation!,
+                                              style:
+                                                  const TextStyle(fontSize: 12),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
                                         children: [
-                                          const Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 8.0),
-                                            child: FaIcon(
-                                              FontAwesomeIcons.bullseye,
-                                              color: Color(0xff006A6A),
-                                              size: 15,
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10.0,
+                                                right: 10.0,
+                                                top: 12.0,
+                                                bottom: 12.0),
+                                            child: InkWell(
+                                              onTap: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            AppointmentBooking(object: counsellorsList[index])));
+                                                // await createAppointment(
+                                                    //           counsellorsList[index]);
+                                              },
+                                              child: FaIcon(
+                                                FontAwesomeIcons.solidCalendar,
+                                                color: Color(0xff006A6A),
+                                              ),
                                             ),
                                           ),
-                                          Text(
-                                            counsellorsList[index]
-                                                .specialisation!,
-                                            style:
-                                                const TextStyle(fontSize: 12),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 10.0,
+                                                right: 10.0,
+                                                top: 12.0,
+                                                bottom: 12.0),
+                                            child: InkWell(
+                                              onTap: () {
+
+                                                chatSession(context.read<UserProvider>().user.id.toString()+counsellorsList[index].id.toString(), counsellorsList[index].id.toString(), "Dr. "+counsellorsList[index].displayName!.split(' ')[0], counsellorsList[index].photoUrl.toString());
+                                                // Future.delayed(Duration(seconds: 1),(){
+                                                //   Navigator.pop(context);
+                                                //   chatSession(context.read<UserProvider>().user.id.toString()+counsellorsList[index].id.toString(), counsellorsList[index].id.toString(), "Dr. "+counsellorsList[index].displayName!.split(' ')[0], counsellorsList[index].photoUrl.toString());
+                                                //   // Navigator.push(context,MaterialPageRoute(builder:(context)=>NavBarUser()));
+                                                // });
+                                                // Navigator.push(
+                                                //     context,
+                                                //     MaterialPageRoute(
+                                                //         builder: (context) =>
+                                                //             const AppointmentBooking()));
+                                              },
+                                              child: FaIcon(
+                                                FontAwesomeIcons.solidComment,
+                                                color: Color(0xff006A6A),
+                                              ),
+                                            ),
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 10.0,
-                                              right: 10.0,
-                                              top: 12.0,
-                                              bottom: 12.0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          AppointmentBooking(object: counsellorsList[index])));
-                                              // await createAppointment(
-                                                  //           counsellorsList[index]);
-                                            },
-                                            child: FaIcon(
-                                              FontAwesomeIcons.solidCalendar,
-                                              color: Color(0xff006A6A),
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 10.0,
-                                              right: 10.0,
-                                              top: 12.0,
-                                              bottom: 12.0),
-                                          child: InkWell(
-                                            onTap: () {
-
-                                              chatSession(context.read<UserProvider>().user.id.toString()+counsellorsList[index].id.toString(), counsellorsList[index].id.toString(), "Dr. "+counsellorsList[index].displayName!.split(' ')[0], counsellorsList[index].photoUrl.toString());
-                                              // Future.delayed(Duration(seconds: 1),(){
-                                              //   Navigator.pop(context);
-                                              //   chatSession(context.read<UserProvider>().user.id.toString()+counsellorsList[index].id.toString(), counsellorsList[index].id.toString(), "Dr. "+counsellorsList[index].displayName!.split(' ')[0], counsellorsList[index].photoUrl.toString());
-                                              //   // Navigator.push(context,MaterialPageRoute(builder:(context)=>NavBarUser()));
-                                              // });
-                                              // Navigator.push(
-                                              //     context,
-                                              //     MaterialPageRoute(
-                                              //         builder: (context) =>
-                                              //             const AppointmentBooking()));
-                                            },
-                                            child: FaIcon(
-                                              FontAwesomeIcons.solidComment,
-                                              color: Color(0xff006A6A),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                    ),
                   ],
                 ),
         ),

@@ -173,59 +173,61 @@ class _NotesCounsellorState extends State<NotesCounsellor> {
                   ),
                 ),
               ),
-              tdList.isNotEmpty ? ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: tdList.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: 8.0, bottom: 4.0, right: 18, left: 18),
-                      child: InkWell(
-                        child: Card(
-                          elevation: 14,
-                          shape: RoundedRectangleBorder(
-                              side: const BorderSide(color: Colors.black12),
-                              borderRadius: BorderRadius.circular(10)),
-                          shadowColor: Colors.black,
-                          child: ListTile(
-                            // shape: RoundedRectangleBorder(
-                            //   side: const BorderSide(
-                            //       //width: 2,
-                            //    //   color: Colors.amberAccent
-                            //   ),
-                            //   borderRadius: BorderRadius.circular(10),
-                            // ),
-                            leading:
-                                // Image.network(tdList[index].),
-                                FaIcon(FontAwesomeIcons.solidNewspaper),
-                            title: Text(
-                              tdList[index].patientName.toString().split(" ")[0],
-                              style: const TextStyle(
-                                fontSize: 20,
-                                fontFamily: "MontserratMedium",
+              tdList.isNotEmpty ? Expanded(
+                child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    itemCount: tdList.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                            top: 8.0, bottom: 4.0, right: 18, left: 18),
+                        child: InkWell(
+                          child: Card(
+                            elevation: 14,
+                            shape: RoundedRectangleBorder(
+                                side: const BorderSide(color: Colors.black12),
+                                borderRadius: BorderRadius.circular(10)),
+                            shadowColor: Colors.black,
+                            child: ListTile(
+                              // shape: RoundedRectangleBorder(
+                              //   side: const BorderSide(
+                              //       //width: 2,
+                              //    //   color: Colors.amberAccent
+                              //   ),
+                              //   borderRadius: BorderRadius.circular(10),
+                              // ),
+                              leading:
+                                  // Image.network(tdList[index].),
+                                  FaIcon(FontAwesomeIcons.solidNewspaper),
+                              title: Text(
+                                tdList[index].patientName.toString().split(" ")[0],
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: "MontserratMedium",
+                                ),
                               ),
-                            ),
-                            subtitle: Text(tdList[index].note.toString()),
-                            trailing: Padding(
-                              padding: const EdgeInsets.only(bottom: 25),
-                              child: Text(
-                                tdList[index].Date.toString(),
-                                style: TextStyle(fontSize: 14),
+                              subtitle: Text(tdList[index].note.toString()),
+                              trailing: Padding(
+                                padding: const EdgeInsets.only(bottom: 25),
+                                child: Text(
+                                  tdList[index].Date.toString(),
+                                  style: TextStyle(fontSize: 14),
+                                ),
                               ),
                             ),
                           ),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        ViewNotesCounsellor(note_id: index)));
+                          },
                         ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ViewNotesCounsellor(note_id: index)));
-                        },
-                      ),
-                    );
-                  }) : Padding(
+                      );
+                    }),
+              ) : Padding(
                 padding: const EdgeInsets.only(top: 50.0),
                 child: Center(child: Text("No notes to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
               ),
