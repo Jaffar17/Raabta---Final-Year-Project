@@ -1,167 +1,120 @@
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:raabta_fyp/Models/user/personality_test.dart';
-import 'package:raabta_fyp/User/personality_test.dart';
-import 'package:raabta_fyp/User/video_record.dart';
-
-import '../controllers/user/user_provider.dart';
-import 'package:provider/provider.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:provider/provider.dart';
+import '../Models/user/personality_test.dart';
+import '../Models/user/user_model.dart';
+import '../controllers/counsellor/counsellor_provider.dart';
 
-class HomeUser extends StatefulWidget {
-  const HomeUser({Key? key}) : super(key: key);
+class UserReportCounsellor extends StatefulWidget {
+  UserModel user;
+
+  UserReportCounsellor({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<HomeUser> createState() => _HomeUserState();
+  State<UserReportCounsellor> createState() => _UserReportCounsellorState();
 }
 
-class _HomeUserState extends State<HomeUser> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    context.read<UserProvider>().getVideoResponse();
-    context.read<UserProvider>().getDominantPersonality();
-  }
-
+class _UserReportCounsellorState extends State<UserReportCounsellor> {
   @override
   Widget build(BuildContext context) {
-    context.watch<UserProvider>().emotions;
-    // List<PersonalityTestModel> PtestResults = context.read<UserProvider>().user.Ptest as List<PersonalityTestModel>;
-    List<String> description = [
-      """Extroversion (E) is the personality trait of seeking fulfillment from sources outside the self or
-      in community. High scorers tend to be very social while low scorers prefer to work on their projects alone.""",
-      """ Agreeableness (A) reflects much individuals adjust their behavior to suit others. High scorers are 
-      typically polite and like people. Low scorers tend to 'tell it like it is'.""",
-      """ Conscientiousness (C) is the personality trait of being honest and hardworking. High scorers
-        tend to follow rules and prefer clean homes. Low scorers may be messy and cheat others.""",
-      """ Neuroticism (N) is the personality trait of being emotional.""",
-      """ Openness to Experience (O) is the personality trait of seeking new experience and intellectual
-          pursuits. High scores may day dream a lot. Low scorers may be very down to earth."""
-    ];
-
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: true,
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/Background.jpeg"),
-                  fit: BoxFit.cover)),
-          child: Padding(
-            padding: const EdgeInsets.only(top: 0),
-            //yeha sey kaam agai start karna hai pie chart aur extra widget ka
-            child: context.watch<UserProvider>().isLoading
-                ? Center(child: CircularProgressIndicator())
-                : Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-
-                      // (context.read<UserProvider>().emotions!.isEmpty & context.read<UserProvider>().isRecorded == false)?
-                      //      _NotRecorded(context):(context.read<UserProvider>().emotions!.isEmpty & context.read<UserProvider>().isRecorded == true)?Center(child: CircularProgressIndicator(),):
-                      (context.read<UserProvider>().emotions!.isEmpty)?
-                      _NotRecorded(context):
-                           Column(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                                child: Text("Emotion Analysis", style: TextStyle(fontFamily: "MontserratMedium", fontSize: 22),),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 15, right: 15),
-                                child: _Emotion_Detection_Results(
-                                    context.read<UserProvider>().emotions!),
-                              ),
-                            ],
-                          ),
-                      Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 15, bottom: 15, left: 10, right: 10),
-                            child: Text(
-                              "Personality Test Results",
-                              style: TextStyle(
-                                  fontFamily: "MontserratMedium", fontSize: 22),
-                            ),
-                          ),
-                          _Evaluations(
-                              context.read<UserProvider>().user.Ptest, context),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15.0),
-                            child: Text("Dominating Trait: " +context.read<UserProvider>().dominatingTrait, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
-                          ),
-                          // print(PtestResults);
-                        ],
-                      ),
-                    ],
+        child: Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("assets/images/Background.jpeg"),
+                fit: BoxFit.cover)),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          //mainAxisAlignment: MainAxisAlignment.center,
+          //crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 25, bottom: 8, right: 60, left: 60),
+              child: Container(
+                decoration: const BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(color: Color(0xFFF6BD12), width: 2))),
+                child: const Text(
+                  "User Report",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontFamily: "MontserratMedium",
+                    //fontWeight: FontWeight.w500,
                   ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-Widget _Emotion_Detection_Results(Map<String, double> data) {
-  return PieChart(dataMap: data, colorList: [Colors.red, Colors.brown, Colors.blue, Colors.green, Colors.grey, Colors.purple, Colors.yellow],);
-}
-
-Widget _NotRecorded(BuildContext context) {
-  return Container(
-      child: Column(
-    children: [
-      Padding(
-        padding: const EdgeInsets.only(top: 0, bottom: 15, left: 10, right: 10),
-        child: Text(
-          "Get Insights about yourself",
-          style: TextStyle(fontFamily: "MontserratMedium", fontSize: 22),
-        ),
-      ),
-      Text(
-        "Record a 1-minute video giving a small \n introduction of yourself",
-        style: TextStyle(fontFamily: "MontserratMedium"),
-      ),
-      Padding(
-        padding: const EdgeInsets.only(top: 25.0, bottom: 0),
-        child: ElevatedButton(
-          onPressed: () async {
-            final cameras = await availableCameras();
-            final firstCamera = cameras[1];
-
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => VideoRecorder(
-                          camera: firstCamera,
-                        )));
-          },
-          child: Text(
-            "RECORD ",
-            style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xffFFFFFF)),
-          ),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xff006A6A),
-            minimumSize: const Size(300, 50),
-            side: const BorderSide(width: 1, color: Color(0xff006A6A)),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18),
+                ),
+              ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  top: 20, bottom: 15, left: 10, right: 10),
+              child: Text(
+                "Emotion Analysis",
+                style: TextStyle(fontFamily: "MontserratMedium", fontSize: 22),
+              ),
+            ),
+            context.read<CounsellorProvider>().emotionDetectionResults!.isEmpty
+                ? Center(
+                  child: Container(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 0.0, left: 20, right: 10, bottom: 10),
+                        child: Text(
+                          "No video recorded to show analysis.",
+                          style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                          fontSize: 20,
+                          color: Colors.blueGrey),
+                        ),
+                      ),
+                    ),
+                )
+                : Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: PieChart(
+                      dataMap: context
+                          .read<CounsellorProvider>()
+                          .emotionDetectionResults!,
+                      colorList: [
+                        Colors.red,
+                        Colors.brown,
+                        Colors.blue,
+                        Colors.green,
+                        Colors.grey,
+                        Colors.purple,
+                        Colors.yellow
+                      ],
+                    ),
+                  ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 20, bottom: 15, left: 10, right: 10),
+                  child: Text(
+                    "Personality Test Results",
+                    style: TextStyle(fontFamily: "MontserratMedium", fontSize: 22),
+                  ),
+                ),
+                _Evaluations(
+                    widget.user.Ptest, context),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0),
+                  // child: Text("Dominating Trait: " +widget.user.dominatingTrait, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                ),
+              ],
+            ),
+            // NotRecode: PieChart(context.read<CounsellorProvider>().emotions!)
+            //table(widget.user)
+          ],
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Text("* The results might take few minutes to show."),
-      )
-    ],
-  ));
+    ));
+  }
 }
 
 Widget _Evaluations(PersonalityTestModel? evaluation, context) {
@@ -193,7 +146,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    CrossAxisAlignment.start,
                                     children: [
                                       Padding(
                                         padding: const EdgeInsets.only(
@@ -216,7 +169,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
-                                                  const Color(0xff006A6A),
+                                              const Color(0xff006A6A),
                                               minimumSize: const Size(80, 40),
                                               maximumSize: const Size(80, 40),
                                               side: const BorderSide(
@@ -224,7 +177,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                                   color: Color(0xff006A6A)),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(18),
+                                                BorderRadius.circular(18),
                                               ),
                                             ),
                                             child: const Text(
@@ -247,7 +200,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                     },
                     child: Text(
                       "Extroversion >>",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize:13, fontWeight: FontWeight.bold),
                     )),
               ),
             ),
@@ -277,7 +230,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                 borderRadius: BorderRadius.circular(20.0)),
                             //this right here
                             child: Container(
-                              height: 200,
+                              height: 220,
                               // width: 400,
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
@@ -306,7 +259,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
-                                                const Color(0xff006A6A),
+                                            const Color(0xff006A6A),
                                             minimumSize: const Size(80, 40),
                                             maximumSize: const Size(80, 40),
                                             side: const BorderSide(
@@ -314,7 +267,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                                 color: Color(0xff006A6A)),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(18),
+                                              BorderRadius.circular(18),
                                             ),
                                           ),
                                           child: const Text(
@@ -337,7 +290,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                   },
                   child: Text(
                     'Agreeableness >>',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize:13, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -368,7 +321,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                 borderRadius: BorderRadius.circular(20.0)),
                             //this right here
                             child: Container(
-                              height: 200,
+                              height: 220,
                               // width: 400,
                               child: Padding(
                                 padding: const EdgeInsets.all(12.0),
@@ -398,7 +351,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
-                                                const Color(0xff006A6A),
+                                            const Color(0xff006A6A),
                                             minimumSize: const Size(80, 40),
                                             maximumSize: const Size(80, 40),
                                             side: const BorderSide(
@@ -406,7 +359,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                                 color: Color(0xff006A6A)),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(18),
+                                              BorderRadius.circular(18),
                                             ),
                                           ),
                                           child: const Text(
@@ -429,7 +382,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                   },
                   child: Text(
                     'Conscientiousness >>',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize:13, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -489,7 +442,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
-                                                const Color(0xff006A6A),
+                                            const Color(0xff006A6A),
                                             minimumSize: const Size(80, 40),
                                             maximumSize: const Size(80, 40),
                                             side: const BorderSide(
@@ -497,7 +450,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                                 color: Color(0xff006A6A)),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(18),
+                                              BorderRadius.circular(18),
                                             ),
                                           ),
                                           child: const Text(
@@ -520,7 +473,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                   },
                   child: Text(
                     'Neuroticism >>',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize:13, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -580,7 +533,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
-                                                const Color(0xff006A6A),
+                                            const Color(0xff006A6A),
                                             minimumSize: const Size(80, 40),
                                             maximumSize: const Size(80, 40),
                                             side: const BorderSide(
@@ -588,7 +541,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                                                 color: Color(0xff006A6A)),
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(18),
+                                              BorderRadius.circular(18),
                                             ),
                                           ),
                                           child: const Text(
@@ -611,7 +564,7 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
                   },
                   child: Text(
                     'Openness >>',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize:13, fontWeight: FontWeight.bold),
                   ),
                 ),
               ),
@@ -631,3 +584,4 @@ Widget _Evaluations(PersonalityTestModel? evaluation, context) {
     ),
   );
 }
+

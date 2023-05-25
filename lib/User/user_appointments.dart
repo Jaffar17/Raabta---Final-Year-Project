@@ -31,7 +31,7 @@ class _UserAppointmentsState extends State<UserAppointmentsScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 40, bottom: 15, right: 20, left: 20),
+                    top: 25, bottom: 15, right: 20, left: 20),
                 child: Container(
                   decoration: const BoxDecoration(
                       border: Border(
@@ -40,7 +40,7 @@ class _UserAppointmentsState extends State<UserAppointmentsScreen> {
                   child: const Text(
                     "My Appointments",
                     style: TextStyle(
-                      fontSize: 34,
+                      fontSize: 32,
                       fontFamily: "MontserratMedium",
                       fontWeight: FontWeight.w500,
                     ),

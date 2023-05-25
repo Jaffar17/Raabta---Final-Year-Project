@@ -56,7 +56,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 35, bottom: 35, right: 20, left: 20),
+                          top: 25, bottom: 35, right: 20, left: 20),
                       child: Container(
                         decoration: const BoxDecoration(
                             border: Border(
@@ -65,7 +65,7 @@ class _EditprofileUserState extends State<EditprofileUser> {
                         child: const Text(
                           "Edit Profile",
                           style: TextStyle(
-                            fontSize: 36,
+                            fontSize: 32,
                             fontFamily: "MontserratMedium",
                             fontWeight: FontWeight.w500,
                           ),

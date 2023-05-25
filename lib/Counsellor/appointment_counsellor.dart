@@ -25,99 +25,119 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
     List<Appointments>? appointment = context.read<CounsellorProvider>().counsellor.appointments;
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/Background.jpeg"),
-                    fit: BoxFit.cover)),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 40, bottom: 15, right: 20, left: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Color(0xFFF6BD12), width: 2))),
-                    child: Text(
-                      "My Appointments",
-                      style: TextStyle(
-                        fontSize: 32,
-                        fontFamily: "MontserratMedium",
-                        fontWeight: FontWeight.w500,
-                      ),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage("assets/images/Background.jpeg"),
+                  fit: BoxFit.cover)),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 40, bottom: 15, right: 20, left: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom: BorderSide(
+                              color: Color(0xFFF6BD12), width: 2))),
+                  child: Text(
+                    "My Appointments",
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontFamily: "MontserratMedium",
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-                appointment!.isNotEmpty ? Expanded(
-                  child:ListView.builder(
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemCount: appointment?.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Column(
-                        children: [
-                          Card(
-                            elevation: 8.0,
-                            shape: RoundedRectangleBorder(
-                                // side: const BorderSide(
-                                //     color: Color(0xFF006A6A), width: 1.0),
-                                borderRadius: BorderRadius.circular(10)),
-                            clipBehavior: Clip.antiAlias,
-                            margin: const EdgeInsets.all(12.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 12, bottom: 12, right: 10, left: 8),
-                                  child: CircleAvatar(
-                                    backgroundColor: Color(0xFFffffff),
-                                    radius: 40,
-                                    child: Image.network(
-                                      appointment![index].photoUrl.toString(),
-                                    ),
+              ),
+              appointment!.isNotEmpty ? Expanded(
+                child:ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemCount: appointment?.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Card(
+                          elevation: 8.0,
+                          shape: RoundedRectangleBorder(
+                              // side: const BorderSide(
+                              //     color: Color(0xFF006A6A), width: 1.0),
+                              borderRadius: BorderRadius.circular(10)),
+                          clipBehavior: Clip.antiAlias,
+                          margin: const EdgeInsets.all(12.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 12, bottom: 12, right: 10, left: 8),
+                                child: CircleAvatar(
+                                  backgroundColor: Color(0xFFffffff),
+                                  radius: 40,
+                                  child: Image.network(
+                                    appointment![index].photoUrl.toString(),
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 3, bottom: 4),
-                                          child: Text(
-                                            appointment![index].patientName.toString(),
-                                            // listData.data[position].title,
-                                            style: TextStyle(
-                                              fontSize: 22.0,
-                                              fontWeight: FontWeight.w500,
-                                              fontFamily: "MontserratMedium",
-                                            ),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 3, bottom: 4),
+                                        child: Text(
+                                          appointment![index].patientName.toString(),
+                                          // listData.data[position].title,
+                                          style: TextStyle(
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.w500,
+                                            fontFamily: "MontserratMedium",
                                           ),
                                         ),
-                                        Row(
-                                          children: [
-                                            Icon(
-                                              Icons.calendar_month_sharp,
-                                              color: Color(0xFF006A6A),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.calendar_month_sharp,
+                                            color: Color(0xFF006A6A),
+                                          ),
+                                          Padding(
+                                            padding:
+                                            const EdgeInsets.only(left: 4),
+                                            child: Text(
+                                              appointment[index].appointmentDate.toString(),
+                                              // listData.data[position].title,
+                                              style: TextStyle(
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                             ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 3, bottom: 5),
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.access_time_filled,
+                                                color: Color(0xFF006A6A)),
                                             Padding(
-                                              padding:
-                                              const EdgeInsets.only(left: 4),
+                                              padding: const EdgeInsets.only(
+                                                  left: 4),
                                               child: Text(
-                                                appointment[index].appointmentDate.toString(),
+                                                appointment[index].appointmentTime.toString(),
                                                 // listData.data[position].title,
                                                 style: TextStyle(
                                                   fontSize: 18.0,
@@ -127,81 +147,59 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                                             ),
                                           ],
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: 3, bottom: 5),
-                                          child: Row(
+                                      ),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Status:  ",
+                                            style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          appointment![index].status == "Pending"
+                                              ? acceptOrReject(
+                                              appointment: appointment![index])
+                                              : Row(
                                             children: [
-                                              Icon(Icons.access_time_filled,
-                                                  color: Color(0xFF006A6A)),
                                               Padding(
                                                 padding: const EdgeInsets.only(
-                                                    left: 4),
+                                                    bottom: 5),
                                                 child: Text(
-                                                  appointment[index].appointmentTime.toString(),
-                                                  // listData.data[position].title,
+                                                  appointment![index].status,
                                                   style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
+                                                      color: appointment![index]
+                                                          .status ==
+                                                          "Confirmed"
+                                                          ? Color(0xff00B012)
+                                                          : Colors.red,
+                                                      fontSize: 20),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "Status:  ",
-                                              style: TextStyle(
-                                                fontSize: 18.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                            appointment![index].status == "Pending"
-                                                ? acceptOrReject(
-                                                appointment: appointment![index])
-                                                : Row(
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(
-                                                      bottom: 5),
-                                                  child: Text(
-                                                    appointment![index].status,
-                                                    style: TextStyle(
-                                                        color: appointment![index]
-                                                            .status ==
-                                                            "Confirmed"
-                                                            ? Color(0xff00B012)
-                                                            : Colors.red,
-                                                        fontSize: 20),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      ],
-                                    ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
 
-                                  ],
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      );
-                    },
-                  ),
-                ) : Padding(
-                  padding: const EdgeInsets.only(top: 50.0),
-                  child: Center(child: Text("No appointments to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
-                ) ,
-              ],
-            ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              ) : Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Center(child: Text("No appointments to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
+              ) ,
+            ],
           ),
         ),
       ),

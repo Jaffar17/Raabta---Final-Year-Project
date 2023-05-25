@@ -39,7 +39,7 @@ class _PersonalityTestState extends State<PersonalityTest> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 35, bottom: 35, right: 20, left: 20),
+                        top: 25, bottom: 35, right: 20, left: 20),
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border(
@@ -48,7 +48,7 @@ class _PersonalityTestState extends State<PersonalityTest> {
                       child: Text(
                         "Personality Test",
                         style: TextStyle(
-                          fontSize: 36,
+                          fontSize: 32,
                           fontFamily: "MontserratMedium",
                           fontWeight: FontWeight.w500,
                         ),

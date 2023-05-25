@@ -30,7 +30,7 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 40, bottom: 35, right: 20, left: 20),
+                    top: 25, bottom: 35, right: 20, left: 20),
                 child: Container(
                   decoration: const BoxDecoration(
                       border: Border(
@@ -39,7 +39,7 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                   child: const Text(
                     "Profile",
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 32,
                       fontFamily: "MontserratMedium",
                       fontWeight: FontWeight.w500,
                     ),
@@ -59,7 +59,7 @@ class _ViewprofileUserState extends State<ViewprofileUser> {
                   padding: const EdgeInsets.only(
                       left: 16.0, right: 16.0, bottom: 6.0, top: 10),
                   child: Text(
-                    context.read<UserProvider>().user.fullName.toString(),
+                    context.read<UserProvider>().user.fullName.toString().split(" ")[0],
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
                   )),
               Padding(

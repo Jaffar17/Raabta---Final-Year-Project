@@ -166,6 +166,7 @@
 //   AppointmentDetails({required this.date, required this.time});
 // }
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Counsellor/userreport_counsellor.dart';
 
 import '../Models/user/user_model.dart';
 
@@ -194,16 +195,20 @@ class _PatientCounsellorState extends State<PatientCounsellor> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 35, bottom: 35, right: 20, left: 20),
+                      top: 25, bottom: 15, right: 20, left: 20),
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border(
                             bottom: BorderSide(
-                                color: Color(0xFFF6BD12), width: 2))),
+                                color: Color(0xFFF6BD12),
+                                width: 2
+                            )
+                        )
+                    ),
                     child: Text(
-                      widget.user.fullName.toString(),
+                      "Client History",
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: 32,
                         fontFamily: "MontserratMedium",
                         fontWeight: FontWeight.w500,
                       ),
@@ -211,8 +216,8 @@ class _PatientCounsellorState extends State<PatientCounsellor> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16.0, right: 16.0, bottom: 10.0),
+                  padding: const EdgeInsets.only( top: 35,
+                      left: 16.0, right: 16.0),
                   child: Image.network(
                     widget.user.photoUrl.toString(),
                     // width: 150,
@@ -221,7 +226,41 @@ class _PatientCounsellorState extends State<PatientCounsellor> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 35, bottom: 35, right: 20, left: 20),
+                      top: 15, bottom: 25, right: 20, left: 20),
+                  child: Text(
+                    widget.user.fullName.toString(),
+                    style: TextStyle(
+                      fontSize: 24,
+                      // fontFamily: "MontserratMedium",
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> UserReportCounsellor(user:widget.user)));
+                  },
+                  child: Text(
+                    "VIEW USER REPORT",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontFamily: "MontserratMedium",
+                      //fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xff006A6A),
+                    minimumSize: Size(300, 50),
+                    side: BorderSide(
+                        width: 1, color: Color(0xff006A6A)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 25, bottom: 25, right: 20, left: 20),
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border(
@@ -230,7 +269,7 @@ class _PatientCounsellorState extends State<PatientCounsellor> {
                     child: Text(
                       "Appointments",
                       style: TextStyle(
-                        fontSize: 36,
+                        fontSize: 32,
                         fontFamily: "MontserratMedium",
                         fontWeight: FontWeight.w500,
                       ),
@@ -247,14 +286,14 @@ class _PatientCounsellorState extends State<PatientCounsellor> {
                       return Column(
                         children: [
                           Card(
-                            elevation: 18.0,
+                            elevation: 8.0,
                             shape: RoundedRectangleBorder(
                                 side: const BorderSide(
                                     color: Color(0xFF006A6A), width: 1.0),
                                 borderRadius: BorderRadius.circular(15)),
                             clipBehavior: Clip.antiAlias,
                             margin: const EdgeInsets.all(12.0),
-                            child: Padding(
+                            child: widget.user.appointments![index].status == "Confirmed"? Padding(
                               padding: const EdgeInsets.only(top: 12, bottom: 12),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -275,7 +314,7 @@ class _PatientCounsellorState extends State<PatientCounsellor> {
                                             widget.user.appointments![index].appointmentDate.toString(),
                                             // listData.data[position].title,
                                             style: TextStyle(
-                                              fontSize: 18.0,
+                                              fontSize: 14.0,
                                               fontWeight: FontWeight.w500,
                                             ),
                                           ),
@@ -294,7 +333,7 @@ class _PatientCounsellorState extends State<PatientCounsellor> {
                                           widget.user.appointments![index].appointmentTime.toString(),
                                           // listData.data[position].title,
                                           style: TextStyle(
-                                            fontSize: 18.0,
+                                            fontSize: 14.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                         ),
@@ -308,13 +347,17 @@ class _PatientCounsellorState extends State<PatientCounsellor> {
                                   ),
                                 ],
                               ),
-                            ),
+                            ): null,
                           ),
+
                         ],
                       );
                     },
                   ),
                 ),
+                SizedBox(
+                  height: 80,
+                )
               ],
             ),
           ),

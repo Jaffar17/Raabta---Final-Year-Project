@@ -49,7 +49,7 @@ class _InboxUserState extends State<InboxUser> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 36, bottom: 8, right: 120, left: 120),
+                    top: 25, bottom: 8, right: 120, left: 120),
                 child: Container(
                   decoration: const BoxDecoration(
                       border: Border(
@@ -59,7 +59,7 @@ class _InboxUserState extends State<InboxUser> {
                     "Inbox",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 32,
                       fontFamily: "MontserratMedium",
                       //fontWeight: FontWeight.w500,
                     ),

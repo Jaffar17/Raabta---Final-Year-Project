@@ -100,7 +100,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                          top: 36, bottom: 8, right: 20, left: 20),
+                          top: 25, bottom: 8, right: 20, left: 20),
                       child: Container(
                         decoration: const BoxDecoration(
                             border: Border(
@@ -110,7 +110,7 @@ class _CounsellorsListState extends State<CounsellorsList> {
                           "Counsellors",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                            fontSize: 36,
+                            fontSize: 32,
                             fontFamily: "MontserratMedium",
                             //fontWeight: FontWeight.w500,
                           ),

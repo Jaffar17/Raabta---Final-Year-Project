@@ -64,7 +64,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
         children: [
           Padding(
             padding:
-                const EdgeInsets.only(top: 36, bottom: 24, right: 20, left: 20),
+                const EdgeInsets.only(top: 25, bottom: 24, right: 20, left: 20),
             child: Container(
               decoration: const BoxDecoration(
                   border: Border(
@@ -73,7 +73,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                 "Choose Your Slot",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 36,
+                  fontSize: 32,
                   fontFamily: "MontserratMedium",
                   //fontWeight: FontWeight.w500,
                 ),
@@ -92,10 +92,10 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              widget.object.displayName.toString(),
+              "Dr. "+widget.object.displayName.toString().split(" ")[0],
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 20,
                 fontFamily: "MontserratMedium",
                 fontWeight: FontWeight.w500,
               ),
