@@ -37,7 +37,7 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 35, bottom: 35, right: 20, left: 20),
+                      top: 40, bottom: 15, right: 20, left: 20),
                   child: Container(
                     decoration: BoxDecoration(
                         border: Border(
@@ -46,14 +46,14 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                     child: Text(
                       "My Appointments",
                       style: TextStyle(
-                        fontSize: 34,
+                        fontSize: 32,
                         fontFamily: "MontserratMedium",
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                   ),
                 ),
-                Expanded(
+                appointment!.isNotEmpty ? Expanded(
                   child:ListView.builder(
                     shrinkWrap: true,
                     physics: ClampingScrollPhysics(),
@@ -63,11 +63,11 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                       return Column(
                         children: [
                           Card(
-                            elevation: 14.0,
+                            elevation: 8.0,
                             shape: RoundedRectangleBorder(
-                                side: const BorderSide(
-                                    color: Color(0xFF006A6A), width: 1.0),
-                                borderRadius: BorderRadius.circular(15)),
+                                // side: const BorderSide(
+                                //     color: Color(0xFF006A6A), width: 1.0),
+                                borderRadius: BorderRadius.circular(10)),
                             clipBehavior: Clip.antiAlias,
                             margin: const EdgeInsets.all(12.0),
                             child: Row(
@@ -196,7 +196,10 @@ class _AppointmentCounsellorState extends State<AppointmentCounsellor> {
                       );
                     },
                   ),
-                ),
+                ) : Padding(
+                  padding: const EdgeInsets.only(top: 50.0),
+                  child: Center(child: Text("No appointments to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
+                ) ,
               ],
             ),
           ),

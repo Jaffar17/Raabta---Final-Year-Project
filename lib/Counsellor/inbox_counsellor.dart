@@ -45,7 +45,7 @@ class _InboxCounsellorState extends State<InboxCounsellor> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 36, bottom: 8, right: 120, left: 120),
+                    top: 25, bottom: 8, right: 120, left: 120),
                 child: Container(
                   decoration: const BoxDecoration(
                       border: Border(
@@ -55,14 +55,14 @@ class _InboxCounsellorState extends State<InboxCounsellor> {
                     "Inbox",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 32,
                       fontFamily: "MontserratMedium",
                       //fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ),
-              ListView.builder(
+              chats.isNotEmpty ? ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: chats.length,
@@ -100,7 +100,10 @@ class _InboxCounsellorState extends State<InboxCounsellor> {
                         ),
                       ),
                     );
-                  }),
+                  }): Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Center(child: Text("No messages to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
+              ),
             ],
           ),
         ),

@@ -316,7 +316,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
     super.initState();
     context.read<CounsellorProvider>().getConfirmedAppointments();
   }
-  @override
+
   @override
   Widget build(BuildContext context) {
     List<Appointments> confirmedAppointments = context.read<CounsellorProvider>().confirmedAppointments;
@@ -348,7 +348,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                       child: Text(
                         "My Clients",
                         style: TextStyle(
-                          fontSize: 40,
+                          fontSize: 32,
                           fontFamily: "MontserratMedium",
                           fontWeight: FontWeight.w500,
                         ),
@@ -357,7 +357,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 8, bottom: 8.0),
-                    child: InkWell(
+                    child: clients.isNotEmpty ? InkWell(
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         height: 200,
@@ -371,10 +371,10 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                               children: [
                                 InkWell(
                                     child: Card(
-                                      elevation: 18.0,
+                                      elevation: 8.0,
                                       shape: RoundedRectangleBorder(
-                                          side: const BorderSide(
-                                              color: Color(0xFF006A6A), width: 1.0),
+                                          // side: const BorderSide(
+                                          //     color: Color(0xFF006A6A), width: 1.0),
                                           borderRadius: BorderRadius.circular(15)),
                                       clipBehavior: Clip.antiAlias,
                                       margin: const EdgeInsets.all(8.0),
@@ -403,7 +403,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                                                 right: 18,
                                                 left: 18),
                                             child: Text(
-                                              clients[index].fullName.toString(),
+                                              "Mr. "+clients[index].fullName.toString().split(" ")[0],
                                               // listData.data[position].title,
                                               style: TextStyle(
                                                 fontSize: 24.0,
@@ -417,6 +417,7 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
 
                                     ),
                                     onTap: (){
+                                      context.read<CounsellorProvider>().getEmotionDetectionResults(clients[index].id.toString());
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) => PatientCounsellor(user: clients[index])));
                                     }
@@ -427,7 +428,9 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                           },
                         ),
                       ),
-
+                    ) : Padding(
+                      padding: const EdgeInsets.only(top: 25.0, bottom: 75),
+                      child: Center(child: Text("No clients to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
                     ),
                   ),
                   Padding(
@@ -445,14 +448,14 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                       child: Text(
                         "My Appointments",
                         style: TextStyle(
-                          fontSize: 36,
+                          fontSize: 32,
                           fontFamily: "MontserratMedium",
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
                   ),
-                  Expanded(
+                  confirmedAppointments.isNotEmpty? Expanded(
                     child: ListView.builder(
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
@@ -462,10 +465,10 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                         return Column(
                           children: [
                             Card(
-                              elevation: 18.0,
+                              elevation: 8.0,
                               shape: RoundedRectangleBorder(
-                                  side: const BorderSide(
-                                      color: Color(0xFF006A6A), width: 1.0),
+                                  // side: const BorderSide(
+                                  //     color: Color(0xFF006A6A), width: 1.0),
                                   borderRadius: BorderRadius.circular(15)),
                               clipBehavior: Clip.antiAlias,
                               margin: const EdgeInsets.all(12.0),
@@ -584,6 +587,9 @@ class _HomeCounsellorState extends State<HomeCounsellor> {
                         );
                       },
                     ),
+                  ) : Padding(
+                    padding: const EdgeInsets.only(top: 50.0),
+                    child: Center(child: Text("No appointments to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
                   ),
                 ],
               ),

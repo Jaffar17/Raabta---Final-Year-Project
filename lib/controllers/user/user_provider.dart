@@ -19,6 +19,8 @@ class UserProvider with ChangeNotifier {
   List<ChatRoom> userChats = [];
   //yeh key value hata k dekhna
   Map<String,double>?emotions={};
+  bool isRecorded= false;
+String dominatingTrait = "" ;
 
   Future<UserModel> getUser(String id) async {
     user = await _userRepository.getUser(id);
@@ -116,7 +118,9 @@ class UserProvider with ChangeNotifier {
     return userChats;
   }
 
-  Future<void> addVideoResponse(VideoResponse responseObject) async {
+  Future <void> addVideoResponse(VideoResponse responseObject) async {
+    isRecorded = true;
+    notifyListeners();
     await _userRepository.addVideoResponse(responseObject);
   }
 
@@ -154,5 +158,34 @@ class UserProvider with ChangeNotifier {
     user.Ptest!.openess = double.parse((1.6 + answers[4] - answers[9]).toStringAsFixed(2));
     notifyListeners();
     await _userRepository.addUser(user);
+  }
+  void getDominantPersonality(){
+    double max_value = 0;
+    if( user.Ptest!.extroversion! > max_value){
+      max_value = user.Ptest!.extroversion!;
+      dominatingTrait = "Extroversion";
+      notifyListeners();
+    }
+    if( user.Ptest!.Agreeableness! > max_value){
+      max_value = user.Ptest!.Agreeableness!;
+      dominatingTrait = "Agreeableness";
+      notifyListeners();
+    }
+    if( user.Ptest!.conscientiousness! > max_value){
+      max_value = user.Ptest!.conscientiousness!;
+      dominatingTrait = "Conscientiousness";
+      notifyListeners();
+    }
+    if( user.Ptest!.neurotocism! > max_value){
+      max_value = user.Ptest!.neurotocism!;
+      dominatingTrait = "Neuroticism";
+      notifyListeners();
+    }
+    if( user.Ptest!.openess! > max_value){
+      max_value = user.Ptest!.openess!;
+      dominatingTrait = "Openness";
+      notifyListeners();
+    }
+
   }
 }

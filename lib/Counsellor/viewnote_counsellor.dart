@@ -69,7 +69,7 @@ class _ViewNotesCounsellorState extends State<ViewNotesCounsellor> {
                         "View Notes",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 36,
+                          fontSize: 32,
                           fontFamily: "MontserratMedium",
                           //fontWeight: FontWeight.w500,
                         ),

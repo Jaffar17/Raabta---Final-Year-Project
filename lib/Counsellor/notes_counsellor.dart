@@ -121,6 +121,7 @@
 // }
 //
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:raabta_fyp/Counsellor/viewnote_counsellor.dart';
 
 import '../Models/counsellor/counsellor_notes_model.dart';
@@ -136,9 +137,6 @@ class NotesCounsellor extends StatefulWidget {
 }
 
 class _NotesCounsellorState extends State<NotesCounsellor> {
-
-
-
   @override
   Widget build(BuildContext context) {
     List<Notes> tdList = context.watch<CounsellorProvider>().counsellor.notes!;
@@ -161,21 +159,21 @@ class _NotesCounsellorState extends State<NotesCounsellor> {
                 decoration: const BoxDecoration(
                     border: Border(
                         bottom:
-                        BorderSide(color: Color(0xFFF6BD12), width: 2))),
+                            BorderSide(color: Color(0xFFF6BD12), width: 2))),
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 12.0),
+                  padding: const EdgeInsets.only(top: 25.0),
                   child: const Text(
                     "My Notes",
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 32,
                       fontFamily: "MontserratMedium",
                       //fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
               ),
-              ListView.builder(
+              tdList.isNotEmpty ? ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   itemCount: tdList.length,
@@ -198,39 +196,57 @@ class _NotesCounsellorState extends State<NotesCounsellor> {
                             //   ),
                             //   borderRadius: BorderRadius.circular(10),
                             // ),
-                            leading: Image.asset("assets/images/ProfilePic.png"),
+                            leading:
+                                // Image.network(tdList[index].),
+                                FaIcon(FontAwesomeIcons.solidNewspaper),
                             title: Text(
-                              tdList[index].patientName.toString(),
+                              tdList[index].patientName.toString().split(" ")[0],
                               style: const TextStyle(
                                 fontSize: 20,
                                 fontFamily: "MontserratMedium",
                               ),
                             ),
-                            subtitle: Text(
-                                tdList[index].note.toString()),
+                            subtitle: Text(tdList[index].note.toString()),
                             trailing: Padding(
                               padding: const EdgeInsets.only(bottom: 25),
-                              child: Text(tdList[index].Date.toString(), style: TextStyle(fontSize: 14),),
+                              child: Text(
+                                tdList[index].Date.toString(),
+                                style: TextStyle(fontSize: 14),
+                              ),
                             ),
                           ),
-
                         ),
-                        onTap: (){
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => ViewNotesCounsellor(note_id: index)));
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ViewNotesCounsellor(note_id: index)));
                         },
                       ),
                     );
-                  }),
+                  }) : Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Center(child: Text("No notes to show.", style: TextStyle(fontStyle: FontStyle.italic, fontSize: 20, color: Colors.blueGrey),)),
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 130, bottom: 15, right: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    InkWell(child: Icon(Icons.add_circle, color: Color(0xFF006A6A), size: 50,), onTap: (){
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => NewNoteCounsellor()));
-                    },),
+                    InkWell(
+                      child: Icon(
+                        Icons.add_circle,
+                        color: Color(0xFF006A6A),
+                        size: 50,
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewNoteCounsellor()));
+                      },
+                    ),
                   ],
                 ),
               )

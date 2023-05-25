@@ -81,7 +81,7 @@ class _ProfileUserState extends State<ProfileUser> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 35, bottom: 35, right: 20, left: 20),
+                        top: 45, bottom: 45, right: 20, left: 20),
                     child: Container(
                       decoration: const BoxDecoration(
                           border: Border(
@@ -90,7 +90,7 @@ class _ProfileUserState extends State<ProfileUser> {
                       child: const Text(
                         "Profile Completeness",
                         style: TextStyle(
-                          fontSize: 36,
+                          fontSize: 26,
                           fontFamily: "MontserratMedium",
                           fontWeight: FontWeight.w500,
                         ),

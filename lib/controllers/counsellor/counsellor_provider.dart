@@ -145,11 +145,10 @@ import 'package:raabta_fyp/Models/counsellor/counsellor_appointments.dart';
 import 'package:raabta_fyp/Models/counsellor/counsellor_model.dart';
 import '../../Models/counsellor/counsellor_notes_model.dart';
 import '../../Models/user/user_model.dart';
+import '../../Models/user/video_response_model.dart';
 import 'counsellor_repository.dart';
 
-
-
-class CounsellorProvider with ChangeNotifier{
+class CounsellorProvider with ChangeNotifier {
   Counsellor counsellor = Counsellor();
   List<Appointments> confirmedAppointments=[];
   final CounsellorRepository _counsellorRepository= FirebaseCounsellorRepository();
@@ -159,16 +158,20 @@ class CounsellorProvider with ChangeNotifier{
   List<Messages>?counsellorChats=[];
   List<DropDownValueModel>patients_for_notes=[];
   List<UserModel> Clients = [];
+  Map<String, double>emotionDetectionResults = {};
 
-  Future<void>addCounsellor(Counsellor counsellor)async{
+  Future<void> addCounsellor(Counsellor counsellor) async {
     await _counsellorRepository.addCounsellor(counsellor);
   }
-  Future<Counsellor>getCounsellorById(String id)async{
+
+  Future<Counsellor> getCounsellorById(String id) async {
     counsellor = await _counsellorRepository.getCounsellorById(id);
     notifyListeners();
     return counsellor;
   }
-  Future<void>profileComplete(String dob, String gender, String specialisation)async {
+
+  Future<void> profileComplete(
+      String dob, String gender, String specialisation) async {
     counsellor.dob = dob;
     counsellor.gender = gender;
     counsellor.specialisation = specialisation;
@@ -176,7 +179,8 @@ class CounsellorProvider with ChangeNotifier{
     await _counsellorRepository.addCounsellor(counsellor);
   }
 
-  Future<void>editProfile(String name, String email, String specialisation)async {
+  Future<void> editProfile(
+      String name, String email, String specialisation) async {
     counsellor.displayName = name;
     counsellor.email = email;
     counsellor.specialisation = specialisation;
@@ -184,125 +188,167 @@ class CounsellorProvider with ChangeNotifier{
     await _counsellorRepository.addCounsellor(counsellor);
   }
 
-  Future<void>getAppointments()async{
-    counsellor=  await _counsellorRepository.getCounsellorById(counsellor.id.toString());
+  Future<void> getAppointments() async {
+    counsellor =
+        await _counsellorRepository.getCounsellorById(counsellor.id.toString());
     notifyListeners();
-
-
   }
 
-  void acceptAppointment(Appointments appointment)async{
-    UserModel user = await _counsellorRepository.getUserById(appointment.userId.toString());
-    for(var i=0; i<user.appointments!.length;i++ ){
-      if(user!.appointments![i].id==appointment.id){
-        user!.appointments![i].status="Confirmed";
+  void acceptAppointment(Appointments appointment) async {
+    UserModel user =
+        await _counsellorRepository.getUserById(appointment.userId.toString());
+    for (var i = 0; i < user.appointments!.length; i++) {
+      if (user!.appointments![i].id == appointment.id) {
+        user!.appointments![i].status = "Confirmed";
         //searchClient(user)? null : Clients.add(user);
         break;
       }
     }
-    for(var i=0; i<counsellor.appointments!.length;i++ ){
-      if(counsellor!.appointments![i].id==appointment.id){
-        counsellor!.appointments![i].status="Confirmed";
+    for (var i = 0; i < counsellor.appointments!.length; i++) {
+      if (counsellor!.appointments![i].id == appointment.id) {
+        counsellor!.appointments![i].status = "Confirmed";
         break;
       }
     }
-    await _counsellorRepository.updateAppointment(counsellor,user);
+    await _counsellorRepository.updateAppointment(counsellor, user);
     notifyListeners();
-
-
   }
-  void rejectAppointment(Appointments appointment)async{
-    UserModel user = await _counsellorRepository.getUserById(appointment.userId.toString());
-    for(var i=0; i<user.appointments!.length;i++ ){
-      if(user!.appointments![i].id==appointment.id){
-        user!.appointments![i].status="Rejected";
+
+  void rejectAppointment(Appointments appointment) async {
+    UserModel user =
+        await _counsellorRepository.getUserById(appointment.userId.toString());
+    for (var i = 0; i < user.appointments!.length; i++) {
+      if (user!.appointments![i].id == appointment.id) {
+        user!.appointments![i].status = "Rejected";
         break;
       }
     }
-    for(var i=0; i<counsellor.appointments!.length;i++ ){
-      if(counsellor!.appointments![i].id==appointment.id){
-        counsellor!.appointments![i].status="Rejected";
+    for (var i = 0; i < counsellor.appointments!.length; i++) {
+      if (counsellor!.appointments![i].id == appointment.id) {
+        counsellor!.appointments![i].status = "Rejected";
         break;
       }
     }
-    await _counsellorRepository.updateAppointment(counsellor,user);
+    await _counsellorRepository.updateAppointment(counsellor, user);
     notifyListeners();
-
   }
-  Future<void> getConfirmedAppointments()async{
+
+  void getConfirmedAppointments() {
     isLoading = true;
     notifyListeners();
-    confirmedAppointments=[];
+    confirmedAppointments = [];
     Clients = [];
-    counsellor.appointments!.forEach((element) async {
-      if(element.status=="Confirmed"){
+    counsellor.appointments!.forEach((element) {
+      if (element.status == "Confirmed") {
         confirmedAppointments.add(element);
-        print(element.userId.toString());
-        UserModel user = await _counsellorRepository.getUserById(element.userId.toString());
-        print(user.toString());
-        searchClient(user)?null:Clients.add(user);
       }
-    }
-    );
+    });
+    updateClients(confirmedAppointments);
     isLoading = false;
     notifyListeners();
   }
+
   //new edit
-  Future<void>getChats()async{
-    chats=[];
+  Future<void> getChats() async {
+    chats = [];
     notifyListeners();
-    List<ChatRoom> allChats=await _counsellorRepository.getAllChats();
-    allChats.forEach((element)=>{
-      if(element.counsellorId == counsellor.id){
-        chats.add(element)
-      }
-    });
+    List<ChatRoom> allChats = await _counsellorRepository.getAllChats();
+    allChats.forEach((element) => {
+          if (element.counsellorId == counsellor.id) {chats.add(element)}
+        });
     notifyListeners();
     print(chats);
-
   }
 
-  Future<ChatRoom?> getChatRoom(String chatRoomId) async{
+  Future<ChatRoom?> getChatRoom(String chatRoomId) async {
     print("controller before repo");
-    chatRoom =    await _counsellorRepository.getChatRoom(chatRoomId) ;
+    chatRoom = await _counsellorRepository.getChatRoom(chatRoomId);
     notifyListeners();
     print("controller after repo");
   }
-  Future<void>sendMessage(Messages message)async{
+
+  Future<void> sendMessage(Messages message) async {
     chatRoom!.messages!.add(message);
     print(chatRoom);
     await _counsellorRepository.sendMessage(chatRoom!);
     notifyListeners();
   }
 
-  void getPatientsListForNotes(){
-    patients_for_notes=[];
-    for( var i=0; i<counsellor.appointments!.length;i++){
-      if(counsellor.appointments![i].status=="Confirmed" && patients_for_notes.contains(DropDownValueModel(name: counsellor.appointments![i].patientName.toString(), value: counsellor.appointments![i].patientName))==false){
-        patients_for_notes.add(DropDownValueModel(name: counsellor.appointments![i].patientName.toString(), value: counsellor.appointments![i].patientName));
+  void getPatientsListForNotes() {
+    patients_for_notes = [];
+    for (var i = 0; i < counsellor.appointments!.length; i++) {
+      if (counsellor.appointments![i].status == "Confirmed" &&
+          patients_for_notes.contains(DropDownValueModel(
+                  name: counsellor.appointments![i].patientName.toString(),
+                  value: counsellor.appointments![i].patientName)) ==
+              false) {
+        patients_for_notes.add(DropDownValueModel(
+            name: counsellor.appointments![i].patientName.toString(),
+            value: counsellor.appointments![i].patientName));
         notifyListeners();
       }
     }
     print(patients_for_notes);
   }
 
-  Future<void>addNotes(Notes note)async{
+  Future<void> addNotes(Notes note) async {
     counsellor.notes!.add(note);
     await _counsellorRepository.addCounsellor(counsellor);
     notifyListeners();
   }
 
-  bool searchClient(UserModel user){
+  bool searchClient(UserModel user) {
     bool exist = false;
-    for ( var i = 0; i < Clients.length; i++){
-      if ( Clients[i].id == user.id){
+    for (var i = 0; i < Clients.length; i++) {
+      if (Clients[i].id == user.id) {
         exist = true;
         break;
-      }
-      else{
+      } else {
         continue;
       }
     }
     return exist;
   }
+
+  Future<void> updateClients(List<Appointments> confirmedAppointment) async {
+    Clients = [];
+    notifyListeners();
+    UserModel user = UserModel();
+    for (var i = 0; i < confirmedAppointment.length; i++) {
+      user = await _counsellorRepository
+          .getUserById(confirmedAppointment[i].userId.toString());
+      if (searchClient(user) == false) {
+        Clients.add(user);
+      } else {
+        continue;
+      }
+    }
+    notifyListeners();
+  }
+
+  Future <void> getEmotionDetectionResults(String userId)async{
+    isLoading=true;
+    notifyListeners();
+    VideoResponse? resp =  await _counsellorRepository.getEmotionDetectionResults(userId.toString()) ;
+    if(resp!=null) {
+      emotionDetectionResults!["angry"] = resp.emotions!["angry"];
+      emotionDetectionResults!["disgust"] = resp.emotions!["disgust"];
+      emotionDetectionResults!["fear"] = resp.emotions!["fear"];
+      emotionDetectionResults!["happy"] = resp.emotions!["happy"];
+      emotionDetectionResults!["neutral"] = resp.emotions!["neutral"];
+      emotionDetectionResults!["sad"] = resp.emotions!["sad"];
+      emotionDetectionResults!["surprise"] = resp.emotions!["surprise"];
+      isLoading=false;
+      notifyListeners();
+      print(emotionDetectionResults!.toString() +"exist");
+
+    }
+    else{
+      isLoading=false;
+      emotionDetectionResults={};
+      notifyListeners();
+      print(emotionDetectionResults!.toString() +"does not exist");
+    }
+  }
+
 }

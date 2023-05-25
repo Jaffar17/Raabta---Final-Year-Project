@@ -92,7 +92,8 @@ class _ChatScreenCounsellorState extends State<ChatScreenCounsellor> {
               //   ),
               // ),
               _messageSpace(chat!),
-              _inputSpace(chat)
+              _inputSpace(chat),
+              SizedBox(height:MediaQuery.of(context).viewInsets.bottom),
             ],
           ),
         ),
@@ -151,11 +152,12 @@ class _ChatScreenCounsellorState extends State<ChatScreenCounsellor> {
     return Container(
       padding: const EdgeInsets.all(10),
       width: double.infinity,
-      height: 60,
+      height: 70,
       child: Row(
         children: <Widget>[
           Expanded(
               child: TextField(
+                scrollPadding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
                 controller: _message,
                 // onSubmitted: (String str) {
                 //   addMessage(_message.text);

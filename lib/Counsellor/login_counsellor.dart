@@ -37,15 +37,15 @@ class _LoginCounsellorState extends State<LoginCounsellor> {
             print(UserCredential.user!.uid);
              await context.read<CounsellorProvider>().addCounsellor( new Counsellor(id: UserCredential.user!.uid, displayName: UserCredential.user!.displayName, email: UserCredential.user!.email, photoUrl: UserCredential.user!.photoURL,appointments: [],notes: []));
              await context.read<CounsellorProvider>().getCounsellorById(UserCredential.user!.uid);
-             Navigator.pushReplacement(context,
-                 MaterialPageRoute(builder: (context) => const ProfileCounsellor()));
+             Navigator.pushAndRemoveUntil(context,
+                 MaterialPageRoute(builder: (context) => const ProfileCounsellor()), (route) => false);
              await _googleSignIn.signOut();
           }
           else{
              try{
                await context.read<CounsellorProvider>().getCounsellorById(UserCredential.user!.uid);
-               Navigator.pushReplacement(context,
-                   MaterialPageRoute(builder: (context) => const NavBarCounsellor()));
+               Navigator.pushAndRemoveUntil(context,
+                   MaterialPageRoute(builder: (context) => const NavBarCounsellor()), (route) => false);
                await _googleSignIn.signOut();
              }
              catch(e){

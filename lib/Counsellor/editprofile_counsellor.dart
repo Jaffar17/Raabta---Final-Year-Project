@@ -1,5 +1,6 @@
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:raabta_fyp/Counsellor/navbar_counsellor.dart';
 import 'package:raabta_fyp/User/home_user.dart';
 import 'package:raabta_fyp/controllers/counsellor/counsellor_provider.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +54,7 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
             child: Column(children: [
               Padding(
                 padding: const EdgeInsets.only(
-                    top: 35, bottom: 35, right: 20, left: 20),
+                    top: 25, bottom: 35, right: 20, left: 20),
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border(
@@ -62,7 +63,7 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                   child: Text(
                     "Edit Profile",
                     style: TextStyle(
-                      fontSize: 36,
+                      fontSize: 32,
                       fontFamily: "MontserratMedium",
                       fontWeight: FontWeight.w500,
                     ),
@@ -231,26 +232,26 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8, right: 8, bottom: 12.0),
+                                    Center(
                                       child: Text(
-                                          'Your profile has been updated.'),
+                                          'Your profile has been updated.', style: TextStyle(fontSize: 16),),
                                     ),
 
                                     SizedBox(
                                       width: 320.0,
                                       child: Padding(
-                                        padding: const EdgeInsets.only(left: 12, right: 12),
+                                        padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
                                         child: ElevatedButton(
                                           onPressed: () {
                                             // Navigator.of(context, rootNavigator: true).pop();
                                             Navigator.pop(context);
-                                            Navigator.pop(context);
-                                            // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CounsellorsList())); // We need to route back to counsellors screen, as of now not happening
+                                            // Navigator.pop(context);
+                                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> NavBarCounsellor())); // We need to route back to counsellors screen, as of now not happening
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: const Color(0xff006A6A),
-                                            minimumSize: const Size(100, 30),
+                                            minimumSize: const Size(80, 40),
+                                            maximumSize: const Size(80, 40),
                                             side: const BorderSide(width: 1, color: Color(0xff006A6A)),
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(18),
@@ -278,7 +279,7 @@ class _EditProfileCounsellorState extends State<EditProfileCounsellor> {
                         _cname.text,
                         _cemail.text,
                         specialisation.dropDownValue!.value.toString());
-                    Navigator.pop(context);
+                    // Navigator.pop(context);
                     // Navigator.push(context,
                         // MaterialPageRoute(builder: (context) => HomeUser()));
                   },

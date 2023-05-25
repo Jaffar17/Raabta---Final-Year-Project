@@ -85,8 +85,8 @@ class _VideoRecorderState extends State<VideoRecorder> {
           print(url);
           sendVideo(url);
           Future.delayed(Duration(seconds: 30),(){
-            Navigator.pop(context);
-            Navigator.push(context,MaterialPageRoute(builder:(context)=>NavBarUser()));
+            // Navigator.pop(context);
+            Navigator.pushReplacement(context,MaterialPageRoute(builder:(context)=>NavBarUser()));
           });
         } else {
           print('File does not exist');

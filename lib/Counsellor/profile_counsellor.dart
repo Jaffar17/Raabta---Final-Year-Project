@@ -22,6 +22,10 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
   SingleValueDropDownController specialisation = SingleValueDropDownController();
   TextEditingController dOBController = TextEditingController();
   TextEditingController name = TextEditingController();
+  bool dobValue = true;
+  bool genderValue = true;
+  bool specValue = true;
+  bool nameValue = true;
 
   void initState() {
     // TODO: implement initState
@@ -32,6 +36,23 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
 
   @override
   Widget build(BuildContext context) {
+    dobValue = true;
+    genderValue = true;
+    specValue = true;
+    nameValue = true;
+
+    if (dOBController.text == "" || dOBController.text.length <=0){
+      dobValue = false;
+    }
+    if (name.text == ""){
+      nameValue = false;
+    }
+    if (gender.dropDownValue == null){
+      genderValue = false;
+    }
+    if(specialisation.dropDownValue == null){
+      specValue = false;
+    }
     return SafeArea(
         child: Scaffold(
           //resizeToAvoidBottomInset: false,
@@ -49,7 +70,7 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 35, bottom: 35, right: 20, left: 20),
+                        top: 45, bottom: 45, right: 20, left: 20),
                     child: Container(
                       decoration: BoxDecoration(
                           border: Border(
@@ -70,6 +91,17 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: TextField(
                       controller: name,
+                      onChanged: (val)=>{
+                        if (name.text.isNotEmpty){
+                          setState((){
+                            nameValue = true;
+                          })
+                        }else{
+                          setState((){
+                            nameValue = false;
+                          })
+                        }
+                      },
                       decoration: InputDecoration(
                         labelText: "Full Name",
                         labelStyle: TextStyle(color: Color(0xff006A6A)),
@@ -78,6 +110,14 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                           borderSide: BorderSide(color: Color(0xff006A6A)),
                         ),
                         enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Color(0xff006A6A)),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Color(0xff006A6A)),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Color(0xff006A6A)),
                         ),
@@ -90,6 +130,17 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                         left: 16.0, right: 16.0, bottom: 20.0),
                     child: TextField(
                       controller: dOBController,
+                      onChanged: (val)=>{
+                        if (dOBController.text.isNotEmpty){
+                          setState((){
+                            dobValue = true;
+                          })
+                        }else{
+                          setState((){
+                            dobValue = false;
+                          })
+                        }
+                      },
                       //editing controller of this TextField
                       decoration: InputDecoration(
                         labelText: "Date of Birth",
@@ -102,16 +153,24 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(color: Color(0xff006A6A)),
                         ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Color(0xff006A6A)),
+                        ),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Color(0xff006A6A)),
+                        ),
                       ),
                       readOnly: true,
                       //set it true, so that user will not able to edit text
                       onTap: () async {
                         DateTime? pickedDate = await showDatePicker(
                             context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1950),
+                            initialDate: DateTime(1997, 1, 1),
+                            firstDate: DateTime(1900),
                             //DateTime.now() - not to allow to choose before today.
-                            lastDate: DateTime(2100));
+                            lastDate: DateTime(1997, 12, 31));
 
                         if (pickedDate != null) {
                           //pickedDate output format => 2021-03-10 00:00:00.000
@@ -132,6 +191,17 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                     child: DropDownTextField(
                       //initialValue: "name4",
                       controller: gender,
+                      onChanged: (val)=>{
+                        if (val != null){
+                          setState((){
+                            genderValue = true;
+                          })
+                        }else{
+                          setState((){
+                            genderValue = false;
+                          })
+                        }
+                      },
                       clearOption: true,
                       textFieldDecoration: InputDecoration(
                           labelText: "Gender",
@@ -141,6 +211,14 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
                           enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
@@ -177,6 +255,17 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                     child: DropDownTextField(
                       //initialValue: "name4",
                       controller: specialisation,
+                      onChanged: (val)=>{
+                        if (val != null){
+                          setState((){
+                            specValue = true;
+                          })
+                        }else{
+                          setState((){
+                            specValue = false;
+                          })
+                        }
+                      },
                       clearOption: true,
                       textFieldDecoration: InputDecoration(
                           labelText: "Specialization?",
@@ -186,6 +275,14 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
                           enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(color: Color(0xff006A6A)),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12),
                             borderSide: BorderSide(color: Color(0xff006A6A)),
                           ),
@@ -206,23 +303,44 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
 
                       dropDownList: const [
                         DropDownValueModel(
-                            name: 'Anxiety', value: "value1"),
+                            name: 'Anxiety Issues', value: "Anxiety Issues"),
                         DropDownValueModel(
-                          name: 'Career/ Academic',
-                          value: "value2",
+                          name: 'Career/ Academic Issues',
+                          value: "Career/ Academic Issues",
                         ),
-                        DropDownValueModel(name: 'Profession', value: "value3"),
+                        DropDownValueModel(name: 'Professional Issues', value: "Professional Issues"),
                       ],
                       //onChanged: (val) {},
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 40, right: 40, top: 20),
-                    child: ElevatedButton(
+                    child: nameValue && dobValue && genderValue && specValue ? ElevatedButton(
                       onPressed: () async{
-                        await context.read<CounsellorProvider>().profileComplete(dOBController.text, gender.dropDownValue!.name, specialisation.dropDownValue!.name);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => NavBarCounsellor()));
+                        setState(() {
+                          dobValue = true;
+                          genderValue = true;
+                          specValue = true;
+                          nameValue = true;
+
+                          if (dOBController.text == "" || dOBController.text.length <=0){
+                            dobValue = false;
+                          }
+                          if (name.text == ""){
+                            nameValue = false;
+                          }
+                          if (gender.dropDownValue == null){
+                            genderValue = false;
+                          }
+                          if(specialisation.dropDownValue == null){
+                            specValue = false;
+                          }
+                        });
+                        if (dobValue == true && nameValue == true && genderValue== true && specValue== true){
+                          await context.read<CounsellorProvider>().profileComplete(dOBController.text, gender.dropDownValue!.name, specialisation.dropDownValue!.name);
+                          Navigator.pushReplacement(context,
+                              MaterialPageRoute(builder: (context) => NavBarCounsellor()));
+                        }
                       },
                       child: Text(
                         "NEXT ",
@@ -235,6 +353,23 @@ class _ProfileCounsellorState extends State<ProfileCounsellor> {
                         backgroundColor: Color(0xffFFFFFF),
                         minimumSize: Size(300, 50),
                         side: BorderSide(width: 1, color: Color(0xff006A6A)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                      ),
+                    ): ElevatedButton(
+                      onPressed:  null ,
+                      child: const Text(
+                        "NEXT ",
+                        style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueGrey),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xffFFFFFF),
+                        minimumSize: const Size(300, 50),
+                        side: const BorderSide(width: 1, color: Color(0xff006A6A)),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(18),
                         ),
