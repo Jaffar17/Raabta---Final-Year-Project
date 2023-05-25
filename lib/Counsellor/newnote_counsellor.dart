@@ -142,11 +142,7 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                                           BorderSide(color: Colors.black12),
                                     ),
                                   ),
-                                  // enableSearch: true,
-                                  // dropdownColor: Colors.green,
-                                  //searchDecoration:
-
-                                  // hintText: "Select your gender"),
+                                  
 
                                   validator: (value) {
                                     if (value == null) {

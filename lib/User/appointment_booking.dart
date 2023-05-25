@@ -185,7 +185,7 @@ class _AppointmentBookingState extends State<AppointmentBooking> {
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide(color: Color(0xff006A6A)),
                   ),
-                  
+
 
                   hintText: "Which time slot are you looking for?"),
               validator: (value) {
