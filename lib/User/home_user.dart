@@ -59,9 +59,6 @@ class _HomeUserState extends State<HomeUser> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-
-                      // (context.read<UserProvider>().emotions!.isEmpty & context.read<UserProvider>().isRecorded == false)?
-                      //      _NotRecorded(context):(context.read<UserProvider>().emotions!.isEmpty & context.read<UserProvider>().isRecorded == true)?Center(child: CircularProgressIndicator(),):
                       (context.read<UserProvider>().emotions!.isEmpty)?
                       _NotRecorded(context):
                            Column(

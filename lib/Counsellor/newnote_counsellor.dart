@@ -142,7 +142,7 @@ class _NewNoteCounsellorState extends State<NewNoteCounsellor> {
                                           BorderSide(color: Colors.black12),
                                     ),
                                   ),
-                                  
+
 
                                   validator: (value) {
                                     if (value == null) {
