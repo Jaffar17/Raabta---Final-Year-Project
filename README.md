@@ -10,8 +10,8 @@ Our mobile app is based on Flutter and relies on Firebase for its database and b
 
 ## Contact Details
 
-Muhammad Jaffar Abbas (m.jaffer@khi.iba.edu.pk / abbasjaffar28@gmail.com)
-Subhan Bawany (s.bawany_19686@khi.iba.edu.pk / subhanbawany999@gmail.com)
-Shaheryar Raza (s.raza_19681@khi.iba.edu.pk / shaheryarraza34@gmail.com)
-Zohair Abbas (z.abbas.19688@khi.iba.edu.pk / xohairabbas2000@gmail.com)
+* Muhammad Jaffar Abbas (m.jaffer@khi.iba.edu.pk / abbasjaffar28@gmail.com)
+* Subhan Bawany (s.bawany_19686@khi.iba.edu.pk / subhanbawany999@gmail.com)
+* Shaheryar Raza (s.raza_19681@khi.iba.edu.pk / shaheryarraza34@gmail.com)
+* Zohair Abbas (z.abbas.19688@khi.iba.edu.pk / xohairabbas2000@gmail.com)
 
